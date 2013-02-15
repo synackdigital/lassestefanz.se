@@ -31,10 +31,10 @@ class LyricsCatalog
     public function __construct()
     {
         add_action('htk_loaded', array(&$this, 'setup_types'));
-        //add_action('admin_menu', array(&$this, 'setup_admin'));
+        add_action('admin_init', array(&$this, 'admin_init'));
 
         self::$plugin_slug = dirname( plugin_basename( __FILE__ ) );
-        load_plugin_textdomain( 'sodraesplanaden', false, self::$plugin_slug . '/languages/' );
+        load_plugin_textdomain( 'lyrics-catalog', false, self::$plugin_slug . '/languages/' );
     }
 
     /**
@@ -50,6 +50,12 @@ class LyricsCatalog
         }
 
         return self::$instance;
+    }
+
+
+    public function admin_init()
+    {
+        wp_enqueue_style( 'lc.admin.style', plugins_url('admin/css/style.css', __FILE__), array(), self::PLUGIN_VERSION );
     }
 
 

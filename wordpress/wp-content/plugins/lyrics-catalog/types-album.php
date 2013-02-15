@@ -17,6 +17,13 @@ class LCAlbum extends HWPType {
 
         $this->fields = new FieldCollection();
 
+        $this->fields->addField( new CustomField(
+            array(
+                'name' => LC_ALBUM_RELEASE_YEAR,
+                'label' => __( 'Year', 'lyrics-catalog' ),
+            )
+        ));
+
         /*
         $this->fields->addField( new URLField(
             array(
@@ -38,7 +45,11 @@ class LCAlbum extends HWPType {
     public function defaultArgs() {
         $args = parent::defaultArgs();
 
-        $args['supports'][] = 'page-attributes';
+        $args['supports'] = array(
+            'title',
+            'editor',
+            'revisions',
+        );
 
         return $args;
     }

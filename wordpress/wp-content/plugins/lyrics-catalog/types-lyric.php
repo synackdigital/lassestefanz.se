@@ -17,6 +17,13 @@ class LCLyric extends HWPType {
 
         $this->fields = new FieldCollection();
 
+        $this->fields->addField( new CustomField(
+            array(
+                'name' => LC_LYRIC_AUTHOR,
+                'label' => __( 'Author', 'lyrics-catalog' ),
+            )
+        ));
+
         /*
         $this->fields->addField( new URLField(
             array(
@@ -38,7 +45,13 @@ class LCLyric extends HWPType {
     public function defaultArgs() {
         $args = parent::defaultArgs();
 
-        $args['supports'][] = 'page-attributes';
+        $args['supports'] = array(
+            'title',
+            'editor',
+            'revisions',
+            'page-attributes',
+        );
+
 
         return $args;
     }
