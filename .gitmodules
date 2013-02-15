@@ -13,3 +13,6 @@
 [submodule "wordpress/wp-content/plugins/ci-retina"]
 	path = wordpress/wp-content/plugins/ci-retina
 	url = git@kontoret.sodraesplanaden.se:plugins/ci-retina
+[submodule "wordpress/wp-content/plugins/wp-instagram"]
+	path = wordpress/wp-content/plugins/wp-instagram
+	url = git@github.com:dessibelle/wp-instagram
