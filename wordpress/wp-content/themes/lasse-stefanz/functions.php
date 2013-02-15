@@ -1,0 +1,245 @@
+<?php
+/**
+ * A nice WordPress theme by <a href=http://www.lassestefanz.se>LS Produktions AB</a> built on Hobo Theme
+ * @package lasse-stefanz
+ */
+
+
+/**
+ * Callback function for 'init' action. Performs basic theme setup. Enqueues the theme styles.
+ *
+ * @since 1.0
+ *
+ * @return void
+ * @author LS Produktions AB
+ **/
+function ls_setup() {
+
+    add_filter('hobo_class_for_element_id', 'ls_class_for_element_id', 10, 2);
+
+    if ( hobo_should_enqueue() ) {
+
+        /* Sass stylesheets */
+        if (ls_uses_sass()) {
+            if (ls_uses_single_sass_stylesheet()) {
+                wp_enqueue_style( 'ls.screen', get_bloginfo( 'stylesheet_directory' ) . '/css/screen.css', array(), hobo_version() );
+            } else {
+                wp_enqueue_style( 'ls.screen', get_bloginfo( 'stylesheet_directory' ) . '/css/screen.css', array(), hobo_version(), 'screen, projection' );
+                wp_enqueue_style( 'ls.print', get_bloginfo( 'stylesheet_directory' ) . '/css/print.css', array(), hobo_version(), 'print'  );
+                wp_register_style( 'ls.ie', get_bloginfo( 'stylesheet_directory' ) . '/css/ie.css', array(), hobo_version(), 'screen, projection'  );
+
+                $GLOBALS['wp_styles']->add_data( 'ls.ie', 'conditional', 'IE' );
+                wp_enqueue_style( 'ls.ie' );
+            }
+        }
+
+        //wp_enqueue_script( 'ls.main', get_bloginfo( 'stylesheet_directory' ) . '/js/main.min.js', array('jquery'), hobo_version(), hobo_scripts_in_footer()  );
+    }
+
+}
+add_action('init', 'ls_setup');
+
+
+/* Disables the default stylesheet, useful for including the default style via sass */
+add_filter('hobo_should_enqueue_stylesheet', create_function('$s', 'return !ls_uses_sass();'));
+
+/**
+ * Specifies wether to use sass or not.
+ *
+ * @since 1.0
+ *
+ * @return void
+ * @author LS Produktions AB
+ **/
+function ls_uses_sass() {
+    return true;
+}
+
+/**
+ * Specifies wether to use a single concatenated stylesheet with sass.
+ *
+ * @since 1.0
+ *
+ * @return void
+ * @author LS Produktions AB
+ **/
+function ls_uses_single_sass_stylesheet() {
+    return true;
+}
+
+
+/**
+ * Loads scripts in header instead of footer as per default
+ **/
+//add_filter('hobo_scripts_in_footer', '__return_false')
+
+
+/**
+ * Callback function for 'hobo_login_logo_filename' filter. Add custom logo to login form.
+ *
+ * @since 1.0
+ *
+ * @see 'hobo_login_logo_url' filter
+ *
+ * @param string $filename Name of file located in images directory to use as login page logo
+ * @return string Url to logo used on login page
+ * @author LS Produktions AB
+ **/
+function ls_login_logo_filename($filename) {
+    return $filename; // Defaults to logo.png
+}
+//add_filter('hobo_login_logo_filename', 'ls_login_logo_filename');
+
+
+/**
+ * Callback function for 'hobo_login_logo_filename' filter. Adjust size of, and add custom styling, to login form logo.
+ *
+ * @since 1.0
+ * *
+ * @param array $style Key-value encoded array of CSS properties
+ * @return array
+ * @author LS Produktions AB
+ **/
+function ls_login_logo_style($style) {
+
+    $style['width'] = null; // Width of login logo
+    $style['height'] = null; // Height of login logo
+
+    return $style;
+}
+//add_filter('hobo_login_logo_style', 'ls_login_logo_style');
+
+
+
+/**
+ * Callback function for 'hobo_child_theme_name' filter. Lets hobo-theme know our names, enabling localization amongst other th0ings.
+ *
+ * @since 1.0
+ * *
+ * @return string Name of theme
+ * @author LS Produktions AB
+ **/
+function ls_child_theme_name() {
+    return basename(dirname(__FILE__));
+}
+add_filter('hobo_child_theme_name', 'ls_child_theme_name');
+
+
+/**
+ * Unregisters widget areas that aren't needed
+ *
+ * @since 1.0
+ *
+ * @return void
+ * @author LS Produktions AB
+ **/
+function ls_widgets_init() {
+
+    // Widget areas defined in hobo-theme
+    $widget_areas = array(
+        'primary-widget-area',
+        'secondary-widget-area',
+        'first-footer-widget-area',
+        'second-footer-widget-area',
+        'third-footer-widget-area',
+        'fourth-footer-widget-area',
+    );
+
+    foreach ($widget_areas as $area) {
+        unregister_sidebar($area);
+    }
+}
+//add_action( 'widgets_init', 'ls_widgets_init', 20 );
+
+
+/**
+ * Callback function for 'hobo_class_for_element_id' filter. Add CSS classes to some standard elements
+ *
+ * @since 1.0
+ *
+ * @param array $style array of CSS classes
+ * @param string $elem_id HTML id of element being evaluated
+ * @return array List of classes for $elem_id
+ * @author LS Produktions AB
+ **/
+function ls_class_for_element_id($classes, $elem_id) {
+
+    /*
+    if ($elem_id == 'header') {
+        $classes[] = 'clearfix';
+    }
+    */
+
+    return $classes;
+}
+
+
+/**
+ * Disables the HTML5 Boilerplate .htaccess rules added by hobo-theme
+ * Try this if you are getting Internal Server Errors when changing the permalink structure
+ *
+ * @since 1.0
+ *
+ * @param string $rules Rules generated by WordPress and hobo-theme
+ * @return null
+ * @author LS Produktions AB
+ **/
+function ls_rewrite_rules($rules) {
+    return null;
+}
+//add_action('hobo_rewrite_rules', 'ls_rewrite_rules');
+
+
+/**
+ * Disables the Options keywords in the.htaccess rewrite rules
+ * as this has been known to cause 500 Internal Server Error on some hosts (one.com)
+ *
+ * @param  boolean $disable Previous value
+ * @return boolean          True
+ */
+function ls_rewrite_rules_disable_options($disable = null) {
+    return true;
+}
+//add_filter('hobo_rewrite_rules_disable_options', 'ls_rewrite_rules_disable_options');
+
+
+/**
+ * Callback function for 'hobo_humans_txt_additional_humans' filter. Sets up humans.txt
+ *
+ * @since 1.0
+ *
+ * @param array $humans array with data for all of the humans
+ * @return array
+ * @author LS Produktions AB
+ **/
+function ls_humans($humans) {
+
+    $humans = (array)$humans;
+
+    /* Add additional humans */
+    $humans[] = array(
+        'Graphic designer' => 'John Doe',
+        'Site' => 'http://en.wikipedia.org/wiki/John_Doe',
+        'Twitter' => 'jdoe',
+        'Location' => 'Anywhere'
+    );
+
+    return $humans;
+}
+//add_filter('hobo_humans_txt_additional_humans', 'ls_humans');
+
+
+/* Enable .inner classes for the main layout elements */
+//add_action('hobo_add_inner_classes', create_function('$inner', 'return true;'));
+
+/* Display an organization */
+/*
+add_filter('hobo_humans_txt_author_title', create_function('$e', 'return "Organization Name";'));
+add_filter('hobo_humans_txt_field_twitter', create_function('$e', 'return "org_twitter_account";'));
+add_filter('hobo_humans_txt_field_location', create_function('$e', 'return "City, Country";'));
+*/
+
+/* Change the page title separator */
+//add_filter('hobo_title_separator', create_function('$a', 'return "-";'));
+
+include_once(dirname(__FILE__) . '/includes/theme.php');

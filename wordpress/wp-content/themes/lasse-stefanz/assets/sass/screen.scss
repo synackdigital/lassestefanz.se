@@ -1,0 +1,12 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+//@import "compass/reset";  // Compass reset
+@import "../../../hobo-theme/style.scss"; // HTML 5 Boilerplate reset + WP compatibility classes
+
+@import "lib/mixins/_mixins.scss";
+
+
+@include selection-color(#fe57a1);
