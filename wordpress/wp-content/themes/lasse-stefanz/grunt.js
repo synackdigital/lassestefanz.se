@@ -54,7 +54,7 @@ grunt.initConfig({
     },
     watch: {
         app: {
-            files: ['grunt.js', '<config:coffee.app.src>', 'assets/js/*.js', '<config:compass.files>'],
+            files: ['grunt.js', '<config:coffee.app.src>', 'assets/js/*.js', '<config:less.files>'],
             tasks: ['coffee:app', 'concat:dist', 'min:dist', 'less:app']
         }
     },
@@ -78,6 +78,6 @@ grunt.initConfig({
 });
 
 // Default task.
-grunt.registerTask('default', 'less:app');
+grunt.registerTask('default', 'watch:app');
 
 };
