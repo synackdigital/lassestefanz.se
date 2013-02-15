@@ -203,26 +203,38 @@ function ls_humans($humans) {
 
     /* Add additional humans */
     $humans[] = array(
-        'Graphic designer' => 'John Doe',
+        'Content production' => 'Anna Neah',
+        'Site' => 'http://www.annaneah.se',
+        'Twitter' => null, //'jdoe',
+        'Location' => 'Karlshamn'
+    );
+
+    $humans[] = array(
+        'Graphic design/Front end development' => 'Fredrik Broman',
+        'Site' => 'https://www.facebook.com/synackdigital',
+        'Twitter' => 'frebro',
+        'Location' => 'Malmö, Sweden'
+    );
+
+    $humans[] = array(
+        'Back end development' => 'Simon Fransson',
         'Site' => 'http://en.wikipedia.org/wiki/John_Doe',
-        'Twitter' => 'jdoe',
-        'Location' => 'Anywhere'
+        'Twitter' => 'dessibelle',
+        'Location' => 'Malmö, Sweden'
     );
 
     return $humans;
 }
-//add_filter('hobo_humans_txt_additional_humans', 'ls_humans');
+add_filter('hobo_humans_txt_additional_humans', 'ls_humans');
 
 
 /* Enable .inner classes for the main layout elements */
-//add_action('hobo_add_inner_classes', create_function('$inner', 'return true;'));
+add_action('hobo_add_inner_classes', create_function('$inner', 'return true;'));
 
 /* Display an organization */
-/*
-add_filter('hobo_humans_txt_author_title', create_function('$e', 'return "Organization Name";'));
-add_filter('hobo_humans_txt_field_twitter', create_function('$e', 'return "org_twitter_account";'));
-add_filter('hobo_humans_txt_field_location', create_function('$e', 'return "City, Country";'));
-*/
+add_filter('hobo_humans_txt_author_title', create_function('$e', 'return "Client";'));
+//add_filter('hobo_humans_txt_field_twitter', create_function('$e', 'return "org_twitter_account";'));
+add_filter('hobo_humans_txt_field_location', create_function('$e', 'return "Kristianstad, Sweden";'));
 
 /* Change the page title separator */
 //add_filter('hobo_title_separator', create_function('$a', 'return "-";'));
