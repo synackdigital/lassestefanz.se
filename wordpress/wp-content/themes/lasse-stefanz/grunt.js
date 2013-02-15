@@ -41,10 +41,21 @@ grunt.initConfig({
             tasks: ['compass:dev', 'compass:prod']
         }
     },
+    less: {
+        files: ['assets/less/*.less', 'assets/less/*/*.less'],
+        app: {
+            options: {
+                yuicompress: true
+            },
+            files: {
+                "style.css" : 'assets/less/style.less'
+            }
+        }
+    },
     watch: {
         app: {
             files: ['grunt.js', '<config:coffee.app.src>', 'assets/js/*.js', '<config:compass.files>'],
-            tasks: ['coffee:app', 'concat:dist', 'min:dist', 'compass:app']
+            tasks: ['coffee:app', 'concat:dist', 'min:dist', 'less:app']
         }
     },
     jshint: {
@@ -67,6 +78,6 @@ grunt.initConfig({
 });
 
 // Default task.
-grunt.registerTask('default', 'coffee concat min compass:app');
+grunt.registerTask('default', 'less:app');
 
 };
