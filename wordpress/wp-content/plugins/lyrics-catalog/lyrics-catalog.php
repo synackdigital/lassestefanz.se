@@ -66,8 +66,8 @@ class LyricsCatalog
      * @author Simon Fransson
      **/
     public function setup_types() {
-        include_once('types-lyric.php');
         include_once('types-album.php');
+        include_once('types-song.php');
 
     }
 

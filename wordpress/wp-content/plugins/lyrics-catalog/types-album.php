@@ -24,22 +24,26 @@ class LCAlbum extends HWPType {
             )
         ));
 
-        /*
-        $this->fields->addField( new URLField(
+        $this->fields->addField( new CustomField(
             array(
-                'name' => SE_PROJECT_EXTERNAL_URL,
-                'label' => __( 'External URL', 'lyrics-catalog' ),
+                'name' => LC_ALBUM_LABEL,
+                'label' => __( 'Label', 'lyrics-catalog' ),
             )
         ));
 
-        $this->fields->addField( new URLField(
+    }
+
+    protected function categoryTaxonomies() {
+
+        return array(
             array(
-                'name' => SE_PROJECT_EXTERNAL_URL_TITLE,
-                'label' => __( 'External URL title', 'lyrics-catalog' ),
-                'description' => sprintf(__('Will be used as link title for the above URL. Leave empty to use the default title, "%s".', 'lyrics-catalog'), __('External link', 'lyrics-catalog'))
+                'single' => __( 'Album format', 'lyrics-catalog' ),
+                'multiple' => __( 'Album formats', 'lyrics-catalog' ),
+                'slug' => LC_ALBUM_FORMAT,
+                'rewrite_slug' => __('format', 'lyrics-catalog'),
+                'types' => array( $this->name )
             )
-        ));
-        */
+        );
     }
 
     public function defaultArgs() {
@@ -49,6 +53,7 @@ class LCAlbum extends HWPType {
             'title',
             'editor',
             'revisions',
+            'thumbnail',
         );
 
         return $args;
@@ -57,8 +62,9 @@ class LCAlbum extends HWPType {
     public static function queryArgs($args = null) {
         $defaults = parent::queryArgs();
         $type_args = array(
-            'orderby' => 'date',
+            'orderby' => 'meta_value_num, date',
             'order' => 'DESC',
+            'meta_key' => LC_ALBUM_RELEASE_YEAR,
         );
 
         return array_merge($defaults, $type_args, (array)$args);

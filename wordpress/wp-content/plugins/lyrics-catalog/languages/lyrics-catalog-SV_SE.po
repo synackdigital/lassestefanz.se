@@ -2,19 +2,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lyrics catalog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-15 16:52+0100\n"
-"PO-Revision-Date: 2013-02-15 16:54+0100\n"
+"POT-Creation-Date: 2013-03-06 14:39+0100\n"
+"PO-Revision-Date: 2013-03-06 14:40+0100\n"
 "Last-Translator: Simon Fransson <simon@dessibelle.se>\n"
 "Language-Team: dessibelle <simon@dessibelle.se>\n"
+"Language: sv_SE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-KeywordsList: __;_e;_x;_n:1,2;_n_noop:1,2;_nx:1,2;_nx_noop:1,2\n"
 "X-Poedit-Basepath: .\n"
-"X-Poedit-Language: Swedish\n"
-"X-Poedit-Country: SWEDEN\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../types-album.php:11
@@ -25,29 +25,60 @@ msgstr "skiva"
 msgid "Year"
 msgstr "Årtal"
 
-#: ../types-album.php:71
+#: ../types-album.php:30
+msgid "Label"
+msgstr ""
+
+#: ../types-album.php:40
+msgid "Album format"
+msgstr "Albumformat"
+
+#: ../types-album.php:41
+msgid "Album formats"
+msgstr "Albumformat"
+
+#: ../types-album.php:43
+msgid "format"
+msgstr ""
+
+#: ../types-album.php:77 ../types-song.php:30
 msgid "Album"
 msgstr "Skiva"
 
-#: ../types-album.php:71
+#: ../types-album.php:77
 msgid "Albums"
 msgstr "Skivor"
 
-#: ../types-lyric.php:11
-msgid "lyric"
-msgstr "text"
+#: ../types-song.php:11
+msgid "song"
+msgstr ""
 
-#: ../types-lyric.php:23
+#: ../types-song.php:23
 msgid "Author"
 msgstr "Upphovsman"
 
-#: ../types-lyric.php:73
+#: ../types-song.php:42
+msgid "Publisher"
+msgstr "Förlag"
+
+#: ../types-song.php:43
+msgid "Publishers"
+msgstr "Förlag"
+
+#: ../types-song.php:45
+msgid "publisher"
+msgstr ""
+
+#: ../types-song.php:90
 msgid "Lyric"
 msgstr "Sång"
 
-#: ../types-lyric.php:73
+#: ../types-song.php:90
 msgid "Lyrics"
 msgstr "Sånger"
+
+#~ msgid "lyric"
+#~ msgstr "text"
 
 #~ msgid "%s settings"
 #~ msgstr "%s-inställningar"
