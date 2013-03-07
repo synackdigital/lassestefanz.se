@@ -131,6 +131,26 @@ class LCAlbum extends HWPType {
 
         return wp_get_post_terms($id, LC_ALBUM_FORMAT);
     }
+
+
+    public static function songs($id = null)
+    {
+        if (!$id) {
+            global $post;
+            $id = $post->ID;
+        }
+
+        $args = LCSong::queryArgs(array(
+            'meta_query' => array(
+                array(
+                    'key' => LC_SONG_ALBUM,
+                    'value' => $id,
+                )
+            ),
+        ));
+
+        return get_posts($args);
+    }
 }
 
 $album = LCAlbum::type('album', array('singular' => __('Album', 'lyrics-catalog'), 'plural' => __('Albums', 'lyrics-catalog')));
@@ -167,6 +187,26 @@ function lc_album_formats($id = null, $separator = ', ') {
 
     if (count($formats))
         return implode($separator, $format_names);
+
+    return null;
+}
+
+function lc_album_tracklisting($id = null) {
+    $songs = LCAlbum::songs($id);
+
+    if (!$songs || empty($songs))
+        return null;
+
+    $tracks = array();
+    foreach ($songs as $song) {
+        $url = get_permalink($song->ID);
+        $title = get_the_title($song->ID);
+        $tracks[] = sprintf('<li><a href="%s">%s</a>', $url, $title);
+    }
+
+    if (count($tracks)) {
+        return sprintf('<ol class="tracklisting">%s</ol>', implode('', $tracks));
+    }
 
     return null;
 }
