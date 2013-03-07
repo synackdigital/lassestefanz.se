@@ -13,6 +13,10 @@ class LCSong extends HWPType {
         parent::__construct($name, $labels, $collection, $args);
     }
 
+    /**
+     * Initializes post type fields
+     * @return void
+     */
     protected function initializeFields() {
 
         $this->fields = new FieldCollection();
@@ -29,12 +33,16 @@ class LCSong extends HWPType {
                 'name' => LC_SONG_ALBUM,
                 'label' => __( 'Album', 'lyrics-catalog' ),
                 'required' => false,
-                'data_callback' => array(&$this, 'albumOptionsArray')
+                'data_callback' => array(&$this, 'albumsDropdownItems')
             )
         ));
 
     }
 
+    /**
+     * Returns a list arguments user for taxonomy creation
+     * @return array Arguments array
+     */
     protected function keywordTaxonomies() {
 
         return array(
@@ -49,6 +57,10 @@ class LCSong extends HWPType {
     }
 
 
+    /**
+     * Default post type arguments
+     * @return array Post type arguments
+     */
     public function defaultArgs() {
         $args = parent::defaultArgs();
 
@@ -63,6 +75,11 @@ class LCSong extends HWPType {
         return $args;
     }
 
+    /**
+     * Query arguments for post type
+     * @param  array $args Additional arguments
+     * @return array       Array of arguments
+     */
     public static function queryArgs($args = null) {
         $defaults = parent::queryArgs();
         $type_args = array(
@@ -74,7 +91,11 @@ class LCSong extends HWPType {
     }
 
 
-    public function albumOptionsArray()
+    /**
+     * Returns an array of all albums
+     * @return array Array of albums
+     */
+    public function albumsDropdownItems()
     {
         if (class_exists('LCAlbum')) {
             $albums = get_posts($args = LCAlbum::queryArgs());

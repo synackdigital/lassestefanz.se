@@ -43,7 +43,7 @@ function eo_get_template_part( $slug, $name = null ) {
  * Searches the child theme first, then the parent theme before checking the plug-in templates folder.
  * So parent themes can override the default plug-in templates, and child themes can over-ride both.
  *
- * Behaves almost identically to {@see locate_template()} 
+ * Behaves almost identically to {@see locate_template()}
  *
  * @since 1.7
  *
@@ -68,7 +68,7 @@ function eo_locate_template($template_names, $load = false, $require_once = true
 				$located = trailingslashit( $template_stack ) . $template_name;
 				break;
 			}
-		} 
+		}
 	}
 
 	if ( $load && '' != $located )
@@ -79,8 +79,8 @@ function eo_locate_template($template_names, $load = false, $require_once = true
 
 /**
  * Whether an event archive is being viewed
- * 
- * My specifying the type of archive ( e.g. 'day', 'month' or 'year'), we can check if its 
+ *
+ * My specifying the type of archive ( e.g. 'day', 'month' or 'year'), we can check if its
  * a day, month or year archive. By default, it will just return `is_post_type_archive('event')`
  *
  * You can get the date of the archive via {@see `eo_get_event_archive_date()`}
@@ -94,7 +94,7 @@ function eo_is_event_archive( $type = false ){
 
 	if( !is_post_type_archive('event') )
 		return false;
-	
+
 	$ondate = str_replace('/','-',get_query_var('ondate'));
 
 	switch( $type ){
@@ -121,7 +121,7 @@ function eo_is_event_archive( $type = false ){
 /**
  * Returns formatted date of an event archive.
  *
- * Returns the formatted ate of an event archive. E.g. for date archives, returns that date, 
+ * Returns the formatted ate of an event archive. E.g. for date archives, returns that date,
  * for year archives returns 1st January of that year, for month archives 1st of that month.
  * The date is formatted according to `$format` via {@see `eo_format_datetime()`}
  *
@@ -136,7 +136,7 @@ function eo_get_event_archive_date( $format = DATETIMEOBJ ){
 
 	if( !is_post_type_archive('event') )
 		return false;
-	
+
 	$ondate = str_replace('/','-',get_query_var('ondate'));
 	$parts = count(explode('-',$ondate));
 
@@ -147,7 +147,7 @@ function eo_get_event_archive_date( $format = DATETIMEOBJ ){
 		// 2012-01 format: interpret as month
 		$ondate .= '-01';
 	}
-		
+
 	$ondate =  _eventorganiser_check_datetime($ondate.' 00:00',true);
 	return eo_format_datetime($ondate, $format);
 }
@@ -170,7 +170,7 @@ function eventorganiser_is_event_template($templatePath,$context=''){
 	$template = basename($templatePath);
 
 	switch($context):
-		case 'event';	
+		case 'event';
 			return $template == 'single-event.php';
 
 		case 'archive':
@@ -226,16 +226,19 @@ function eventorganiser_set_template( $template ){
 	 * rather than using our own single-event.php, we use ordinary single.php and
 	 * add content in via the_content
 	*/
-	if( is_singular('event') && !eventorganiser_is_event_template($template,'event') ){	
+	if( is_singular('event') && !eventorganiser_is_event_template($template,'event') ){
 		//Viewing a single event
-		
+
+		echo $template;
+
+
 		//Hide next/previous post link
 		add_filter("next_post_link",'__return_false');
 		add_filter("previous_post_link",'__return_false');
 
 		//Prepend our event details
 		add_filter('the_content','_eventorganiser_single_event_content');
-	}		
+	}
 
 	return $template;
 }
@@ -248,7 +251,7 @@ function _eventorganiser_single_event_content( $content ){
 	if( !is_singular('event') )
 		return $content;
 
-	//Object buffering				
+	//Object buffering
 	ob_start();
 	eo_get_template_part('event-meta','event-single');
 	//include(EVENT_ORGANISER_DIR.'templates/event-meta-event-single.php');
