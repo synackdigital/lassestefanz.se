@@ -15,7 +15,8 @@
  **/
 function ls_setup() {
 
-    add_filter('hobo_class_for_element_id', 'ls_class_for_element_id', 10, 2);
+    // add_filter('hobo_class_for_element_id', 'ls_class_for_element_id', 10, 2);
+    add_filter('hobo_inner_classes_for_parent', 'ls_inner_classes_for_parent', 10, 2);
 
     if ( hobo_should_enqueue() ) {
         //wp_enqueue_script( 'ls.main', get_bloginfo( 'stylesheet_directory' ) . '/js/main.min.js', array('jquery'), hobo_version(), hobo_scripts_in_footer()  );
@@ -149,14 +150,48 @@ function ls_widgets_init() {
  **/
 function ls_class_for_element_id($classes, $elem_id) {
 
-    /*
-    if ($elem_id == 'header') {
-        $classes[] = 'clearfix';
+    switch ($elem_id) {
+        case 'wrapper':
+            //$classes[] = 'container';
+            break;
+        case 'header':
+        case 'main':
+        case 'footer':
+            //$classes[] = 'row-fluid';
+            break;
+
+
     }
-    */
 
     return $classes;
 }
+
+/**
+ * Callback function for 'hobo_inner_classes_for_parent' filter. Add CSS classes to some standard elements
+ *
+ * @since 1.0
+ *
+ * @param array $style array of CSS classes
+ * @param string $elem_id HTML id of parent element being evaluated
+ * @return array List of classes for $elem_id
+ * @author LS Produktions AB
+ **/
+function ls_inner_classes_for_parent($classes, $elem_id) {
+
+    switch ($elem_id) {
+        case 'wrapper':
+            $classes[] = 'container';
+            break;
+        case 'header':
+        case 'main':
+        case 'footer':
+            $classes[] = 'row-fluid';
+            break;
+    }
+
+    return $classes;
+}
+
 
 
 /**
