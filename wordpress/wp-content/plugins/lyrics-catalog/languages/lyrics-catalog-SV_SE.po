@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lyrics catalog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-08 09:28+0100\n"
-"PO-Revision-Date: 2013-03-08 09:28+0100\n"
+"POT-Creation-Date: 2013-03-08 15:09+0100\n"
+"PO-Revision-Date: 2013-03-08 15:09+0100\n"
 "Last-Translator: Simon Fransson <simon@dessibelle.se>\n"
 "Language-Team: dessibelle <simon@dessibelle.se>\n"
 "Language: sv_SE\n"
@@ -18,14 +18,14 @@ msgstr ""
 "X-Poedit-SearchPath-0: ..\n"
 
 #: ../types-album.php:11
-msgid "album"
-msgstr "skiva"
+msgid "albums"
+msgstr "skivor"
 
-#: ../types-album.php:27 ../templates/meta-album.php:22
+#: ../types-album.php:27 ../templates/meta-album.php:25
 msgid "Year"
 msgstr "Årtal"
 
-#: ../types-album.php:34 ../templates/meta-album.php:26
+#: ../types-album.php:34 ../templates/meta-album.php:29
 msgid "Label"
 msgstr "Etikett"
 
@@ -50,14 +50,14 @@ msgid "Albums"
 msgstr "Skivor"
 
 #: ../types-song.php:11
-msgid "song"
-msgstr "text"
+msgid "songs"
+msgstr "texter"
 
-#: ../types-song.php:27
+#: ../types-song.php:27 ../templates/meta-song.php:8
 msgid "Author"
 msgstr "Upphovsman"
 
-#: ../types-song.php:50
+#: ../types-song.php:50 ../templates/meta-song.php:12
 msgid "Publisher"
 msgstr "Förlag"
 
@@ -69,17 +69,31 @@ msgstr "Förlag"
 msgid "publisher"
 msgstr "forlag"
 
-#: ../types-song.php:111
-msgid "Lyric"
+#: ../types-song.php:154
+msgid "Song"
 msgstr "Sång"
 
-#: ../types-song.php:111
-msgid "Lyrics"
+#: ../types-song.php:154
+msgid "Songs"
 msgstr "Sånger"
 
-#: ../templates/meta-album.php:30
+#: ../templates/meta-album.php:20
+msgid "Track listing"
+msgstr "Spår"
+
+#: ../templates/meta-album.php:33
 msgid "Formats"
-msgstr "Formats"
+msgstr "Format"
+
+#: ../templates/meta-song.php:16
+msgid "From the album"
+msgstr "Från albumet"
+
+#~ msgid "Lyric"
+#~ msgstr "Sång"
+
+#~ msgid "Lyrics"
+#~ msgstr "Sånger"
 
 #~ msgid "lyric"
 #~ msgstr "text"

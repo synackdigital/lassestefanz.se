@@ -17,6 +17,7 @@ $tracks = lc_album_tracklisting();
 
 
 <?php if ($tracks): ?>
+    <h3><? _e('Track listing', 'lyrics-catalog'); ?></h3>
     <?php echo $tracks; ?>
 <?php endif; ?>
 

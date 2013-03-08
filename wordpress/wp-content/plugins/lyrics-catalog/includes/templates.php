@@ -90,7 +90,7 @@ function lc_locate_template($template_names, $load = false, $require_once = true
  */
 function lc_set_template( $template ){
 
-    if ( is_singular( array('song', 'album') ) ) {
+    if ( is_singular( _lc_managed_types() ) ) {
         //Viewing a single event
 
         //Hide next/previous post link
@@ -107,10 +107,22 @@ add_filter('template_include', 'lc_set_template');
 
 
 
+function _lc_managed_types() {
+    $types = array();
+
+    $type_classes = array('LCSong', 'LCAlbum');
+    foreach ($type_classes as $c) {
+        if (class_exists($c))
+            $types[] = $c::instance()->typeName();
+    }
+
+    return $types;
+}
+
 function _lc_single_content( $content ){
 
     //Sanity check!
-    if ( !is_singular( array('song', 'album') ) )
+    if ( !is_singular( _lc_managed_types() ) )
         return $content;
 
     global $post;
@@ -124,6 +136,6 @@ function _lc_single_content( $content ){
 
     $type_content = apply_filters('lc_pre_type_content', $type_content, $content);
 
-    return $type_content . $content;
+    return $content . $type_content;
 }
 

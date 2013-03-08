@@ -8,7 +8,7 @@ class LCSong extends HWPType {
 
         $this->package = 'lyrics-catalog';
         $this->shouldSetThumbnail(false);
-        $this->setRewriteSlug(__('song', 'lyrics-catalog'));
+        $this->setRewriteSlug(apply_filters('lc_rewrite_slug_for_type', __('songs', 'lyrics-catalog'), $name));
 
         parent::__construct($name, $labels, $collection, $args);
     }
@@ -105,7 +105,83 @@ class LCSong extends HWPType {
 
         return array();
     }
+
+    /**
+     * Returns the ID of the songs album
+     * @param  int $id Song ID
+     * @return int     Album ID
+     */
+    public static function albumID($id = null)
+    {
+        return self::optionForKey(LC_SONG_ALBUM, $id);
+    }
+
+    /**
+     * Returns the songs album
+     * @param  int $id Song ID
+     * @return object     Album object
+     */
+    public static function album($id = null)
+    {
+        return get_post(self::albumID($id));
+    }
+
+    /**
+     * Returns the songs authors
+     * @param  int $id Song ID
+     * @return string     Authors
+     */
+    public static function authors($id = null)
+    {
+        return self::optionForKey(LC_SONG_AUTHOR, $id);
+    }
+
+    /**
+     * Returns the songs publisher term objects
+     * @param  int $id Song ID
+     * @return array     Array of publisher terms
+     */
+    public static function publisher($id = null) {
+        if (!$id) {
+            global $post;
+            $id = $post->ID;
+        }
+
+        return wp_get_post_terms($id, LC_SONG_PUBLISHER);
+    }
 }
 
+$song = LCSong::type('song', array('singular' => __('Song', 'lyrics-catalog'), 'plural' => __('Songs', 'lyrics-catalog')));
 
-$lyric = LCSong::type('lyric', array('singular' => __('Lyric', 'lyrics-catalog'), 'plural' => __('Lyrics', 'lyrics-catalog')));
+
+/*
+ * Template Tags
+ */
+
+function lc_song_album($id = null) {
+    $album = LCSong::album($id);
+
+    if ($album) {
+        return sprintf('<a href="%s">%s</a>', get_permalink($album->ID), get_the_title($album->ID));
+    }
+
+    return null;
+}
+
+function lc_song_authors($id = null) {
+    return LCSong::authors($id);
+}
+
+function lc_song_publisher($id = null, $separator = ', ') {
+    $publishers = LCSong::publisher($id);
+
+    $publisher_names = array();
+    foreach ($publishers as $publisher) {
+        $publisher_names[] = $publisher->name;
+    }
+
+    if (count($publishers))
+        return implode($separator, $publisher_names);
+
+    return null;
+}

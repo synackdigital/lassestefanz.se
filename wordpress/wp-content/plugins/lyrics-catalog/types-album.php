@@ -8,7 +8,7 @@ class LCAlbum extends HWPType {
 
         $this->package = 'lyrics-catalog';
         $this->shouldSetThumbnail(true);
-        $this->setRewriteSlug(__('album', 'lyrics-catalog'));
+        $this->setRewriteSlug(apply_filters('lc_rewrite_slug_for_type', __('albums', 'lyrics-catalog'), $name));
 
         parent::__construct($name, $labels, $collection, $args);
     }
