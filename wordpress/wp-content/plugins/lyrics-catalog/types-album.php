@@ -35,6 +35,13 @@ class LCAlbum extends HWPType {
             )
         ));
 
+        $this->fields->addField( new PostSelectField(
+            array(
+                'name' => LC_ALBUM_BACKSIDE_IMAGE,
+                'label' => __( 'Backside image', 'lyrics-catalog' ),
+                'data_callback' => array(&$this, 'backsideImageItems')
+            )
+        ));
     }
 
     /**
@@ -86,6 +93,23 @@ class LCAlbum extends HWPType {
         );
 
         return array_merge($defaults, $type_args, (array)$args);
+    }
+
+
+    public function backsideImageItems()
+    {
+        global $post;
+        $id = $post->ID;
+
+        $args = array(
+            'post_type' => 'attachment',
+            'post_mime_type' => 'image',
+            'posts_per_page' => -1,
+            'post_parent' => $id,
+            'exclude' => get_post_thumbnail_id($id),
+        );
+
+        return get_posts($args);
     }
 
 

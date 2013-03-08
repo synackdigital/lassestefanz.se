@@ -7,6 +7,7 @@ define('LC_SONG_ALBUM', '_lc_song_album');
 /* Albums */
 define('LC_ALBUM_RELEASE_YEAR', '_lc_album_release_year');
 define('LC_ALBUM_LABEL', '_lc_album_label');
+define('LC_ALBUM_BACKSIDE_IMAGE', '_lc_album_backside_image');
 
 /* Taxonomies */
 define('LC_SONG_PUBLISHER', 'lc_song_publisher');
