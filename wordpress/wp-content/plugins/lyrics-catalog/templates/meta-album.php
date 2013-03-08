@@ -1,6 +1,8 @@
-<?php if (has_post_thumbnail( )) : ?>
+<?php if (has_post_thumbnail( )) : $thumb_src = wp_get_attachment_image_src( get_post_thumbnail_id(), 'large' ) ?>
     <figure>
-        <?php the_post_thumbnail( lc_album_image_size() ); ?>
+        <a href="<?php echo $thumb_src[0]; ?>">
+            <?php the_post_thumbnail( lc_album_image_size() ); ?>
+        </a>
     </figure>
 <?php endif; ?>
 

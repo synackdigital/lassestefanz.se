@@ -15,7 +15,7 @@
  **/
 function ls_setup() {
 
-    // add_filter('hobo_class_for_element_id', 'ls_class_for_element_id', 10, 2);
+    add_filter('hobo_class_for_element_id', 'ls_class_for_element_id', 10, 2);
     add_filter('hobo_inner_classes_for_parent', 'ls_inner_classes_for_parent', 10, 2);
 
     if ( hobo_should_enqueue() ) {
@@ -157,7 +157,7 @@ function ls_class_for_element_id($classes, $elem_id) {
         case 'header':
         case 'main':
         case 'footer':
-            //$classes[] = 'row-fluid';
+            $classes[] = 'container';
             break;
 
 
@@ -180,7 +180,7 @@ function ls_inner_classes_for_parent($classes, $elem_id) {
 
     switch ($elem_id) {
         case 'wrapper':
-            $classes[] = 'container';
+            //$classes[] = 'container';
             break;
         case 'header':
         case 'main':
