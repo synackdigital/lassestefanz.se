@@ -13,6 +13,10 @@ class LCAlbum extends HWPType {
         parent::__construct($name, $labels, $collection, $args);
     }
 
+    protected function defaultMetaboxTitle() {
+        return __( 'Album information', 'lyrics-catalog' );
+    }
+
     /**
      * Initializes post type fields
      * @return void

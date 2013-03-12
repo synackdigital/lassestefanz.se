@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lyrics catalog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-08 15:09+0100\n"
-"PO-Revision-Date: 2013-03-08 15:09+0100\n"
+"POT-Creation-Date: 2013-03-12 14:38+0100\n"
+"PO-Revision-Date: 2013-03-12 14:38+0100\n"
 "Last-Translator: Simon Fransson <simon@dessibelle.se>\n"
 "Language-Team: dessibelle <simon@dessibelle.se>\n"
 "Language: sv_SE\n"
@@ -21,31 +21,39 @@ msgstr ""
 msgid "albums"
 msgstr "skivor"
 
-#: ../types-album.php:27 ../templates/meta-album.php:25
+#: ../types-album.php:17
+msgid "Album information"
+msgstr "Skivinformation"
+
+#: ../types-album.php:31 ../templates/meta-album.php:25
 msgid "Year"
 msgstr "Årtal"
 
-#: ../types-album.php:34 ../templates/meta-album.php:29
+#: ../types-album.php:38 ../templates/meta-album.php:29
 msgid "Label"
 msgstr "Etikett"
 
-#: ../types-album.php:48
+#: ../types-album.php:45
+msgid "Backside image"
+msgstr "Baksidebild"
+
+#: ../types-album.php:59
 msgid "Album format"
 msgstr "Albumformat"
 
-#: ../types-album.php:49
+#: ../types-album.php:60
 msgid "Album formats"
 msgstr "Albumformat"
 
-#: ../types-album.php:51
+#: ../types-album.php:62
 msgid "format"
 msgstr ""
 
-#: ../types-album.php:156 ../types-song.php:34
+#: ../types-album.php:184 ../types-song.php:38
 msgid "Album"
 msgstr "Skiva"
 
-#: ../types-album.php:156
+#: ../types-album.php:184
 msgid "Albums"
 msgstr "Skivor"
 
@@ -53,27 +61,31 @@ msgstr "Skivor"
 msgid "songs"
 msgstr "texter"
 
-#: ../types-song.php:27 ../templates/meta-song.php:8
+#: ../types-song.php:17
+msgid "Song information"
+msgstr "Sånginformation"
+
+#: ../types-song.php:31 ../templates/meta-song.php:8
 msgid "Author"
 msgstr "Upphovsman"
 
-#: ../types-song.php:50 ../templates/meta-song.php:12
+#: ../types-song.php:54 ../templates/meta-song.php:12
 msgid "Publisher"
 msgstr "Förlag"
 
-#: ../types-song.php:51
+#: ../types-song.php:55
 msgid "Publishers"
 msgstr "Förlag"
 
-#: ../types-song.php:53
+#: ../types-song.php:57
 msgid "publisher"
 msgstr "forlag"
 
-#: ../types-song.php:154
+#: ../types-song.php:158
 msgid "Song"
 msgstr "Sång"
 
-#: ../types-song.php:154
+#: ../types-song.php:158
 msgid "Songs"
 msgstr "Sånger"
 

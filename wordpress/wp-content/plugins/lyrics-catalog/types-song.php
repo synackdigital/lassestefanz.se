@@ -13,6 +13,10 @@ class LCSong extends HWPType {
         parent::__construct($name, $labels, $collection, $args);
     }
 
+    protected function defaultMetaboxTitle() {
+        return __( 'Song information', 'lyrics-catalog' );
+    }
+
     /**
      * Initializes post type fields
      * @return void
