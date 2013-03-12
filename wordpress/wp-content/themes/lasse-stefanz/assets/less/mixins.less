@@ -3,6 +3,12 @@
 .unstyled-list() {
   list-style: none;
   margin: 0;
+
+  // Reset the list stack from here
+  ul, ol {
+    list-style: disc;
+    margin: 0 0 @baseLineHeight / 2 25px;
+  }
 }
 
 // Box module
