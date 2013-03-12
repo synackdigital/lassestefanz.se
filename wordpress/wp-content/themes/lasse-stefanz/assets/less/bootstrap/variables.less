@@ -9,36 +9,36 @@
 
 // Grays
 // -------------------------
-@black:                 #000;
-@grayDarker:            #222;
-@grayDark:              #333;
-@gray:                  #555;
-@grayLight:             #999;
-@grayLighter:           #eee;
-@white:                 #fff;
+@black:                 rgb(0, 0, 0);
+@grayDarker:            rgb(21, 21, 21);
+@grayDark:              rgb(47, 47, 47);
+@gray:                  rgb(109, 109, 109);
+@grayLight:             rgb(157, 157, 157);
+@grayLighter:           rgb(228, 228, 228);
+@white:                 rgb(255, 255, 255);
 
 
 // Accent colors
 // -------------------------
-@blue:                  #049cdb;
-@blueDark:              #0064cd;
-@green:                 #46a546;
-@red:                   #9d261d;
-@yellow:                #ffc40d;
-@orange:                #f89406;
-@pink:                  #c3325f;
-@purple:                #7a43b6;
+@blue:                  rgb(80, 175, 219);
+@blueDark:              darken(@blue, 30%);
+@green:                 rgb(121, 219, 77);
+@red:                   rgb(218, 76, 69);
+@yellow:                rgb(234, 195, 76);
+@orange:                mix(@yellow, @red, 50%);
+@pink:                  lighten(@red, 30%);
+@purple:                mix(@red, @blue, 50%);
 
 
 // Scaffolding
 // -------------------------
-@bodyBackground:        @white;
-@textColor:             @grayDark;
+@bodyBackground:        @grayDarker;
+@textColor:             @white;
 
 
 // Links
 // -------------------------
-@linkColor:             #08c;
+@linkColor:             @yellow;
 @linkColorHover:        darken(@linkColor, 15%);
 
 
