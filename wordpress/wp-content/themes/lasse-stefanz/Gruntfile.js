@@ -55,6 +55,16 @@ module.exports = function(grunt) {
                 src: 'js/<%= pkg.name %>.js',
                 dest: 'js/<%= pkg.name %>.min.js'
             }
+        },
+
+        watch: {
+            watch: {
+                files: ['assets/js/*.js', 'assets/kess/*.less'],
+                tasks: ['default'],
+                options: {
+                    nospawn: true
+                }
+            }
         }
     });
 
@@ -62,6 +72,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Default task(s).
     grunt.registerTask('default', ['less:production', 'concat:js', 'uglify:build']);
