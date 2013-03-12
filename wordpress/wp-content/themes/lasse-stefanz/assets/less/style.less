@@ -25,6 +25,11 @@ Template: hobo-theme
 // -------------------------
 body {
     background-image: url('assets/images/dark_wood.png');
+    @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+           only screen and (min-resolution: 144dpi) {
+        background-image: url('assets/images/dark_wood_@2X.png');
+        background-size: 512px; // half actual size
+    }
 }
 
 // Outline lists
