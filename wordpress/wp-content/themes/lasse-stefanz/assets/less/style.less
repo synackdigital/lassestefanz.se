@@ -17,10 +17,20 @@ Template: hobo-theme
 @import "bootstrap/bootstrap.less";
 @import "bootstrap/responsive.less";
 
+// Theme partials
+// -------------------------
+@import "mixins.less";
+
 // Scaffolding
 // -------------------------
 body {
     background-image: url('assets/images/dark_wood.png');
+}
+
+// Outline lists
+// -------------------------
+ul.xoxo {
+    .unstyled-list();
 }
 
 
