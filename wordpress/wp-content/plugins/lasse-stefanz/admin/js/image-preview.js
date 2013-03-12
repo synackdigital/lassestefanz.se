@@ -7,7 +7,6 @@ jQuery(document).ready(function($) {
     $(preview_img).addClass('instagram-preview').hide();
     $('body').append(preview_img);
 
-
     $(document).mousemove(function(e){
 
         var offset = 10;
@@ -24,13 +23,9 @@ jQuery(document).ready(function($) {
             preview_img.src = url;
 
             $(preview_img).show();
-
-            console.log("Show");
         },
         function (e) {
             $(preview_img).hide();
-
-            console.log("Hide");
         }
     );
 

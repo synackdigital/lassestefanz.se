@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lasse Stefanz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-12 22:34+0100\n"
-"PO-Revision-Date: 2013-03-12 22:36+0100\n"
+"POT-Creation-Date: 2013-03-12 22:52+0100\n"
+"PO-Revision-Date: 2013-03-12 22:53+0100\n"
 "Last-Translator: Simon Fransson <simon@dessibelle.se>\n"
 "Language-Team: Simon Fransson <simon@dessibelle.se>\n"
 "Language: sv_SE\n"
@@ -116,15 +116,27 @@ msgstr "Tagg"
 msgid "Tags"
 msgstr "Taggar"
 
-#: ../types-instagram-image.php:162
+#: ../types-instagram-image.php:163
 msgid "Image"
 msgstr "Bild"
 
-#: ../types-instagram-image.php:254
+#: ../types-instagram-image.php:164
+msgid "Actions"
+msgstr "Åtgärder"
+
+#: ../types-instagram-image.php:188
+msgid "Publish"
+msgstr "Publicera"
+
+#: ../types-instagram-image.php:189
+msgid "Remove"
+msgstr "Ta bort"
+
+#: ../types-instagram-image.php:265
 msgid "Fan photo"
 msgstr "Beundrarbild"
 
-#: ../types-instagram-image.php:254
+#: ../types-instagram-image.php:265
 msgid "Fan photos"
 msgstr "Beundrarbilder"
 

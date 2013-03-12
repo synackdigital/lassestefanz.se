@@ -159,7 +159,9 @@ class LSInstagramImage extends HWPType {
     {
         $featured_col = array_slice($defaults, 0, 1);
         array_shift($defaults);
+
         $featured_col['instagram_image'] = __('Image', 'lasse-stefanz');
+        $featured_col['instagram_actions'] = __('Actions', 'lasse-stefanz');
 
         $defaults = array_merge($featured_col, $defaults);
 
@@ -177,6 +179,15 @@ class LSInstagramImage extends HWPType {
             );
 
             echo self::getImageMarkup($post_id, 'thumbnail', array('width' => 64, 'height' => 64, 'attributes' => $attrs));
+        }
+
+        if ($column_name == 'instagram_actions') {
+
+            $url = 'javascript:alert(\'TODO: Implement wp_ajax handler\');';
+            echo '<ul class="buttons">';
+            printf('<li><a href="%s" class="button button-primary">%s</a></li>', $url, __('Publish', 'lasse-stefanz'));
+            printf('<li><a href="%s" class="button">%s</a></li>', $url, __('Remove', 'lasse-stefanz'));
+            echo '</ul>';
         }
     }
 

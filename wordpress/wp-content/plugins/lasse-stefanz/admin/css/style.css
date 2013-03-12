@@ -21,9 +21,22 @@
 
 
 .column-instagram_image {
-    width: 64px;
+    width: 68px;
 }
 
+.column-instagram_image img {
+    padding: 2px;
+    border: 1px solid #ddd;
+    background: white;
+}
+
+.column-instagram_actions {
+    width: 80px;
+}
+
+.column-instagram_actions ul {
+    margin-top: 2px;
+}
 
 .instagram-preview {
     position: absolute;
