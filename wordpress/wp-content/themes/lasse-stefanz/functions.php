@@ -4,6 +4,7 @@
  * @package lasse-stefanz
  */
 
+include_once(dirname(__FILE__) . '/includes/defines.php');
 
 /**
  * Callback function for 'init' action. Performs basic theme setup. Enqueues the theme styles.
