@@ -25,9 +25,6 @@ function ls_setup_images()
         );
     }
 
-    global $_wp_additional_image_sizes;
-    var_dump($_wp_additional_image_sizes); die();
-
 }
 add_action('init', 'ls_setup_images');
 
