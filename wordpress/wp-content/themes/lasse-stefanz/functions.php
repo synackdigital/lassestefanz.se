@@ -22,8 +22,37 @@ function ls_setup() {
         //wp_enqueue_script( 'ls.main', get_bloginfo( 'stylesheet_directory' ) . '/js/main.min.js', array('jquery'), hobo_version(), hobo_scripts_in_footer()  );
     }
 
+    ls_setup_menus();
 }
 add_action('init', 'ls_setup');
+
+
+
+function ls_setup_menus() {
+    unregister_nav_menu('primary');
+
+    register_nav_menus( array(
+        'left' => __( 'Left Hand Navigation', 'matdestillat' ),
+        'right' => __( 'Right Hand Navigation', 'matdestillat' ),
+    ) );
+
+    add_action('hobo_nav_menu_args', 'ls_nav_menu_args');
+    add_action('hobo_inside_access', 'ls_inside_access', 1);
+}
+
+function ls_nav_menu_args($args = null) {
+
+    $args['container_id'] = 'menu-left';
+    $args['container_class'] = 'nav-menu';
+    $args['theme_location'] = 'left';
+
+    return $args;
+}
+
+function ls_inside_access() {
+
+    wp_nav_menu( array( 'container' => 'nav', 'container_id' => 'menu-right', 'container_class' => 'nav-menu', 'theme_location' => 'right', 'fallback_cb' => null ) );
+}
 
 
 /* Disables the default stylesheet, useful for including the default style via sass */
