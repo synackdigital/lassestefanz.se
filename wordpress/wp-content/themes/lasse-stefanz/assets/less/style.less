@@ -17,9 +17,14 @@ Template: hobo-theme
 @import "bootstrap/bootstrap.less";
 @import "bootstrap/responsive.less";
 
-// Theme partials
+// Theme mixins
 // -------------------------
 @import "mixins.less";
+
+// Useful variables
+// -------------------------
+@logoWidth:     346px;
+@logoHeight:    197px;
 
 // Background graphic
 // -------------------------
@@ -37,8 +42,8 @@ body {
 #site-title {
     .hide-text();
     background-image: url('assets/images/lslogo-whiteleather.png');
-    height: 197px;
-    width: 346px;
+    height: @logoHeight;
+    width: @logoWidth;
 
     a {
         display: block;
@@ -59,16 +64,14 @@ body {
     position: relative;
     height: 280px; // Make room for logo
 
-    // background-color: rgba(0,255,0,.1);
-
+    // Centered logo
     #branding {
         position: absolute;
+        z-index: 20;
         top: @baseLineHeight;
         left: 50%;
-        width: 346px; // same as logo
-        margin-left: -173px;
-
-        // background-color: rgba(0,0,255,.1);
+        width: @logoWidth; // same as logo
+        margin-left: -.5 * @logoWidth;
 
         #site-description {
             .opacity(80);
@@ -82,6 +85,73 @@ body {
             text-transform: uppercase;
             text-shadow: rgba(0,0,0,.3) 0 1px 1px;
             letter-spacing: 2px;
+        }
+    }
+
+    // Navigation
+    #access {
+        position: absolute;
+        z-index: 10;
+        top: 150px;
+        right: 0;
+        left: 0;
+
+        nav ul {
+            // Reset nav lists
+            .unstyled-list();
+        }
+
+        .nav-menu {
+            background-color: mix(@black, @grayDarker, 50%);
+            #gradient > .vertical(@grayDarker, @black);
+            .border-radius(@baseBorderRadius);
+            .box-shadow(0 1px 4px rgba(0,0,0,.065));
+
+            position: absolute;
+            .clearfix();
+
+            font-family: @altFontFamily;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+            text-shadow: rgba(0,0,0,.3) 0 1px 1px;
+            letter-spacing: 2px;
+
+            li {
+                padding: .5 * @baseLineHeight;
+
+                a {
+                    color: @white;
+                    .opacity(70);
+
+                    text-decoration: none;
+
+                    &:hover,
+                    &:focus {
+                        .opacity(100);
+                    }
+                }
+            }
+
+            &#menu-left {
+                right: 50%;
+                left: 0;
+                padding-right: .5 * @logoWidth + @baseLineHeight;
+
+                li {
+                    float: right;
+                }
+            }
+            &#menu-right {
+                right: 0;
+                left: 50%;
+                padding-left: .5 * @logoWidth + @baseLineHeight;
+
+                li {
+                    float: left;
+                }
+            }
         }
     }
 }
