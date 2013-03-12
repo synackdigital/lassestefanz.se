@@ -4,3 +4,22 @@
   list-style: none;
   margin: 0;
 }
+
+// Box module
+// -------------------------
+.box(@bgColor: @white, @color: @grayDarker, @linkColor: @orange) {
+  background-color: @bgColor;
+  color: @color;
+  .border-radius(2px);
+  .box-shadow(0 3px 5px rgba(0, 0, 0, .6));
+
+  padding: @baseLineHeight;
+
+  a {
+    color: @linkColor;
+    &:hover,
+    &:focus {
+      color: darken(@linkColor, 10%);
+    }
+  }
+}
