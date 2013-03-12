@@ -21,10 +21,66 @@ Template: hobo-theme
 // -------------------------
 @import "mixins.less";
 
-// Scaffolding
+// Background graphic
 // -------------------------
 body {
-    background-image: url('assets/images/dark_wood.png');
+    background-image: url('assets/images/dark-wood.png');
+    @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+           only screen and (min-resolution: 144dpi) {
+        background-image: url('assets/images/dark-wood-@2x.png');
+        background-size: 512px; // half actual size
+    }
+}
+
+// Logo image replacement
+// -------------------------
+#site-title {
+    .hide-text();
+    background-image: url('assets/images/lslogo-whiteleather.png');
+    height: 197px;
+    width: 346px;
+    @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+           only screen and (min-resolution: 144dpi) {
+        background-image: url('assets/images/lslogo-whiteleather-@2x.png');
+        background-size: 346px 197px; // half actual size
+    }
+}
+
+// Header section
+// -------------------------
+#header .inner {
+    position: relative;
+    height: 280px; // Make room for logo
+
+    // background-color: rgba(0,255,0,.1);
+
+    #branding {
+        position: absolute;
+        top: @baseLineHeight;
+        left: 50%;
+        width: 346px; // same as logo
+        margin-left: -173px;
+
+        // background-color: rgba(0,0,255,.1);
+
+        #site-description {
+            font-family: @altFontFamily;
+            font-size: 1.2em;
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+            text-shadow: rgba(0,0,0,.3) 0 1px 1px;
+            letter-spacing: 2px;
+
+            .opacity(80);
+        }
+    }
+}
+
+// Accessibility elements
+// -------------------------
+.skip-link {
+    display: none;
 }
 
 // Outline lists
