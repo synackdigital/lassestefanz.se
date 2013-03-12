@@ -4,10 +4,17 @@
     background: url(../../icons/campaign.png) no-repeat 6px -17px !important;
 }
 
-#menu-posts-campaign:hover .wp-menu-image, #menu-posts-campaign.wp-has-current-submenu .wp-menu-image {
-    background-position: 6px 7px !important;
+#menu-posts-igimage .wp-menu-image {
+    background: url(../../icons/igimage.png) no-repeat 6px -17px !important;
 }
 
-#menu-posts-campaign .wp-menu-image img {
+#menu-posts-campaign:hover .wp-menu-image, #menu-posts-campaign.wp-has-current-submenu .wp-menu-image,
+#menu-posts-igimage:hover .wp-menu-image, #menu-posts-igimage.wp-has-current-submenu .wp-menu-image {
+    background-position: 6px 7px !important;
+    overflow: hidden;
+}
+
+#menu-posts-campaign .wp-menu-image img,
+#menu-posts-igimage .wp-menu-image img {
     display: none;
 }

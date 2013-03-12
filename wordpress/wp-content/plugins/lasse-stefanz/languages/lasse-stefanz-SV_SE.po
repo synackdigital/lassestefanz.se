@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lasse Stefanz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-12 14:30+0100\n"
-"PO-Revision-Date: 2013-03-12 14:30+0100\n"
+"POT-Creation-Date: 2013-03-12 15:21+0100\n"
+"PO-Revision-Date: 2013-03-12 15:21+0100\n"
 "Last-Translator: Simon Fransson <simon@dessibelle.se>\n"
 "Language-Team: Simon Fransson <simon@dessibelle.se>\n"
 "Language: sv_SE\n"
@@ -28,3 +28,31 @@ msgstr "Kampanj"
 #: ../types-campaign.php:105
 msgid "Campaigns"
 msgstr "Kampanjer"
+
+#: ../types-instagram-image.php:11
+msgid "images"
+msgstr "bilder"
+
+#: ../types-instagram-image.php:27
+msgid "Image ID"
+msgstr "Bild-ID"
+
+#: ../types-instagram-image.php:34
+msgid "Image Title"
+msgstr "Bildtitel"
+
+#: ../types-instagram-image.php:41
+msgid "Username"
+msgstr "Användarnamn"
+
+#: ../types-instagram-image.php:48
+msgid "Image URL"
+msgstr "Bild-URL"
+
+#: ../types-instagram-image.php:99
+msgid "Instagram Image"
+msgstr "Instagrambild"
+
+#: ../types-instagram-image.php:99
+msgid "Instagram Images"
+msgstr "Instagrambilder"

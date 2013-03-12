@@ -72,6 +72,7 @@ class LasseStefanz
      **/
     public function setup_types() {
         include_once('types-campaign.php');
+        include_once('types-instagram-image.php');
     }
 
 }
