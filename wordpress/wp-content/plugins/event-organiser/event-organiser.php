@@ -2,7 +2,7 @@
 /*
 Plugin Name: Event Organiser
 Plugin URI: http://www.wp-event-organiser.com
-Version: 1.7.3
+Version: 1.7.4
 Description: Creates a custom post type 'events' with features such as reoccurring events, venues, Google Maps, calendar views and events and venue pages
 Author: Stephen Harris
 Author URI: http://www.stephenharris.info
@@ -41,24 +41,28 @@ Domain Path: /languages
  * @name $eventorganiser_db_version
  */ 
 global $eventorganiser_db_version;
-$eventorganiser_db_version = '1.7.3';
+$eventorganiser_db_version = '1.7.4';
 
-/**
- * Defines the plug-in directory url
- * <code>url:http://mysite.com/wp-content/plugins/event-organiser</code>
- */
-define( 'EVENT_ORGANISER_URL', plugin_dir_url( __FILE__ ) );
+
+add_action( 'after_setup_theme', '_eventorganiser_set_constants' );
+function _eventorganiser_set_constants(){
+	/*
+ 	* Defines the plug-in directory url
+ 	* <code>url:http://mysite.com/wp-content/plugins/event-organiser</code>
+	*/
+	define( 'EVENT_ORGANISER_URL', plugin_dir_url( __FILE__ ) );
+}
+
+/*
+ * Defines the plug-in directory path
+ * <code>/home/mysite/public_html/wp-content/plugins/event-organiser</code>
+*/
+define( 'EVENT_ORGANISER_DIR', plugin_dir_path( __FILE__ ) );
 
 /**
  * For use in datetime formats. To return a datetime object rather than formatted string
  */
 define( 'DATETIMEOBJ', 'DATETIMEOBJ', true );
-
-/**
- * Defines the plug-in directory path
- * <code>/home/mysite/public_html/wp-content/plugins/event-organiser</code>
- */
-define( 'EVENT_ORGANISER_DIR', plugin_dir_path( __FILE__ ) );
 
 
 /**

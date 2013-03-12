@@ -6,7 +6,7 @@ class LCSong extends HWPType {
 
     public function __construct($name, $labels = null, $collection = null, $args = null) {
 
-        $this->package = 'lyrics-catalog';
+        $this->package = basename(dirname(__FILE__));
         $this->shouldSetThumbnail(false);
         $this->setRewriteSlug(apply_filters('lc_rewrite_slug_for_type', __('songs', 'lyrics-catalog'), $name));
 

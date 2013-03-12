@@ -1,10 +1,10 @@
 /* Some icons by Yusuke Kamiyamane (http://p.yusukekamiyamane.com/icons/attribution/). All rights reserved. Licensed under a Creative Commons Attribution 3.0 License. */
 
-#menu-posts-lyric .wp-menu-image {
-    background: url(../../icons/lyric.png) no-repeat 6px -17px !important;
+#menu-posts-song .wp-menu-image {
+    background: url(../../icons/song.png) no-repeat 6px -17px !important;
 }
 
-#menu-posts-lyric:hover .wp-menu-image, #menu-posts-lyric.wp-has-current-submenu .wp-menu-image {
+#menu-posts-song:hover .wp-menu-image, #menu-posts-song.wp-has-current-submenu .wp-menu-image {
     background-position: 6px 7px !important;
 }
 
@@ -18,7 +18,7 @@
 }
 
 
-#menu-posts-lyric .wp-menu-image img,
+#menu-posts-song .wp-menu-image img,
 #menu-posts-album .wp-menu-image img {
     display: none;
 }

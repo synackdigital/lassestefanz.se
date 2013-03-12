@@ -9,7 +9,7 @@
  */
 function eventorganiser_register_script() {
 	global $wp_locale;
-	$version = '1.7.2';
+	$version = '1.7.4';
 
 	$ext = (defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG) ? '' : '.min';
 
@@ -76,7 +76,7 @@ add_action('init', 'eventorganiser_register_script');
  * @access private
  */
 function eventorganiser_register_scripts(){
-	$version = '1.7.2';
+	$version = '1.7.4';
 	$ext = (defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG) ? '' : '.min';
 
 	/*  Venue scripts for venue & event edit */
@@ -108,9 +108,31 @@ function eventorganiser_register_scripts(){
 
 	/* Admin styling */
 	wp_register_style('eventorganiser-style',EVENT_ORGANISER_URL.'css/eventorganiser-admin-style.css',array('eventorganiser-jquery-ui-style'),$version);
+
+	/* Inline Help */
+       	wp_register_script( 'eo-inline-help', EVENT_ORGANISER_URL.'js/inline-help.js',array( 'jquery', 'eo_qtip2' ), $version, true );
 }
 add_action('admin_enqueue_scripts', 'eventorganiser_register_scripts',10);
 
+
+ /**
+ * The "Comprehensive Google Map Plugin" plug-in deregisters all other Google scripts registered
+ * by other plug-ins causing these plug-ins not to function. This plug-in removes that behaviour.
+ *
+ * Of course if two google scripts are loaded there may be problems, but this is better than always having
+ * experiencing a 'bug'. At time writing the function responsible `cgmp_google_map_deregister_scripts()` 
+ * can be found here {@see https://github.com/azagniotov/Comprehensive-Google-Map-Plugin/blob/master/functions.php#L520 }
+ *
+ * @see https://github.com/stephenharris/Event-Organiser/issues/49
+ * @see http://wordpress.org/support/topic/googlemap-doesnt-shown-on-event-detail-page
+ * @since 1.7.4
+ * @ignore
+ * @access private
+ */
+function eventorganiser_cgmp_workaround(){
+	remove_action( 'wp_head', 'cgmp_google_map_deregister_scripts', 200 );
+}
+add_action( 'wp_head', 'eventorganiser_cgmp_workaround', 1 );
 
  /**
  * Check the export and event creation (from Calendar view) actions. 
@@ -425,6 +447,8 @@ $hooks = array(
 	'update_option_start_of_week', /* Start of week is used for calendars */
 	'update_option_rewrite_rules', /* If permalinks updated - links on fullcalendar might now be invalid */ 
 	'delete_option_rewrite_rules',
+	'update_option_siteurl',
+	'update_option_home',
 	'edited_event-category', /* Colours of events may change */
 );
 foreach( $hooks as $hook ){

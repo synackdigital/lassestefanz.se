@@ -40,7 +40,7 @@ get_header(); ?>
 				<h1 class="entry-title"><?php the_title(); ?></h1>
 
 			</header><!-- .entry-header -->
-
+	
 			<div class="entry-content">
 				<!-- Get event information, see template: event-meta-event-single.php -->
 				<?php eo_get_template_part('event-meta','event-single'); ?>
@@ -52,7 +52,7 @@ get_header(); ?>
 			<footer class="entry-meta">
 			<?php
 				//Events have their own 'event-category' taxonomy. Get list of categories this event is in.
-				$categories_list = get_the_term_list( get_the_ID(), 'event-category', '', ', ','');
+				$categories_list = get_the_term_list( get_the_ID(), 'event-category', '', ', ',''); 
 
 				if ( '' != $categories_list ) {
 					$utility_text = __( 'This event was posted in %1$s by <a href="%5$s">%4$s</a>. Bookmark the <a href="%2$s" title="Permalink to %3$s" rel="bookmark">permalink</a>.', 'eventorganiser' );
@@ -76,7 +76,7 @@ get_header(); ?>
 			<!-- If comments are enabled, show them -->
 			<div class="comments-template">
 				<?php comments_template(); ?>
-			</div>
+			</div>				
 
 		<?php endwhile; // end of the loop. ?>
 
