@@ -10,6 +10,11 @@ class LSInstagramImage extends HWPType {
         $this->shouldSetThumbnail(true);
         $this->setRewriteSlug(apply_filters('ls_rewrite_slug_for_type', __('images', 'lasse-stefanz'), $name));
 
+        add_filter( "manage_{$name}_posts_columns", array(&$this, 'manage_posts_columns') );
+        add_action( "manage_{$name}_posts_custom_column", array(&$this, 'manage_posts_custom_column'), 10, 2 );
+
+        add_action( 'admin_init', array(&$this, 'admin_init') );
+
         parent::__construct($name, $labels, $collection, $args);
     }
 
@@ -23,29 +28,73 @@ class LSInstagramImage extends HWPType {
 
         $this->fields->addField( new CustomField(
             array(
-                'name' => LC_IGIM_ID,
+                'name' => LS_IGIM_ID,
                 'label' => __( 'Image ID', 'lasse-stefanz' ),
-            )
-        ));
-
-        $this->fields->addField( new CustomField(
-            array(
-                'name' => LC_IGIM_TITLE,
-                'label' => __( 'Image Title', 'lasse-stefanz' ),
-            )
-        ));
-
-        $this->fields->addField( new CustomField(
-            array(
-                'name' => LC_IGIM_USER,
-                'label' => __( 'Username', 'lasse-stefanz' ),
+                'readonly' => true,
             )
         ));
 
         $this->fields->addField( new URLField(
             array(
-                'name' => LC_IGIM_URL,
+                'name' => LS_IGIM_URL,
                 'label' => __( 'Image URL', 'lasse-stefanz' ),
+                'readonly' => true,
+            )
+        ));
+
+        $this->fields->addField( new CustomField(
+            array(
+                'name' => LS_IGIM_LOCATION,
+                'label' => __( 'Location', 'lasse-stefanz' ),
+                'readonly' => true,
+            )
+        ));
+
+        $this->fields->addField( new CustomField(
+            array(
+                'name' => LS_IGIM_SIZE_THUMBNAIL,
+                'label' => __( 'Thumbnail', 'lasse-stefanz' ),
+                'readonly' => true,
+            )
+        ));
+
+        $this->fields->addField( new CustomField(
+            array(
+                'name' => LS_IGIM_SIZE_LOW,
+                'label' => __( 'Low Resolution', 'lasse-stefanz' ),
+                'readonly' => true,
+            )
+        ));
+
+        $this->fields->addField( new CustomField(
+            array(
+                'name' => LS_IGIM_SIZE_STANDARD,
+                'label' => __( 'Standard Resolution', 'lasse-stefanz' ),
+                'readonly' => true,
+            )
+        ));
+
+        $this->fields->addField( new CustomField(
+            array(
+                'name' => LS_IGIM_USERNAME,
+                'label' => __( 'Username', 'lasse-stefanz' ),
+                'readonly' => true,
+            )
+        ));
+
+        $this->fields->addField( new CustomField(
+            array(
+                'name' => LS_IGIM_FULL_NAME,
+                'label' => __( 'Full name', 'lasse-stefanz' ),
+                'readonly' => true,
+            )
+        ));
+
+        $this->fields->addField( new CustomField(
+            array(
+                'name' => LS_IGIM_USER_ID,
+                'label' => __( 'User ID', 'lasse-stefanz' ),
+                'readonly' => true,
             )
         ));
 
@@ -55,9 +104,16 @@ class LSInstagramImage extends HWPType {
      * Returns a list arguments user for taxonomy creation
      * @return array Arguments array
      */
-    protected function categoryTaxonomies() {
+    protected function keywordTaxonomies() {
 
-        return array( );
+        return array(
+            array(
+                'single' => __( 'Tag', 'lasse-stefanz' ),
+                'multiple' => __( 'Tags', 'lasse-stefanz' ),
+                'slug' => LS_IGIM_TAG,
+                'types' => array( $this->name )
+            )
+        );
     }
 
     /**
@@ -94,7 +150,106 @@ class LSInstagramImage extends HWPType {
     }
 
 
+    public function admin_init()
+    {
+        wp_enqueue_script( 'ls.instagram.preview', plugins_url( 'admin/js/image-preview.js', __FILE__ ), array('jquery'), false, true );
+    }
+
+    public function manage_posts_columns($defaults)
+    {
+        $featured_col = array_slice($defaults, 0, 1);
+        array_shift($defaults);
+        $featured_col['instagram_image'] = __('Image', 'lasse-stefanz');
+
+        $defaults = array_merge($featured_col, $defaults);
+
+        return $defaults;
+    }
+
+
+    public function manage_posts_custom_column($column_name, $post_id)
+    {
+        if ($column_name == 'instagram_image') {
+
+            $attrs = array(
+                'data-url' => self::getImageURL($post_id, 'low_resolution'),
+                'class' => 'instagram-image',
+            );
+
+            echo self::getImageMarkup($post_id, 'thumbnail', array('width' => 64, 'height' => 64, 'attributes' => $attrs));
+        }
+    }
+
+
+    public static function getImageData($post_id, $size)
+    {
+        $data = null;
+
+        switch ($size) {
+            case LS_IGIM_SIZE_THUMBNAIL:
+            case 'thumbnail':
+                $data = get_post_meta( $post_id, LS_IGIM_SIZE_THUMBNAIL, true );
+                break;
+            case LS_IGIM_SIZE_LOW:
+            case 'low_resolution':
+                $data = get_post_meta( $post_id, LS_IGIM_SIZE_LOW, true );
+                break;
+            case LS_IGIM_SIZE_STANDARD:
+            case 'standard_resolution':
+                $data = get_post_meta( $post_id, LS_IGIM_SIZE_STANDARD, true );
+                break;
+        }
+
+        if ($data) {
+            $data = unserialize($data);
+        }
+
+        return $data;
+    }
+
+
+    public static function getImageMarkup($post_id, $size, $args = null)
+    {
+        $data = self::getImageData($post_id, $size);
+
+        if ($data && array_key_exists('url', $data)) {
+            $url = $width = $height = $attributes = null;
+            extract($data);
+            $alt = get_the_title($post_id);
+
+            extract((array)$args);
+
+            if ($attributes) {
+                $attrs = '';
+                foreach ($attributes as $key => $value) {
+                    $attrs .= sprintf('%s="%s" ', esc_attr($key), esc_attr($value));
+                }
+            }
+
+            return sprintf(
+                '<img src="%s" width="%d" height="%d" alt="%s" %s>',
+                esc_attr( $url ),
+                esc_attr( $width ),
+                esc_attr( $height ),
+                esc_attr( $alt ),
+                $attrs
+            );
+        }
+
+        return null;
+    }
+
+    public static function getImageURL($post_id, $size)
+    {
+        $data = self::getImageData($post_id, $size);
+
+        if ($data && array_key_exists('url', $data)) {
+            return $data['url'];
+        }
+
+        return null;
+    }
 }
 
-$instagram_image = LSInstagramImage::type('igimage', array('singular' => __('Instagram Image', 'lasse-stefanz'), 'plural' => __('Instagram Images', 'lasse-stefanz')));
+$instagram_image = LSInstagramImage::type('igimage', array('singular' => __('Fan photo', 'lasse-stefanz'), 'plural' => __('Fan photos', 'lasse-stefanz')));
 

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lasse Stefanz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-12 15:21+0100\n"
-"PO-Revision-Date: 2013-03-12 15:21+0100\n"
+"POT-Creation-Date: 2013-03-12 22:34+0100\n"
+"PO-Revision-Date: 2013-03-12 22:36+0100\n"
 "Last-Translator: Simon Fransson <simon@dessibelle.se>\n"
 "Language-Team: Simon Fransson <simon@dessibelle.se>\n"
 "Language: sv_SE\n"
@@ -16,6 +16,45 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SearchPath-0: ..\n"
+
+#: ../lasse-stefanz.php:105 ../lasse-stefanz.php:106
+msgid "Lasse Stefanz"
+msgstr ""
+
+#: ../lasse-stefanz.php:116 ../lasse-stefanz.php:117
+msgid "Subpage"
+msgstr "Undersida"
+
+#: ../lasse-stefanz.php:126
+msgid "Instagram settings"
+msgstr "Instagraminställningar"
+
+#: ../lasse-stefanz.php:134
+msgid "Tags for fan photos"
+msgstr "Taggar för beundrarbilder"
+
+#: ../lasse-stefanz.php:141
+#, php-format
+msgid ""
+"Separate tags with comma. %1s character should be left out from tag names."
+msgstr ""
+"Separera taggar med kommatecken. %1s-tecknet skall inte ingå i taggarna."
+
+#: ../lasse-stefanz.php:148
+msgid "Owner of imported photos"
+msgstr "Ägare av importerade foton"
+
+#: ../lasse-stefanz.php:258 ../lasse-stefanz.php:293
+msgid "You do not have sufficient permissions to access this page."
+msgstr ""
+
+#: ../lasse-stefanz.php:269
+msgid "Lasse Stefanz settings"
+msgstr "Lasse Stefanz-inställningar"
+
+#: ../lasse-stefanz.php:304
+msgid "Subpage settings"
+msgstr "Inställningar för undersida"
 
 #: ../types-campaign.php:11
 msgid "campaigns"
@@ -33,26 +72,64 @@ msgstr "Kampanjer"
 msgid "images"
 msgstr "bilder"
 
-#: ../types-instagram-image.php:27
+#: ../types-instagram-image.php:32
 msgid "Image ID"
 msgstr "Bild-ID"
 
-#: ../types-instagram-image.php:34
-msgid "Image Title"
-msgstr "Bildtitel"
-
-#: ../types-instagram-image.php:41
-msgid "Username"
-msgstr "Användarnamn"
-
-#: ../types-instagram-image.php:48
+#: ../types-instagram-image.php:40
 msgid "Image URL"
 msgstr "Bild-URL"
 
-#: ../types-instagram-image.php:99
-msgid "Instagram Image"
-msgstr "Instagrambild"
+#: ../types-instagram-image.php:48
+msgid "Location"
+msgstr "Plats"
 
-#: ../types-instagram-image.php:99
-msgid "Instagram Images"
-msgstr "Instagrambilder"
+#: ../types-instagram-image.php:56
+msgid "Thumbnail"
+msgstr "Thumbnail"
+
+#: ../types-instagram-image.php:64
+msgid "Low Resolution"
+msgstr "Låg upplösning"
+
+#: ../types-instagram-image.php:72
+msgid "Standard Resolution"
+msgstr "Normal upplösning"
+
+#: ../types-instagram-image.php:80
+msgid "Username"
+msgstr "Användarnamn"
+
+#: ../types-instagram-image.php:88
+msgid "Full name"
+msgstr "Fullständigt namn"
+
+#: ../types-instagram-image.php:96
+msgid "User ID"
+msgstr "Användar-ID"
+
+#: ../types-instagram-image.php:111
+msgid "Tag"
+msgstr "Tagg"
+
+#: ../types-instagram-image.php:112
+msgid "Tags"
+msgstr "Taggar"
+
+#: ../types-instagram-image.php:162
+msgid "Image"
+msgstr "Bild"
+
+#: ../types-instagram-image.php:254
+msgid "Fan photo"
+msgstr "Beundrarbild"
+
+#: ../types-instagram-image.php:254
+msgid "Fan photos"
+msgstr "Beundrarbilder"
+
+#~ msgid "Image Title"
+#~ msgstr "Bildtitel"
+
+#~ msgid "Instagram Image"
+#~ msgstr "Instagrambild"
