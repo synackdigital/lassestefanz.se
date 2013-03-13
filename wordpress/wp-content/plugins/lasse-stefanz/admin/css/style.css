@@ -28,6 +28,15 @@
     padding: 2px;
     border: 1px solid #ddd;
     background: white;
+
+    /* /img/magnify.cur */
+    cursor: url(../../icons/magnify-right.png), url(/wp-content/plugins/lasse-stefanz/icons/magnify-right.png), default;
+}
+
+@-moz-document url-prefix() {
+    .column-instagram_image img  {
+        cursor: url(../../icons/magnify-right.png), url(/wp-content/plugins/lasse-stefanz/icons/magnify-right.png), -moz-zoom-in, default;
+    }
 }
 
 .column-instagram_actions {
