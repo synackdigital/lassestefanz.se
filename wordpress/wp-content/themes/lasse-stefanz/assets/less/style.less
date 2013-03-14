@@ -25,7 +25,8 @@ Template: hobo-theme
 // -------------------------
 @logoWidth:         346px;
 @logoHeight:        197px;
-@heroMaxHeight:     620px;
+@headerHeight:      280px;
+@heroHeight:        620px;
 
 // Background graphic
 // -------------------------
@@ -69,8 +70,11 @@ nav ul {
     // We need this for absolutely positioned header and hero
     position: relative;
 
-    // Push content below hero
-    padding-top: @heroMaxHeight
+    // Push #main below #header (or #hero, if present)
+    padding-top: @headerHeight;
+    body.has-hero & {
+        padding-top: @heroHeight
+    }
 }
 
 // Header
@@ -80,7 +84,7 @@ nav ul {
     top: 0;
     right: 0;
     left: 0;
-    height: @logoHeight + (4 * @baseLineHeight);
+    height: @headerHeight;
 
     .inner {
         position: relative;
@@ -199,7 +203,7 @@ nav ul {
     top: 0;
     right: 0;
     left: 0;
-    height: @heroMaxHeight;
+    height: @heroHeight;
 
     background-color: rgba(0,100,255,.1);
 }
