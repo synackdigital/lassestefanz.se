@@ -91,10 +91,6 @@ class LSSlideshow {
                 $content = get_the_content();
                 $content = apply_filters( 'wooslider_slide_content_slides', $content, $args );
 
-                if (empty($content)) {
-                    $content = "&nbsp;";
-                }
-
                 $data = array(
                     'content' => '<div class="slide-content">' . "\n" . $content . "\n" . '</div>' . "\n"
                 );
