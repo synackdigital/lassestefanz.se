@@ -22,22 +22,6 @@ module.exports = function(grunt) {
             },
             js: {
                 src: [
-                    /*
-                    'assets/js/_bootstrap/bootstrap-transition.js',
-                    'assets/js/_bootstrap/bootstrap-alert.js',
-                    'assets/js/_bootstrap/bootstrap-button.js',
-                    'assets/js/_bootstrap/bootstrap-carousel.js',
-                    'assets/js/_bootstrap/bootstrap-collapse.js',
-                    'assets/js/_bootstrap/bootstrap-dropdown.js',
-                    'assets/js/_bootstrap/bootstrap-modal.js',
-                    'assets/js/_bootstrap/bootstrap-tooltip.js',
-                    'assets/js/_bootstrap/bootstrap-popover.js',
-                    'assets/js/_bootstrap/bootstrap-scrollspy.js',
-                    'assets/js/_bootstrap/bootstrap-tab.js',
-                    'assets/js/_bootstrap/bootstrap-typeahead.js',
-                    'assets/js/_bootstrap/bootstrap-affix.js',
-                    'assets/js/app.jquery.js'
-                    */
                     'assets/js/main.js'
                 ],
                 dest: 'js/<%= pkg.name %>.js'
@@ -59,7 +43,7 @@ module.exports = function(grunt) {
 
         watch: {
             watch: {
-                files: ['assets/js/*.js', 'assets/kess/*.less'],
+                files: ['assets/js/*.js', 'assets/less/*.less'],
                 tasks: ['default'],
                 options: {
                     nospawn: true
