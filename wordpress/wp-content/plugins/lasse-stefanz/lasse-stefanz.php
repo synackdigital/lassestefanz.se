@@ -37,7 +37,10 @@ class LasseStefanz
         add_action('admin_init', array(&$this, 'admin_init'));
         add_action('admin_menu', array(&$this, 'init_settings'));
 
-        add_action('init', array(&$this, 'setup_instagram'));
+        add_action('admin_footer', array(&$this, 'setup_instagram'));
+
+        add_action('wp_ajax_instagram_sync', array(&$this, 'wp_ajax_instagram_sync'));
+
 
         self::$plugin_slug = dirname( plugin_basename( __FILE__ ) );
         load_plugin_textdomain( 'lasse-stefanz', false, self::$plugin_slug . '/languages/' );
@@ -81,18 +84,37 @@ class LasseStefanz
 
     public function setup_instagram()
     {
-        if (is_admin()) {
-            return;
-        }
+        ?>
+        <script type="text/javascript">
+            var data = {
+                action: 'instagram_sync',
+            };
 
+            jQuery.post(ajaxurl, data, function(response) { return; });
+        </script>
+        <?php
+    }
+
+
+    public function wp_ajax_instagram_sync($value='')
+    {
         if ( false === ( $instagram_api_call = get_transient( 'instagram_api_call' ) ) ) {
 
             $ig = new LSInstagramDownloader(self::fan_photo_tags());
             $ig->syncImages();
 
-            set_transient( 'instagram_api_call', true, 24 * HOUR_IN_SECONDS );
+            $instagram_api_call = true;
+
+            set_transient( 'instagram_api_call', $instagram_api_call, 10 * MINUTE_IN_SECONDS );
         }
+
+        echo json_encode(array(
+            'instagram_sync' => !$instagram_api_call,
+        ));
+
+        die();
     }
+
 
     /**
      * Sets up the admin menus

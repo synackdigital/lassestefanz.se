@@ -15,6 +15,9 @@ class LSInstagramImage extends HWPType {
 
         add_action( 'admin_init', array(&$this, 'admin_init') );
 
+        add_action('wp_ajax_{$name}_publish', array(&$this, 'ajax_publish_image'));
+        add_action('wp_ajax_{$name}_publish', array(&$this, 'ajax_trash_image'));
+
         parent::__construct($name, $labels, $collection, $args);
     }
 
@@ -259,6 +262,22 @@ class LSInstagramImage extends HWPType {
         }
 
         return null;
+    }
+
+
+    /* AJAX Callbacks */
+    public function ajax_publish_image()
+    {
+
+
+        die();
+    }
+
+    public function ajax_trash_image()
+    {
+
+
+        die();
     }
 }
 

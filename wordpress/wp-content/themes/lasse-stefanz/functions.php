@@ -153,7 +153,7 @@ function ls_widgets_init() {
 
     // Widget areas defined in hobo-theme
     $widget_areas = array(
-        'primary-widget-area',
+        //'primary-widget-area',
         'secondary-widget-area',
         'first-footer-widget-area',
         'second-footer-widget-area',
@@ -164,8 +164,18 @@ function ls_widgets_init() {
     foreach ($widget_areas as $area) {
         unregister_sidebar($area);
     }
+
+    register_sidebar( array(
+        'name' => __( 'Home Widget Area', 'lasse-stefanz' ),
+        'id' => 'home-widget-area',
+        'description' => __( 'The home page widget area', 'lasse-stefanz' ),
+        'before_widget' => '<li id="%1$s" class="widget-container %2$s">',
+        'after_widget' => '</li>',
+        'before_title' => '<h3 class="widget-title">',
+        'after_title' => '</h3>',
+    ) );
 }
-//add_action( 'widgets_init', 'ls_widgets_init', 20 );
+add_action( 'widgets_init', 'ls_widgets_init', 20 );
 
 
 /**
