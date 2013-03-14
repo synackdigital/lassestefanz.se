@@ -43,4 +43,4 @@ function ls_insert_hero()
         get_template_part( 'hero' );
     }
 }
-add_action('hobo_inside_main', 'ls_insert_hero');
+add_action('hobo_before_main', 'ls_insert_hero');
