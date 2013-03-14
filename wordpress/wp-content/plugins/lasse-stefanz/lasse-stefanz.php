@@ -368,8 +368,10 @@ class LasseStefanz
      * @author Simon Fransson
      **/
     public function setup_types() {
-        include_once('types-campaign.php');
-        include_once('types-instagram-image.php');
+        include_once(dirname(__FILE__) . '/types-campaign.php');
+        include_once(dirname(__FILE__) . '/types-instagram-image.php');
+
+        include_once(dirname(__FILE__) . '/includes/slideshow.php');
     }
 
 
