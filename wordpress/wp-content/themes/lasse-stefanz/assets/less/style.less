@@ -56,7 +56,6 @@ nav ul {
 // Widgets
 // -------------------------
 .widget-container {
-    .box();
     margin-bottom: @baseLineHeight;
 
     .widget-title {
@@ -232,13 +231,32 @@ nav ul {
 // Main
 // -------------------------
 #main {
+
+    padding-top: @baseLineHeight;
+
+    // Content container
     #container {
 
         // Half page width on home
         body.home & {
+            .bs-grid-span-base();
             #grid > .fluid .span(6);
+
+            float: right;
+            margin-left: 0;
         }
     } // #container
+
+    // Sidebars
+    #home-sidebar {
+        body.home & {
+            .bs-grid-span-base();
+            #grid > .fluid .span(6);
+
+            float: left;
+            margin-left: 0;
+        }
+    }
 } // #main
 
 /*
