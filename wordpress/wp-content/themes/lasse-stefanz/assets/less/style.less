@@ -21,7 +21,7 @@ Template: hobo-theme
 // -------------------------
 @import "mixins.less";
 
-// Useful variables
+// Theme variables
 // -------------------------
 @logoWidth:     346px;
 @logoHeight:    197px;
@@ -37,39 +37,55 @@ body {
     }
 }
 
-// Logo image replacement
+// Accessibility elements
 // -------------------------
-#site-title {
-    .hide-text();
-    background-image: url('images/lslogo-whiteleather.png');
-    height: @logoHeight;
-    width: @logoWidth;
+.skip-link {
+    display: none;
+}
 
-    a {
-        display: block;
-        height: 100%;
-        text-decoration: none !important;
-    }
+// Unstyled lists
+// -------------------------
+ul.xoxo,
+nav ul {
+    .unstyled-list();
+}
 
-    @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
-           only screen and (min-resolution: 144dpi) {
-        background-image: url('images/lslogo-whiteleather-@2x.png');
-        background-size: 346px 197px; // half actual size
+// Widgets
+// -------------------------
+.widget-container {
+    .box();
+    margin-bottom: @baseLineHeight;
+
+    .widget-title {
+        margin-top: 0;
     }
 }
 
-// Header section
+// Wrapper
+// -------------------------
+#wrapper {
+
+    // We need this for absolutely positioned header and hero
+    position: relative;
+
+    // Push content below header and hero
+    padding-top: @logoHeight + (4 * @baseLineHeight)
+}
+
+// Header
 // -------------------------
 #header {
-    background-color: rgba(0,255,0,.1);
-}
-#header .inner {
-    position: relative;
-    height: 280px; // Make room for logo
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: @logoHeight + (4 * @baseLineHeight);
 
-    background-color: rgba(255,0,0,.1);
+    .inner {
+        position: relative;
+    }
 
-    // Centered logo
+    // Branding (logo + tagline)
     #branding {
         position: absolute;
         z-index: 20;
@@ -78,6 +94,25 @@ body {
         width: @logoWidth; // same as logo
         margin-left: -.5 * @logoWidth;
 
+        // Centered logo replaces title
+        #site-title a {
+            background-image: url('images/lslogo-whiteleather.png');
+
+            display: block;
+            height: @logoHeight;
+            width: @logoWidth;
+
+            .hide-text();
+            text-decoration: none !important;
+
+            @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+                   only screen and (min-resolution: 144dpi) {
+                background-image: url('images/lslogo-whiteleather-@2x.png');
+                background-size: 346px 197px; // half actual size
+            }
+        }
+
+        // Centered tagline below logo
         #site-description {
             .opacity(80);
 
@@ -91,7 +126,7 @@ body {
             text-shadow: rgba(0,0,0,.3) 0 1px 1px;
             letter-spacing: 2px;
         }
-    }
+    } // #branding
 
     // Navigation
     #access {
@@ -100,11 +135,6 @@ body {
         top: 150px;
         right: 0;
         left: 0;
-
-        nav ul {
-            // Reset nav lists
-            .unstyled-list();
-        }
 
         .nav-menu {
             background-color: mix(@black, @grayDarker, 50%);
@@ -158,30 +188,7 @@ body {
                 }
             }
         }
-    }
-}
-
-// Accessibility elements
-// -------------------------
-.skip-link {
-    display: none;
-}
-
-// Outline lists
-// -------------------------
-ul.xoxo {
-    .unstyled-list();
-}
-
-// Widgets
-// -------------------------
-.widget-container {
-    .box();
-    margin-bottom: @baseLineHeight;
-
-    .widget-title {
-        margin-top: 0;
-    }
+    } // #navigation
 }
 
 
