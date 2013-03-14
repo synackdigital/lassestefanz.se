@@ -29,10 +29,10 @@ Template: hobo-theme
 // Background graphic
 // -------------------------
 body {
-    background-image: url('assets/images/dark-wood.png');
+    background-image: url('images/dark-wood.png');
     @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
            only screen and (min-resolution: 144dpi) {
-        background-image: url('assets/images/dark-wood-@2x.png');
+        background-image: url('images/dark-wood-@2x.png');
         background-size: 512px; // half actual size
     }
 }
@@ -41,7 +41,7 @@ body {
 // -------------------------
 #site-title {
     .hide-text();
-    background-image: url('assets/images/lslogo-whiteleather.png');
+    background-image: url('images/lslogo-whiteleather.png');
     height: @logoHeight;
     width: @logoWidth;
 
@@ -53,16 +53,21 @@ body {
 
     @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
            only screen and (min-resolution: 144dpi) {
-        background-image: url('assets/images/lslogo-whiteleather-@2x.png');
+        background-image: url('images/lslogo-whiteleather-@2x.png');
         background-size: 346px 197px; // half actual size
     }
 }
 
 // Header section
 // -------------------------
+#header {
+    background-color: rgba(0,255,0,.1);
+}
 #header .inner {
     position: relative;
     height: 280px; // Make room for logo
+
+    background-color: rgba(255,0,0,.1);
 
     // Centered logo
     #branding {
