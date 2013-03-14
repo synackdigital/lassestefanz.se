@@ -267,12 +267,6 @@ function ls_humans($humans) {
     $humans = (array)$humans;
 
     /* Add additional humans */
-    $humans[] = array(
-        'Content production' => 'Anna Neah',
-        'Site' => 'http://www.annaneah.se',
-        'Twitter' => null, //'jdoe',
-        'Location' => 'Karlshamn'
-    );
 
     $humans[] = array(
         'Graphic design/Front end development' => 'Fredrik Broman',
@@ -286,6 +280,13 @@ function ls_humans($humans) {
         'Site' => 'http://en.wikipedia.org/wiki/John_Doe',
         'Twitter' => 'dessibelle',
         'Location' => 'Malmö, Sweden'
+    );
+
+    $humans[] = array(
+        'Content production' => 'Anna Neah',
+        'Site' => 'http://www.annaneah.se',
+        'Twitter' => null, //'jdoe',
+        'Location' => 'Karlshamn'
     );
 
     return $humans;

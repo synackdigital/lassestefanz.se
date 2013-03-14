@@ -114,18 +114,22 @@ class LSSlideshow {
 
     public function campaign_slideshow($args = array(), $extra_args = array(), $echo = true)
     {
-        $args = wp_parse_args(
-            $args,
-            array(
-                'prev_text' => __('Previous', 'ls'),
-                'next_text' => __('Next', 'ls'),
-                'slider_type' => class_exists('LSCampaign') ? LSCampaign::instance()->typeName() : null,
-            )
-        );
+        if (function_exists('wooslider')) {
+            $args = wp_parse_args(
+                $args,
+                array(
+                    'prev_text' => __('Previous', 'ls'),
+                    'next_text' => __('Next', 'ls'),
+                    'slider_type' => class_exists('LSCampaign') ? LSCampaign::instance()->typeName() : null,
+                )
+            );
 
-        $extra_args = wp_parse_args( $extra_args, array() );
+            $extra_args = wp_parse_args( $extra_args, array() );
 
-        return wooslider($args, $extra_args, $echo);
+            return wooslider($args, $extra_args, $echo);
+        }
+
+        return null;
     }
 }
 
