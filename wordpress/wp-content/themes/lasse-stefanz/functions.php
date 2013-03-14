@@ -20,7 +20,7 @@ function ls_setup() {
     add_filter('hobo_inner_classes_for_parent', 'ls_inner_classes_for_parent', 10, 2);
 
     if ( hobo_should_enqueue() ) {
-        //wp_enqueue_script( 'ls.main', get_bloginfo( 'stylesheet_directory' ) . '/js/main.min.js', array('jquery'), hobo_version(), hobo_scripts_in_footer()  );
+        wp_enqueue_script( 'ls.lasse-stefanz', get_bloginfo( 'stylesheet_directory' ) . '/js/lasse-stefanz.min.js', array('jquery'), hobo_version(), hobo_scripts_in_footer()  );
     }
 
     ls_setup_menus();

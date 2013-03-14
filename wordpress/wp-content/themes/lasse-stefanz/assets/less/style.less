@@ -25,7 +25,7 @@ Template: hobo-theme
 // -------------------------
 @logoWidth:         346px;
 @logoHeight:        197px;
-@heroMaxHeight:     620px;
+@heroMaxHeight:     655px;
 
 // Background graphic
 // -------------------------
@@ -202,6 +202,26 @@ nav ul {
     height: @heroMaxHeight;
 
     background-color: rgba(0,100,255,.1);
+
+    .wooslider {
+        background: none;
+        border: none;
+        min-height: @heroMaxHeight;
+
+        ul.slides {
+            &, li {
+                min-height: @heroMaxHeight;
+            }
+        }
+
+        .slide-content {
+            background-position: center center;
+            background-size: 100% 100%;
+            min-height: 100%;
+
+            display: block;
+        }
+    }
 }
 
 

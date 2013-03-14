@@ -8,6 +8,6 @@ define('LS_ALBUM_IMAGE_SIZE_CROP', true);
 
 /* Campaign Image Size */
 define('LS_CAMPAIGN_IMAGE_SIZE', 'ls_campaign_image');
-define('LS_CAMPAIGN_IMAGE_SIZE_WIDTH', 1140);
-define('LS_CAMPAIGN_IMAGE_SIZE_HEIGHT', 620);
+define('LS_CAMPAIGN_IMAGE_SIZE_WIDTH', 1170);
+define('LS_CAMPAIGN_IMAGE_SIZE_HEIGHT', 655);
 define('LS_CAMPAIGN_IMAGE_SIZE_CROP', true);

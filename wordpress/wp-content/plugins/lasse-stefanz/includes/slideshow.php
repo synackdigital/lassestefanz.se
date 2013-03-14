@@ -15,7 +15,7 @@ class LSSlideshow {
      **/
     public function __construct()
     {
-        add_action('registered_post_type', array(&$this, 'registered_post_type'), 10, 2);
+        add_action('registered_post_type', array(&$this, 'admin_hide_slideshow'), 10, 2);
         add_filter('wooslider_slider_types', array(&$this, 'wooslider_slider_types'), 100);
     }
 
@@ -35,7 +35,7 @@ class LSSlideshow {
     }
 
 
-    public function registered_post_type($post_type, $args = null)
+    public function admin_hide_slideshow($post_type, $args = null)
     {
         if ($post_type == 'slide') {
 
@@ -49,6 +49,11 @@ class LSSlideshow {
 
     public function wooslider_slider_types($types = array())
     {
+        global $wooslider;
+        remove_action( 'wp_footer', array( &$wooslider->frontend, 'load_slider_javascript' ) );
+        add_action( 'wp_footer', array( &$wooslider->frontend, 'load_slider_javascript' ), 100 );
+
+
         if (class_exists('LSCampaign')) {
             $campaign = LSCampaign::instance();
             $types[$campaign->typeName()] = array(
@@ -84,9 +89,14 @@ class LSSlideshow {
             foreach ( $posts as $k => $post ) {
                 setup_postdata( $post );
                 $content = get_the_content();
+                $content = apply_filters( 'wooslider_slide_content_slides', $content, $args );
+
+                if (empty($content)) {
+                    $content = "&nbsp;";
+                }
 
                 $data = array(
-                    'content' => '<div class="slide-content">' . "\n" . apply_filters( 'wooslider_slide_content_slides', $content, $args ) . "\n" . '</div>' . "\n"
+                    'content' => '<div class="slide-content">' . "\n" . $content . "\n" . '</div>' . "\n"
                 );
 
                 if ( 'true' == $args['thumbnails'] || 1 == $args['thumbnails'] || true == $args['thumbnails'] ) {
@@ -97,8 +107,6 @@ class LSSlideshow {
                         $data['attributes'] = array( 'data-thumb' => esc_url( WooSlider_Utils::get_placeholder_image() ) );
                     }
                 }
-
-                $data['content'] = "CONTENT";
 
                 $slides[] = $data;
             }
