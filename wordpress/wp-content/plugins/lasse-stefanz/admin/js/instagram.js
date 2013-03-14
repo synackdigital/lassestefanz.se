@@ -29,4 +29,23 @@ jQuery(document).ready(function($) {
         }
     );
 
+
+    $('#the-list .column-instagram_actions .instagram-action').click(function(e) {
+
+        e.preventDefault();
+
+        var id = $(this).data('id');
+        var action = $(this).data('action');
+
+        var data = {
+            action: action,
+            id: id
+        };
+
+        jQuery.post(ajaxurl, data, function(response) {
+            if (response.result) {
+                window.location.reload();
+            }
+        });
+    });
 });

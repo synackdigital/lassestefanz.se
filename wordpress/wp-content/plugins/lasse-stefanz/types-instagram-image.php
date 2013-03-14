@@ -15,8 +15,8 @@ class LSInstagramImage extends HWPType {
 
         add_action( 'admin_init', array(&$this, 'admin_init') );
 
-        add_action('wp_ajax_{$name}_publish', array(&$this, 'ajax_publish_image'));
-        add_action('wp_ajax_{$name}_publish', array(&$this, 'ajax_trash_image'));
+        add_action("wp_ajax_{$name}_publish", array(&$this, 'ajax_change_status'));
+        add_action("wp_ajax_{$name}_trash", array(&$this, 'ajax_change_status'));
 
         parent::__construct($name, $labels, $collection, $args);
     }
@@ -155,7 +155,7 @@ class LSInstagramImage extends HWPType {
 
     public function admin_init()
     {
-        wp_enqueue_script( 'ls.instagram.preview', plugins_url( 'admin/js/image-preview.js', __FILE__ ), array('jquery'), false, true );
+        wp_enqueue_script( 'ls.instagram', plugins_url( 'admin/js/instagram.js', __FILE__ ), array('jquery'), false, true );
     }
 
     public function manage_posts_columns($defaults)
@@ -186,10 +186,9 @@ class LSInstagramImage extends HWPType {
 
         if ($column_name == 'instagram_actions') {
 
-            $url = 'javascript:alert(\'TODO: Implement wp_ajax handler\');';
             echo '<ul class="buttons">';
-            printf('<li><a href="%s" class="button button-primary">%s</a></li>', $url, __('Publish', 'lasse-stefanz'));
-            printf('<li><a href="%s" class="button">%s</a></li>', $url, __('Remove', 'lasse-stefanz'));
+            printf('<li><a href="#" class="instagram-action instagram-publish button button-primary" data-id="%d" data-action="%s_publish">%s</a></li>', $post_id, $this->name, __('Publish', 'lasse-stefanz'));
+            printf('<li><a href="#" class="instagram-action instagram-trash button" data-id="%d" data-action="%s_trash">%s</a></li>', $post_id, $this->name, __('Remove', 'lasse-stefanz'));
             echo '</ul>';
         }
     }
@@ -266,19 +265,36 @@ class LSInstagramImage extends HWPType {
 
 
     /* AJAX Callbacks */
-    public function ajax_publish_image()
+    public function ajax_change_status()
     {
+        header("Content-Type: application/json; charset=utf8");
 
+        $modified = false;
+
+        if (is_admin()) {
+            $id = $_POST['id'];
+            $action = $_POST['action'];
+
+            $post = get_post($id);
+            switch ($action) {
+                case "{$this->name}_publish":
+                    $post->post_status = 'publish';
+                    $modified = true;
+                    break;
+                case "{$this->name}_trash":
+                    $post->post_status = 'trash';
+                    $modified = true;
+                    break;
+            }
+
+            wp_update_post( $post );
+        }
+
+        echo json_encode(array('result' => $modified));
 
         die();
     }
 
-    public function ajax_trash_image()
-    {
-
-
-        die();
-    }
 }
 
 $instagram_image = LSInstagramImage::type('igimage', array('singular' => __('Fan photo', 'lasse-stefanz'), 'plural' => __('Fan photos', 'lasse-stefanz')));

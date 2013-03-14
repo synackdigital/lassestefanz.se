@@ -154,6 +154,8 @@ class LSInstagramDownloader {
 
     public function syncImages()
     {
+        // TODO: Add pagination up to given point in time (or max recursion depth)
+
         $this->downloadImagesFromTags();
 
         wp_defer_term_counting( true );

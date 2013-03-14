@@ -98,6 +98,8 @@ class LasseStefanz
 
     public function wp_ajax_instagram_sync($value='')
     {
+        header("Content-Type: application/json; charset=utf8");
+
         if ( false === ( $instagram_api_call = get_transient( 'instagram_api_call' ) ) ) {
 
             $ig = new LSInstagramDownloader(self::fan_photo_tags());
