@@ -265,6 +265,31 @@ figure {
     }
 } // #main
 
+// Post styles
+// -------------------------
+.post {
+    &.feature {
+        position: relative;
+
+        .entry-title,
+        .entry-meta {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: (.5 * @baseLineHeight) @baseLineHeight;
+            margin: 0;
+        }
+        .entry-title {
+            background-color: rgba(0,0,0,.6);
+
+            left: 0;
+            padding-right: 4em; // make room for date
+        }
+        .entry-meta {
+        }
+    }
+}
+
 /*
 body.home.blog.logged-in.admin-bar.customize-support
     #wrapper.hfeed
