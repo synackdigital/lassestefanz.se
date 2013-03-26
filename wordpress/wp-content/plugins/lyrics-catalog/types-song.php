@@ -89,6 +89,7 @@ class LCSong extends HWPType {
         $type_args = array(
             'orderby' => 'menu_order, title',
             'order' => 'ASC',
+            'posts_per_page' => -1,
         );
 
         return array_merge($defaults, $type_args, (array)$args);
@@ -102,7 +103,9 @@ class LCSong extends HWPType {
     public function albumsDropdownItems()
     {
         if (class_exists('LCAlbum')) {
-            $albums = get_posts($args = LCAlbum::queryArgs());
+            $albums = get_posts($args = LCAlbum::queryArgs(array(
+                'posts_per_page' => -1,
+            )));
 
             return $albums;
         }

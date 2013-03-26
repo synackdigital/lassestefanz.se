@@ -41,6 +41,7 @@ class LasseStefanz
 
         add_action('wp_ajax_instagram_sync', array(&$this, 'wp_ajax_instagram_sync'));
 
+        add_filter('sanitize_file_name', 'remove_accents'); // We don't want any trouble when moving files up and down from web server
 
         self::$plugin_slug = dirname( plugin_basename( __FILE__ ) );
         load_plugin_textdomain( 'lasse-stefanz', false, self::$plugin_slug . '/languages/' );

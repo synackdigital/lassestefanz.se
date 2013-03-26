@@ -1,7 +1,7 @@
 <?php
 
 /* Lyrics */
-define('LC_SONG_AUTHOR', '_lc_lyric_author');
+define('LC_SONG_AUTHOR', '_lc_song_author');
 define('LC_SONG_ALBUM', '_lc_song_album');
 
 /* Albums */
