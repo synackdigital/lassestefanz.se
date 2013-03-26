@@ -102,9 +102,9 @@ function ls_uses_single_sass_stylesheet() {
  * @author LS Produktions AB
  **/
 function ls_login_logo_filename($filename) {
-    return $filename; // Defaults to logo.png
+    return 'lslogo-whiteleather.png'; // Defaults to logo.png
 }
-//add_filter('hobo_login_logo_filename', 'ls_login_logo_filename');
+add_filter('hobo_login_logo_filename', 'ls_login_logo_filename');
 
 
 /**
@@ -118,12 +118,13 @@ function ls_login_logo_filename($filename) {
  **/
 function ls_login_logo_style($style) {
 
-    $style['width'] = null; // Width of login logo
-    $style['height'] = null; // Height of login logo
+    $style['width'] = '346px'; // Width of login logo
+    $style['height'] = '197px'; // Height of login logo
+    $style['margin'] = '0 0 10px -10px'; // Wider than standard (326), so we'll compensate for that
 
     return $style;
 }
-//add_filter('hobo_login_logo_style', 'ls_login_logo_style');
+add_filter('hobo_login_logo_style', 'ls_login_logo_style');
 
 
 
