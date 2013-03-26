@@ -4,7 +4,7 @@ Donate link: http://www.wp-event-organiser.com/donate
 Tags: events, event, event categories, event organiser, events calendar, event management, ical, locations, google map, widget, venues, maps, gigs, shows,
 Requires at least: 3.3
 Tested up to: 3.5
-Stable tag: 1.7.4
+Stable tag: 1.8.2
 License: GPLv3
 
 Create and maintain events, including complex reoccurring patterns, venue management (with Google maps), calendars and customisable event lists
@@ -64,6 +64,8 @@ A big thank you to those who have provided translations for Event Organiser
 * Polish - [Bartosz Arendt](http://digitalfactory.pl/)
 * Russian - [Sergei](www.vortexinter.ru)
 * Hungarian - Csaba Erdei 
+* Estonian - Kristjan Roosipuu
+* Finnish - Kari Tolonen
 
 == Installation ==
 
@@ -161,6 +163,22 @@ More information on shortcodes is [available here](http://wp-event-organiser.com
 6. View of a venue page on the front-end (in a theme based on WordPress TwentyEleven)
 
 == Changelog ==
+
+= 1.8.2 =
+* Fixes event taxonomy sorting bug introduced in 1.8
+* Adds finish translation
+
+= 1.8.1 =
+* Fixes fatal error on activation introduce in 1.8
+
+= 1.8 =
+* Added venue & category widgets
+* Added multi-site support.
+* Improved event query handling (see [#58](https://github.com/stephenharris/Event-Organiser/issues/58)
+* Added %venue_city% and %venue_shortcode% tags (see [#42](https://github.com/stephenharris/Event-Organiser/issues/42)
+* Added fullCalendar title options
+* Fixes bug with deleting expired events
+* Fixes event importer truncating details with some ics files
 
 = 1.7.4 =
 * Adds venue state & city shortcode/widget tags See [#42](https://github.com/stephenharris/Event-Organiser/issues/42).
@@ -421,6 +439,10 @@ Minor bug fixes and readme update.
 Initial release
 
 == Upgrade Notice ==
+
+= 1.8.2 =
+If you have upgrade to 1.8 or 1.8.1 please upgrade to 1.8.2. This update includes fixes to bugs introduced in 1.8.
+
 = 1.5 =
 1.5 is a big update, so please back-up before upgrading.
 

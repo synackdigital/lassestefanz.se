@@ -39,11 +39,12 @@ function _eventorganiser_details_metabox( $post ){
 	global $wp_locale;	
 
 	//Sets the format as php understands it, and textual.
-	if ( eventorganiser_get_option( 'dateformat' ) == 'dd-mm' ){
-		$phpFormat = 'd-m-Y';
+	$phpFormat = eventorganiser_get_option( 'dateformat' );
+	if ( 'd-m-Y' == $phpFormat ){
 		$format    = 'dd-mm-yyyy'; //Human form
-	} else {
-		$phpFormat = 'm-d-Y';
+	} elseif( 'Y-m-d' == $phpFormat ) {
+		$format = 'yyyy-mm-dd'; //Human form
+	}else{
 		$format = 'mm-dd-yyyy'; //Human form
 	}
 
@@ -321,7 +322,7 @@ function eventorganiser_details_save( $post_id ) {
 		$arr = explode( ',', sanitize_text_field( $raw_data[$key] ) ); 
 		if ( !empty( $arr ) ){
 			foreach ( $arr as $date ):
-				$date_obj = _eventorganiser_check_datetime( $date . ' ' . $raw_data['StartTime'], true );
+				$date_obj = _eventorganiser_check_datetime( $date . ' ' . $raw_data['StartTime'], 'Y-m-d' );
 				if( $date_obj )
 					$in_ex[$key][] = $date_obj;
 			endforeach;

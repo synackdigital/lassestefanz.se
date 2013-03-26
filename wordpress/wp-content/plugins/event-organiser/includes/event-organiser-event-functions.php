@@ -805,13 +805,23 @@ function eo_get_event_classes($post_id=0, $occurrence_id=0){
 
 
 /**
-* Checks if an event taxonomy archive page is being displayed. A simple wrapper for `is_tax()`.
+* Checks if the query is for an event taxonomy.
+*  
+* When no $query is passed, acts as a simple wrapper for `is_tax()`.
+* More generally acts as a wrapper for `$query->is_tax()`.
+* 
 * @since 1.6
 *
-* @return bool True if an event category, tag or venue archive page is being displayed. False otherwise.
+* @param $query - The query to check. If not passed, uses the global $wp_query;
+* @return bool True if query is for any event taxonomy (e.g. 'event-venue', 'event-category', 'event-tag').
  */
-function eo_is_event_taxonomy(){
-	return (is_tax(array('event-category','event-tag','event-venue')));
+function eo_is_event_taxonomy( $query = false ){
+	$event_tax = get_object_taxonomies( 'event' );
+	if( !$query ){
+		return is_tax( $event_tax );
+	}else{
+		return $query->is_tax( $event_tax );
+	}
 }
 
 /**
@@ -990,15 +1000,19 @@ function eo_get_event_fullcalendar( $args ){
 		'event_category'=>'', 'event_venue'=>'', 'timeformat'=>'G:i', 'axisformat'=>get_option('time_format'), 'key'=>false,
 		'tooltip'=>true, 'weekends'=>true, 'mintime'=>'0', 'maxtime'=>'24', 'alldayslot'=>true,
 		'alldaytext'=>__('All Day','eventorganiser'), 'columnformatmonth'=>'D', 'columnformatweek'=>'D n/j', 'columnformatday'=>'l n/j',
+		'titleformatmonth' => 'F Y', 'titleformatweek' => "M j[ Y]{ '&#8212;'[ M] j Y}", 'titleformatday' => 'l, M j, Y'
 	);
 	$args = shortcode_atts( $defaults, $args );
 	$key = $args['key'];
 	unset($args['key']);
 	
 	//Convert php time format into xDate time format
-	$date_attributes = array( 'timeformat', 'axisformat', 'columnformatday', 'columnformatweek', 'columnformatmonth' );
+	$date_attributes = array( 'timeformat', 'axisformat', 'columnformatday', 'columnformatweek', 'columnformatmonth',
+	'titleformatmonth', 'titleformatday', 'titleformatweek' );
 	$args['timeformatphp'] = $args['timeformat'];
 	foreach ( $date_attributes as $date_attribute ){
+		$args[$date_attribute] = str_replace( '((', '[', $args[$date_attribute] );
+		$args[$date_attribute] = str_replace( '))', ']', $args[$date_attribute] );
 		$args[$date_attribute.'php'] = $args[$date_attribute];
 		$args[$date_attribute] = eventorganiser_php2xdate( $args[$date_attribute] );
 	}
@@ -1124,6 +1138,8 @@ function eo_break_occurrence( $post_id, $event_id ){
 	global $post;
 	$post = get_post( $post_id );
 	setup_postdata( $post_id );
+
+	do_action( 'eventorganiser_pre_break_occurrence', $post_id, $event_id );
 	
 	$tax_input = array();
 	foreach ( array( 'event-category', 'event-tag', 'event-venue' ) as $tax ):
@@ -1159,8 +1175,11 @@ function eo_break_occurrence( $post_id, $event_id ){
 
 		$post_custom = get_post_custom( $post_id );
 		foreach ( $post_custom as $meta_key => $meta_values ) {
+
 			//Don't copy these
-			if( in_array( $meta_key, array( '_edit_last', '_edit_last', '_edit_lock' ) ) )
+			$ignore_meta = array( '_eo_tickets', '_edit_last', '_edit_last', '_edit_lock' ) ;
+			$ignore_meta = apply_filters( 'eventorganiser_breaking_occurrence_exclude_meta', $ignore_meta );
+			if( in_array( $meta_key, $ignore_meta ) )
 				continue;
 		
 			//Don't copy event meta
@@ -1176,6 +1195,9 @@ function eo_break_occurrence( $post_id, $event_id ){
 		}
 	}
 	_eventorganiser_delete_calendar_cache();
+
+	do_action( 'eventorganiser_occurrence_broken', $post_id, $event_id, $new_event_id );
+
 	wp_reset_postdata();
 	return $new_event_id;
 }

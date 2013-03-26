@@ -457,18 +457,28 @@ function eventorganiser_date_create($datetime_string){
  * @since 1.0.0
 
  * @param datetime_string - a datetime string 
- * @param (bool) $ymd_formated - whether the date is formated in the format YYYY-MM-DD or 
+ * @param string $format - Format of the datetime string. One of 'd-m-Y', 'm-d-Y' and 'Y-m-d'.
  * @return int DateTime| false - the parsed datetime string as a DateTime object or false on error (incorrectly formatted for example)
  */
-function _eventorganiser_check_datetime($datetime_string='',$ymd_formated=false){
+function _eventorganiser_check_datetime( $datetime_string = '', $format = null ){
 
-	$formatString = eventorganiser_get_option('dateformat');
-
-	//Get regulgar expression.
-	if( $ymd_formated ){
+	if( is_null( $format ) )
+		$format = eventorganiser_get_option('dateformat');
+	
+	//Backwards compatible - can probably remove 2.1+
+	if( is_bool( $format ) ){
+		_deprecated_argument('_eventorganiser_check_datetime', '1.8', 'This function no longer accepts a boolean, pass the format of the passed date-time string.');
+		if( true === $format )
+			$format = 'Y-m-d';
+		else
+			$format = eventorganiser_get_option('dateformat');
+	}
+	
+	//Get regular expression.
+	if( $format == 'Y-m-d' ){
 		$reg_exp = "/(?P<year>\d{4})[-.\/](?P<month>\d{1,})[-.\/](?P<day>\d{1,}) (?P<hour>\d{2}):(?P<minute>\d{2})/";
 
-	}elseif($formatString =='dd-mm' ){
+	}elseif( $format == 'd-m-Y' ){
 		$reg_exp = "/(?P<day>\d{1,})[-.\/](?P<month>\d{1,})[-.\/](?P<year>\d{4}) (?P<hour>\d{2}):(?P<minute>\d{2})/";
 
 	}else{
@@ -563,14 +573,16 @@ function eventorganiser_radio_field( $args ){
 function eventorganiser_select_field($args){
 
 	$args = wp_parse_args($args,array(
-			'selected'=>'', 'help' => '', 'options'=>'', 'name'=>'', 'echo'=>1,
+			'selected'=>'', 'help' => null, 'options'=>'', 'name'=>'', 'echo'=>1,
 			'label_for'=>'','class'=>'','disabled'=>false,'multiselect'=>false,
+			'inline_help' => false
 		));	
 
 	$id = ( !empty($args['id']) ? $args['id'] : $args['label_for']);
 	$name = isset($args['name']) ?  $args['name'] : '';
 	$selected = $args['selected'];
-	$class = sanitize_html_class($args['class']);
+	$classes = array_map( 'sanitize_html_class', explode( ' ', $args['class'] ) );
+	$class = implode( ' ', $classes );
 	$multiselect = ($args['multiselect'] ? 'multiple' : '' );
 	$disabled = ($args['disabled'] ? 'disabled="disabled"' : '' );
 
@@ -594,9 +606,9 @@ function eventorganiser_select_field($args){
 				$html .= sprintf('<option value="%s" %s> %s </option>',esc_attr($value),$_selected, esc_html($label));
 			}
 		}
-	$html .= '</select>';
+	$html .= '</select>'. $args['inline_help'];
 
-	if(!empty($args['help'])){
+	if( isset( $args['help'] ) ){
 		$html .= '<p class="description">'.esc_html($args['help']).'</p>';
 	}
 
@@ -627,10 +639,11 @@ function eventorganiser_select_field($args){
  */
 function eventorganiser_text_field($args){
 
-	$args = wp_parse_args($args,
+	$args = wp_parse_args( $args,
 		array(
-		 	'type' => 'text', 'value'=>'', 'placeholder' => '','label_for'=>'',
-			 'size'=>false, 'min' => false, 'max' => false, 'style'=>false, 'echo'=>true,
+		 	'type' => 'text', 'value'=>'', 'placeholder' => '','label_for'=>'', 'inline_help' => false,
+			 'size'=>false, 'min' => false, 'max' => false, 'style'=>false, 'echo'=>true, 'data'=>false,
+			'class' => false,
 			)
 		);		
 
@@ -638,7 +651,8 @@ function eventorganiser_text_field($args){
 	$name = isset($args['name']) ?  $args['name'] : '';
 	$value = $args['value'];
 	$type = $args['type'];
-	$class = isset($args['class']) ? esc_attr($args['class'])  : '';
+	$classes = array_map( 'sanitize_html_class', explode( ' ', $args['class'] ) );
+	$class = implode( ' ', $classes );
 
 	$min = (  $args['min'] !== false ?  sprintf('min="%d"', $args['min']) : '' );
 	$max = (  $args['max'] !== false ?  sprintf('max="%d"', $args['max']) : '' );
@@ -646,15 +660,25 @@ function eventorganiser_text_field($args){
 	$style = (  !empty($args['style']) ?  sprintf('style="%s"', $args['style']) : '' );
 	$placeholder = ( !empty($args['placeholder']) ? sprintf('placeholder="%s"', $args['placeholder']) : '');
 	$disabled = ( !empty($args['disabled']) ? 'disabled="disabled"' : '' );
-	$attributes = array_filter(array($min,$max,$size,$placeholder,$disabled, $style));
 
-	$html = sprintf('<input type="%s" name="%s" class="%s regular-text ltr" id="%s" value="%s" autocomplete="off" %s />',
-		esc_attr($type),
-		esc_attr($name),
-		sanitize_html_class($class),
-		esc_attr($id),
-		esc_attr($value),
-		implode(' ', $attributes)
+	//Custom data-* attributes
+	$data = '';
+	if( !empty( $args['data'] ) && is_array( $args['data'] ) ){
+		foreach( $args['data'] as $key => $attr_value ){
+			$data .= sprintf( 'data-%s="%s"', esc_attr( $key ), esc_attr( $attr_value ) );
+		}
+	}
+
+	$attributes = array_filter( array($min,$max,$size,$placeholder,$disabled, $style, $data ) );
+
+	$html = sprintf('<input type="%s" name="%s" class="%s regular-text ltr" id="%s" value="%s" autocomplete="off" %s /> %s',
+		esc_attr( $type ), 
+		esc_attr( $name ),
+		$class,
+		esc_attr( $id ),
+		esc_attr( $value ),
+		implode(' ', $attributes),
+		 $args['inline_help']
 	);
 
 	if( isset($args['help']) ){
@@ -849,7 +873,7 @@ function eventorganiser_cache_set( $key, $value, $group, $expire = 0 ){
  * @param bool $echo Whether the link HTML should be printed as well as returned.
  * @return string
  */
-function eventorganiser_inline_help( $title, $content, $echo = false ){
+function eventorganiser_inline_help( $title, $content, $echo = false, $type = 'help' ){
 	static $help = array();
 	
 	$help[] = array(
@@ -858,18 +882,26 @@ function eventorganiser_inline_help( $title, $content, $echo = false ){
 	);
 	
 	wp_localize_script( 'eo-inline-help', 'eoHelp', $help );
-	wp_enqueue_script( 'eo-inline-help' );
-	wp_enqueue_style( 'eventorganiser-admin-style' );
+
+	//Ensure style is called after  WP styles
+	add_action( 'admin_footer', '_eventorganiser_enqueue_inline_help_scripts', 100 );
 
 	$id = count($help)-1;
-	$src = EVENT_ORGANISER_URL.'css/images/help-14.png';
+	$src = EVENT_ORGANISER_URL."css/images/{$type}-14.png";
 	
-	$link = sprintf( '<a href="#" id="%s" class="eo-inline-help"><img src="%s" width="16" height="16"></a>', 'eo-inline-help-' . $id, $src );
+	$link = sprintf( '<a href="#" id="%s" class="eo-inline-help eo-%s-inline"><img src="%s" width="16" height="16"></a>', 
+				'eo-inline-help-' . $id, 
+				$type, 
+				$src 
+			);
 	
 	if( $echo )
 		echo $link;
 	
 	return $link;
 }
-	
+function _eventorganiser_enqueue_inline_help_scripts(){
+	wp_enqueue_script( 'eo-inline-help' );
+	wp_enqueue_style( 'eventorganiser-style' );
+}
 ?>

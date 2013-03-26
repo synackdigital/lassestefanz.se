@@ -9,7 +9,7 @@
  */
 function eventorganiser_register_script() {
 	global $wp_locale;
-	$version = '1.7.4';
+	$version = '1.8';
 
 	$ext = (defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG) ? '' : '.min';
 
@@ -76,7 +76,7 @@ add_action('init', 'eventorganiser_register_script');
  * @access private
  */
 function eventorganiser_register_scripts(){
-	$version = '1.7.4';
+	$version = '1.8';
 	$ext = (defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG) ? '' : '.min';
 
 	/*  Venue scripts for venue & event edit */
@@ -107,12 +107,12 @@ function eventorganiser_register_scripts(){
 	wp_register_style('eventorganiser-jquery-ui-style',EVENT_ORGANISER_URL."css/eventorganiser-admin-{$style}.css",array(),$version);
 
 	/* Admin styling */
-	wp_register_style('eventorganiser-style',EVENT_ORGANISER_URL.'css/eventorganiser-admin-style.css',array('eventorganiser-jquery-ui-style'),$version);
+	wp_register_style('eventorganiser-style',EVENT_ORGANISER_URL.'css/eventorganiser-admin-style.css',array('eventorganiser-jquery-ui-style'),$version );
 
 	/* Inline Help */
        	wp_register_script( 'eo-inline-help', EVENT_ORGANISER_URL.'js/inline-help.js',array( 'jquery', 'eo_qtip2' ), $version, true );
 }
-add_action('admin_enqueue_scripts', 'eventorganiser_register_scripts',10);
+add_action( 'admin_init', 'eventorganiser_register_scripts', 5 );
 
 
  /**
@@ -180,7 +180,7 @@ function eventorganiser_add_admin_scripts( $hook ) {
 			wp_localize_script( 'eo_event', 'EO_Ajax_Event', array( 
 					'ajaxurl' => admin_url( 'admin-ajax.php' ),
 					'startday'=>intval(get_option('start_of_week')),
-					'format'=> eventorganiser_get_option('dateformat').'-yy',
+					'format'=> eventorganiser_php2jquerydate( eventorganiser_get_option('dateformat') ),
 					'current_user_can' => array(
 						'manage_venues' => current_user_can( 'manage_venues' ),
 					),
@@ -342,6 +342,28 @@ function eventorganiser_clear_cron_jobs(){
 	wp_clear_scheduled_hook('eventorganiser_delete_expired');
 }
 
+/**
+ * Returns the time in seconds until a specified cron job is scheduled.
+ *
+ *@since 1.8
+ *@see http://wordpress.stackexchange.com/questions/83270/when-does-next-cron-job-run-time-from-now/83279#83279
+ *
+ *@param string $cron_name The name of the cron job
+ *@return int|bool The time in seconds until the cron job is scheduled. False if
+ *it could not be found.
+*/
+function eventorganiser_get_next_cron_time( $cron_name ){
+
+    foreach( _get_cron_array() as $timestamp => $crons ){
+
+        if( in_array( $cron_name, array_keys( $crons ) ) ){
+            return $timestamp - time();
+        }
+
+    }
+
+    return false;
+}
 
 /**
  * Callback for the delete expired events cron job. Deletes events that finished at least 24 hours ago.
@@ -354,19 +376,25 @@ function eventorganiser_clear_cron_jobs(){
 function eventorganiser_delete_expired_events(){
 	//Get expired events
 	$events = eo_get_events(array('showrepeats'=>0,'showpastevents'=>1,'eo_interval'=>'expired'));
-	if($events):
-		foreach($events as $event):
-			$now = new DateTime('now', eo_get_blog_timezone());
-			$start = new DateTime($event->StartDate.' '.$event->StartTime, eo_get_blog_timezone());
-			$end = new DateTime($event->EndDate.' '.$event->FinishTime, eo_get_blog_timezone());
-			$expired = round(abs($end->format('U')-$start->format('U'))) + 24*60*60; //Duration + 24 hours
-			$finished =  new DateTime($event->reoccurrence_end.' '.$event->StartTime, eo_get_blog_timezone());
-			$finished->modify("+$expired seconds");
 
+	if($events):
+		$now = new DateTime('now', eo_get_blog_timezone());
+	
+		foreach($events as $event):
+			
+			$start = eo_get_the_start( DATETIMEOBJ, $event->ID, null, $event->occurrence_id );
+			$end = eo_get_the_end( DATETIMEOBJ, $event->ID, null, $event->occurrence_id );
+			
+			$expired = round(abs($end->format('U')-$start->format('U'))) + 24*60*60; //Duration + 24 hours
+			
+			$finished =  eo_get_schedule_last( DATETIMEOBJ, $event->ID );
+			$finished->modify("+$expired seconds");//24 horus after the last occurrence finishes
+			
 			//Delete if 24 hours has passed
-			if($finished <= $now):
+			if($finished <= $now){
 				wp_trash_post((int) $event->ID);
-			endif;
+			}
+			
 		endforeach;
 	endif;
 }

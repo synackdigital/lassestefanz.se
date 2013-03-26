@@ -124,8 +124,9 @@ class EventOrganiser_Settings_Page extends EventOrganiser_Admin_Page{
 						'selected' => eventorganiser_get_option( 'dateformat' ),
 						'name' => 'eventorganiser_options[dateformat]',
 						'options' => array(
-							'dd-mm' => __( 'dd-mm-yyyy', 'eventorganiser' ),
-							'mm-dd' => __( 'mm-dd-yyyy', 'eventorganiser' ),
+							'd-m-Y' => __( 'dd-mm-yyyy', 'eventorganiser' ),
+							'm-d-Y' => __( 'mm-dd-yyyy', 'eventorganiser' ),
+							'Y-m-d' => __( 'yyyy-mm-dd', 'eventorganiser' ),
 						),
 						'help' => __("This alters the default format for inputting dates.", 'eventorganiser' ),
 				) );
@@ -309,6 +310,12 @@ class EventOrganiser_Settings_Page extends EventOrganiser_Admin_Page{
 
 				//Navigation menu - $addtomenu int 0 if no menu, menu databse ID otherwise
 				$clean['menu_item_db_id'] = $this->update_nav_menu( $clean['addtomenu'], $clean['navtitle'] );
+
+				if( $clean['deleteexpired'] && !eventorganiser_get_next_cron_time( 'eventorganiser_delete_expired' ) ){
+					eventorganiser_cron_jobs();
+				}elseif( !$clean['deleteexpired'] ){
+					eventorganiser_clear_cron_jobs();
+				}
 			break;
 
 

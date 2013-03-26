@@ -2,7 +2,7 @@
 /*
 Plugin Name: Event Organiser
 Plugin URI: http://www.wp-event-organiser.com
-Version: 1.7.4
+Version: 1.8.2
 Description: Creates a custom post type 'events' with features such as reoccurring events, venues, Google Maps, calendar views and events and venue pages
 Author: Stephen Harris
 Author URI: http://www.stephenharris.info
@@ -41,7 +41,7 @@ Domain Path: /languages
  * @name $eventorganiser_db_version
  */ 
 global $eventorganiser_db_version;
-$eventorganiser_db_version = '1.7.4';
+$eventorganiser_db_version = '1.8.2';
 
 
 add_action( 'after_setup_theme', '_eventorganiser_set_constants' );
@@ -131,7 +131,7 @@ function eventorganiser_get_option( $option, $default = false ){
 		'deleteexpired' => 0,
 		'supports' => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'custom-fields', 'comments', 'eventtag' ),
 		'event_redirect' => 'events',
-		'dateformat' => 'dd-mm',
+		'dateformat' => 'd-m-Y',
 		'prettyurl' => 1,
 		'templates' => 1,
 		'addtomenu' => 0,
@@ -146,11 +146,20 @@ function eventorganiser_get_option( $option, $default = false ){
 	/* Backwards compatibility for 'eventag' option */
 	if( $option === 'eventtag' )
 		return in_array( 'eventtag', $options['supports'] );
+	
+	if( $option === 'dateformat' ){
+		//Backwards compatibility (migration from mm-dd/dd-mm to php format):
+		if( $options[$option] == 'mm-dd' ){
+			$options[$option] = 'm-d-Y';
+		}elseif( $options[$option] == 'dd-mm' ){
+			$options[$option] = 'd-m-Y';
+		}
+	}
 
-      if( !isset($options[$option]) )
-           return $default;
+     if( !isset($options[$option]) )
+          return $default;
 
-      return $options[$option];
+	return $options[$option];
 }
 
 
@@ -199,6 +208,8 @@ require_once(EVENT_ORGANISER_DIR.'includes/event.php');
 require_once(EVENT_ORGANISER_DIR.'classes/class-eo-agenda-widget.php');
 require_once(EVENT_ORGANISER_DIR.'classes/class-eo-event-list-widget.php');
 require_once(EVENT_ORGANISER_DIR.'classes/class-eo-calendar-widget.php');
+require_once(EVENT_ORGANISER_DIR.'classes/class-eo-widget-categories.php');
+require_once(EVENT_ORGANISER_DIR.'classes/class-eo-widget-venues.php');
 require_once(EVENT_ORGANISER_DIR.'classes/class-eventorganiser-shortcodes.php');
 
 add_action( 'widgets_init', 'eventorganiser_widgets_init' );
@@ -207,5 +218,7 @@ function eventorganiser_widgets_init(){
 	register_widget( 'EO_Event_List_Widget' );
 	register_widget( 'EO_Events_Agenda_Widget' );
 	register_widget( 'EO_Calendar_Widget' );
+	register_widget( 'EO_Widget_Categories' );
+	register_widget( 'EO_Widget_Venues' );
 }
 ?>
