@@ -37,6 +37,8 @@ class LCSong extends HWPType {
                 'name' => LC_SONG_ALBUM,
                 'label' => __( 'Album', 'lyrics-catalog' ),
                 'required' => false,
+                'multiple' => true,
+                'shows_preview' => false,
                 'data_callback' => array(&$this, 'albumsDropdownItems')
             )
         ));

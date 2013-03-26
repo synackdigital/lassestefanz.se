@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lasse Stefanz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-12 22:52+0100\n"
-"PO-Revision-Date: 2013-03-12 22:53+0100\n"
+"POT-Creation-Date: 2013-03-26 20:51+0100\n"
+"PO-Revision-Date: 2013-03-26 21:06+0100\n"
 "Last-Translator: Simon Fransson <simon@dessibelle.se>\n"
 "Language-Team: Simon Fransson <simon@dessibelle.se>\n"
 "Language: sv_SE\n"
@@ -17,44 +17,80 @@ msgstr ""
 "X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../lasse-stefanz.php:105 ../lasse-stefanz.php:106
+#: ../lasse-stefanz.php:130 ../lasse-stefanz.php:131
 msgid "Lasse Stefanz"
 msgstr ""
 
-#: ../lasse-stefanz.php:116 ../lasse-stefanz.php:117
-msgid "Subpage"
-msgstr "Undersida"
+#: ../lasse-stefanz.php:142 ../lasse-stefanz.php:143 ../lasse-stefanz.php:386
+msgid "Import"
+msgstr "Importera"
 
-#: ../lasse-stefanz.php:126
+#: ../lasse-stefanz.php:159
 msgid "Instagram settings"
 msgstr "Instagraminställningar"
 
-#: ../lasse-stefanz.php:134
+#: ../lasse-stefanz.php:167
 msgid "Tags for fan photos"
 msgstr "Taggar för beundrarbilder"
 
-#: ../lasse-stefanz.php:141
+#: ../lasse-stefanz.php:174
 #, php-format
 msgid ""
 "Separate tags with comma. %1s character should be left out from tag names."
 msgstr ""
 "Separera taggar med kommatecken. %1s-tecknet skall inte ingå i taggarna."
 
-#: ../lasse-stefanz.php:148
+#: ../lasse-stefanz.php:181
 msgid "Owner of imported photos"
 msgstr "Ägare av importerade foton"
 
-#: ../lasse-stefanz.php:258 ../lasse-stefanz.php:293
+#: ../lasse-stefanz.php:194
+msgid "Import complete"
+msgstr "Importen är slutförd"
+
+#: ../lasse-stefanz.php:304 ../lasse-stefanz.php:344
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
-#: ../lasse-stefanz.php:269
+#: ../lasse-stefanz.php:315
 msgid "Lasse Stefanz settings"
 msgstr "Lasse Stefanz-inställningar"
 
-#: ../lasse-stefanz.php:304
-msgid "Subpage settings"
-msgstr "Inställningar för undersida"
+#: ../lasse-stefanz.php:354
+msgid "Import data from old website"
+msgstr "Importera data från den gamla webbsidan"
+
+#: ../lasse-stefanz.php:359
+#, php-format
+msgid ""
+"Click the import button below to import albums and songs from the old "
+"website. Images will be downloaded from the current/previous locations, so "
+"you will have to make them available at these URL's in order for the web "
+"server to download them, for example using the %s file on your system. "
+"Another option is to change the setting for the %s constant in the file %s "
+"inside this plugin directory, which will allow you to download the images "
+"from an alternative host name."
+msgstr ""
+"Klicka på Importera-knappen nedan för att importera skivor och sånger från "
+"den gamla webbsidan. Bilder kommer att laddas ner från sina nuvarande/"
+"tidigare platser, så du måste först se till att göra dem tillgängliga på "
+"dessa URL:er för att webbservern ska kunna hämta dem. T.ex. genom att "
+"använda %s-filen på ditt system. En annan möjlighet är att ändra konstanten "
+"%s i filen %s i pluginmappen, vilket möjliggör för webbservern att hämta "
+"bilderna från ett alternativt domännamn."
+
+#: ../lasse-stefanz.php:366
+msgid ""
+"Performing this import can potentially damage your system or your data, and "
+"it might also be very slow, especially on shared hosting environments. It is "
+"therefore highly recommended that you backup your files and data, and that "
+"you run the import on a local machine of possible."
+msgstr ""
+"Att genomföra den här importen kan potentiellt skada ditt system och din "
+"data, och kan dessutom vara väldigt långsam, i synnerhet på delade "
+"hostingmiljöer. Det är därför starkt rekommenderat att du först gör backup "
+"av filer och data, samt att du om möjligt kör importen på en lokal "
+"webbserver. "
 
 #: ../types-campaign.php:11
 msgid "campaigns"
@@ -72,73 +108,87 @@ msgstr "Kampanjer"
 msgid "images"
 msgstr "bilder"
 
-#: ../types-instagram-image.php:32
+#: ../types-instagram-image.php:35
 msgid "Image ID"
 msgstr "Bild-ID"
 
-#: ../types-instagram-image.php:40
+#: ../types-instagram-image.php:43
 msgid "Image URL"
 msgstr "Bild-URL"
 
-#: ../types-instagram-image.php:48
+#: ../types-instagram-image.php:51
 msgid "Location"
 msgstr "Plats"
 
-#: ../types-instagram-image.php:56
+#: ../types-instagram-image.php:59
 msgid "Thumbnail"
 msgstr "Thumbnail"
 
-#: ../types-instagram-image.php:64
+#: ../types-instagram-image.php:67
 msgid "Low Resolution"
 msgstr "Låg upplösning"
 
-#: ../types-instagram-image.php:72
+#: ../types-instagram-image.php:75
 msgid "Standard Resolution"
 msgstr "Normal upplösning"
 
-#: ../types-instagram-image.php:80
+#: ../types-instagram-image.php:83
 msgid "Username"
 msgstr "Användarnamn"
 
-#: ../types-instagram-image.php:88
+#: ../types-instagram-image.php:91
 msgid "Full name"
 msgstr "Fullständigt namn"
 
-#: ../types-instagram-image.php:96
+#: ../types-instagram-image.php:99
 msgid "User ID"
 msgstr "Användar-ID"
 
-#: ../types-instagram-image.php:111
+#: ../types-instagram-image.php:114
 msgid "Tag"
 msgstr "Tagg"
 
-#: ../types-instagram-image.php:112
+#: ../types-instagram-image.php:115
 msgid "Tags"
 msgstr "Taggar"
 
-#: ../types-instagram-image.php:163
+#: ../types-instagram-image.php:166
 msgid "Image"
 msgstr "Bild"
 
-#: ../types-instagram-image.php:164
+#: ../types-instagram-image.php:167
 msgid "Actions"
 msgstr "Åtgärder"
 
-#: ../types-instagram-image.php:188
+#: ../types-instagram-image.php:190
 msgid "Publish"
 msgstr "Publicera"
 
-#: ../types-instagram-image.php:189
+#: ../types-instagram-image.php:191
 msgid "Remove"
 msgstr "Ta bort"
 
-#: ../types-instagram-image.php:265
+#: ../types-instagram-image.php:300
 msgid "Fan photo"
 msgstr "Beundrarbild"
 
-#: ../types-instagram-image.php:265
+#: ../types-instagram-image.php:300
 msgid "Fan photos"
 msgstr "Beundrarbilder"
+
+#: ../includes/slideshow.php:121
+msgid "Previous"
+msgstr "Föregående"
+
+#: ../includes/slideshow.php:122
+msgid "Next"
+msgstr "Nästa"
+
+#~ msgid "Subpage"
+#~ msgstr "Undersida"
+
+#~ msgid "Subpage settings"
+#~ msgstr "Inställningar för undersida"
 
 #~ msgid "Image Title"
 #~ msgstr "Bildtitel"

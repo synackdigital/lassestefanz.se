@@ -35,8 +35,6 @@ class LasseStefanzImporter
     {
         $this->album_types = array();
 
-        // add_action('admin_init', array(&$this, 'admin_init'));
-
         self::$plugin_slug = dirname( plugin_basename( __FILE__ ) );
         load_plugin_textdomain( 'lasse-stefanz', false, self::$plugin_slug . '/languages/' );
     }
@@ -58,12 +56,32 @@ class LasseStefanzImporter
 
 
     /**
-     * Admin initialization. Sets up styles and scripts needed by the admin interface.
+     * Plugin activation hook
      * @return void
      */
-    public function admin_init()
+    public function install()
     {
-        $this->perform_import();
+        global $wpdb;
+        $status = $wpdb->query("SHOW TABLE STATUS WHERE Name = 'latar'");
+
+        if (!$status) {
+            $this->execute_install_sql();
+        }
+    }
+
+
+    /**
+     * Plugin deactivation hook
+     * @return void
+     */
+    public function uninstall()
+    {
+        global $wpdb;
+        $status = $wpdb->query("SHOW TABLE STATUS WHERE Name = 'latar'");
+
+        if ($status) {
+            $this->execute_uninstall_sql();
+        }
     }
 
 
@@ -157,13 +175,7 @@ class LasseStefanzImporter
         $uploads = wp_upload_dir();
         $filename = sanitize_file_name( basename( rawurldecode( $url ) ) );
 
-        var_dump($url);
-
-        var_dump($filename);
-
         $path = trailingslashit( $uploads['path'] ) . $filename;
-
-        var_dump($path);
 
         $r = file_put_contents($path, file_get_contents($url));
 
@@ -232,15 +244,8 @@ class LasseStefanzImporter
      * Starts the import
      * @return void
      */
-    protected function perform_import()
+    public function perform_import()
     {
-        global $wpdb;
-        $status = $wpdb->query("SHOW TABLE STATUS WHERE Name = 'latar'");
-
-        if (!$status) {
-            $this->execute_stored_sql();
-        }
-
         $this->import_album_types();
         $this->import_albums();
         $this->import_songs();
@@ -250,7 +255,27 @@ class LasseStefanzImporter
      * Sets up the database. Creates tables and imports the data needed for import
      * @return void
      */
-    protected function execute_stored_sql()
+    protected function execute_install_sql()
+    {
+        return $this->load_sql_data(true);
+    }
+
+    /**
+     * Tears down the database. Removes tables created by the installation process.
+     * @return void
+     */
+    protected function execute_uninstall_sql()
+    {
+        return $this->load_sql_data(false);
+    }
+
+
+    /**
+     * Loads the install.sql or uninstall.sql file and runs it on the database server
+     * @param  boolean $install True if install, false otherwise
+     * @return string           Output of schell_exec function call
+     */
+    protected function load_sql_data($install = true)
     {
         set_time_limit(LS_IMPORT_TIME_LIMIT);
 
@@ -259,10 +284,10 @@ class LasseStefanzImporter
             DB_PASSWORD,
             DB_HOST,
             DB_NAME,
-            plugin_dir_path(__FILE__) . 'data/lassestefanz_2013-03-26.sql'
+            plugin_dir_path(__FILE__) . 'data/' . ($install ? '' : 'un') . 'install.sql'
         );
 
-        $output = shell_exec($command);
+        return shell_exec($command);
     }
 
     /**
@@ -390,10 +415,16 @@ class LasseStefanzImporter
 
         global $wpdb;
         $data = $wpdb->get_results("SELECT * FROM $table");
+        $track_on_disc = $wpdb->get_results("SELECT * FROM TracksOnDisc");
+        $song_album_relations = array();
+        foreach ($track_on_disc as $row) {
+            $song_album_relations[$row->TrackId][] = $row->DiscId;
+        }
+
         $songs = $this->all_posts_of_type($type);
         $albums = $this->all_posts_of_type('album');
 
-        var_dump($albums);
+
 
         // Iterate over import data
         foreach ($data as $song) {
@@ -421,14 +452,19 @@ class LasseStefanzImporter
             if ($post_id) {
                 $author = $song->Kompositor;
                 $publisher = $song->Forlag;
-                $old_album_id = $song->SkivID;
-                $album_guid = $this->generate_guid($old_album_id, 'Skivor');
 
-                var_dump($album_guid);
+                if (array_key_exists($song->Id, $song_album_relations)) {
+                    $track_albums = $song_album_relations[$song->Id];
 
-                if (array_key_exists($album_guid, $albums)) {
-                    $album = $albums[$album_guid];
-                    update_post_meta( $post_id, LC_SONG_ALBUM, $album['ID'] );
+                    delete_post_meta( $post_id, LC_SONG_ALBUM );
+                    foreach ($track_albums as $album_id) {
+                        $album_guid = $this->generate_guid($album_id, 'Skivor');
+
+                        if (array_key_exists($album_guid, $albums)) {
+                            $album = $albums[$album_guid];
+                            add_post_meta( $post_id, LC_SONG_ALBUM, $album['ID'] );
+                        }
+                    }
                 }
 
                 if ($publisher) {
@@ -450,3 +486,5 @@ class LasseStefanzImporter
 
 $lsi  = LasseStefanzImporter::instance();
 
+register_activation_hook( __FILE__, array(&$lsi, 'install') );
+register_deactivation_hook( __FILE__, array(&$lsi, 'uninstall') );

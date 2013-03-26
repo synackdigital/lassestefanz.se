@@ -136,14 +136,22 @@ class LasseStefanz
         );
 
         // Sub menu page (http://codex.wordpress.org/Function_Reference/add_submenu_page)
-        add_submenu_page(
-            self::$plugin_slug,
-            __('Subpage', 'lasse-stefanz'),
-            __('Subpage', 'lasse-stefanz'),
-            $this->settings_capability(),
-            trailingslashit(self::$plugin_slug) . 'tools',
-            array(&$this, 'settings_subpage')
-        );
+        if (class_exists('LasseStefanzImporter')) {
+            add_submenu_page(
+                self::$plugin_slug,
+                __('Import', 'lasse-stefanz'),
+                __('Import', 'lasse-stefanz'),
+                $this->settings_capability(),
+                trailingslashit(self::$plugin_slug) . 'import',
+                array(&$this, 'settings_import')
+            );
+
+            add_action( 'admin_action_lsimport', array(&$this, 'perform_import') );
+
+            if (array_key_exists('lsimportstatus', $_GET) && $_GET['lsimportstatus'] == 'complete') {
+                add_action('admin_notices', array(&$this, 'my_admin_notice'));
+            }
+        }
 
         // Settings section
         add_settings_section(
@@ -182,6 +190,19 @@ class LasseStefanz
         register_setting(self::$plugin_slug, self::INSTAGRAM_IMPORT_OWNER_KEY, 'intval');
     }
 
+    function my_admin_notice(){
+        echo '<div class="updated">' . wpautop(__('Import complete', 'lasse-stefanz')) . '</div>';
+    }
+
+    public function perform_import()
+    {
+        if (class_exists('LasseStefanzImporter')) {
+            LasseStefanzImporter::instance()->perform_import();
+
+            wp_redirect( $_REQUEST['_wp_http_referer'] . '&lsimportstatus=complete' );
+            die();
+        }
+    }
 
     public static function instagram_import_owner_dropdown()
     {
@@ -276,7 +297,7 @@ class LasseStefanz
 
     /**
      * Renders the main settings page for the plugin
-     * @return [type] [description]
+     * @return void
      */
     public function plugin_settings() {
         if ( !current_user_can( $this->settings_capability() ) )  {
@@ -313,7 +334,12 @@ class LasseStefanz
         <?php
     }
 
-    public function settings_subpage() {
+
+    /**
+     * Renders the plugins import settings page
+     * @return void
+     */
+    public function settings_import() {
         if ( !current_user_can( $this->settings_capability() ) )  {
             wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
         }
@@ -323,24 +349,42 @@ class LasseStefanz
 
         <div class="wrap">
 
-            <?php screen_icon('options-general'); ?>
-            <?php //screen_icon(self::$plugin_slug); ?>
+            <?php screen_icon('tools'); ?>
 
-            <h2><?php _e('Subpage settings', 'lasse-stefanz'); ?></h2>
+            <h2><?php _e('Import data from old website', 'lasse-stefanz'); ?></h2>
+
+            <?php
+
+            echo wpautop(
+                    sprintf(__("Click the import button below to import albums and songs from the old website. Images will be downloaded from the current/previous locations, so you will have to make them available at these URL's in order for the web server to download them, for example using the %s file on your system. Another option is to change the setting for the %s constant in the file %s inside this plugin directory, which will allow you to download the images from an alternative host name.", 'lasse-stefanz'),
+                        '<span class="code">/etc/hosts</span>',
+                        '<span class="code">IMAGES_HOSTNAME</span>',
+                        '<span class="code">importer.php</span>'
+                    )
+                );
+
+            echo wpautop(__("Performing this import can potentially damage your system or your data, and it might also be very slow, especially on shared hosting environments. It is therefore highly recommended that you backup your files and data, and that you run the import on a local machine of possible.", 'lasse-stefanz'));
+
+            ?>
 
             <form method="post" action="options.php">
 
-
             <div class="tool-box">
-            <?php
 
-                $slug = trailingslashit(self::$plugin_slug) . 'tools';
+                <?php
+                    $slug = trailingslashit(self::$plugin_slug) . 'import';
+                    // do_settings_sections( $slug );
+                    // settings_fields( $slug );
+                ?>
 
-                do_settings_sections( $slug );
-                settings_fields( $slug );
+                <input type="hidden" name="option_page" value="<?php echo $slug; ?>">
+                <input type="hidden" name="action" value="lsimport">
+                <?php wp_nonce_field( $slug, '_wpnonce', admin_url( 'admin.php?page=' . $slug )); ?>
 
-                submit_button();
-            ?>
+
+                <?php
+                    submit_button(__('Import', 'lasse-stefanz'));
+                ?>
             </div>
 
 
