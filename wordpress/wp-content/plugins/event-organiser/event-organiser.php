@@ -2,7 +2,7 @@
 /*
 Plugin Name: Event Organiser
 Plugin URI: http://www.wp-event-organiser.com
-Version: 1.8.2
+Version: 1.8.4
 Description: Creates a custom post type 'events' with features such as reoccurring events, venues, Google Maps, calendar views and events and venue pages
 Author: Stephen Harris
 Author URI: http://www.stephenharris.info
@@ -41,7 +41,7 @@ Domain Path: /languages
  * @name $eventorganiser_db_version
  */ 
 global $eventorganiser_db_version;
-$eventorganiser_db_version = '1.8.2';
+$eventorganiser_db_version = '1.8.4';
 
 
 add_action( 'after_setup_theme', '_eventorganiser_set_constants' );
@@ -186,10 +186,7 @@ if ( is_admin() ):
 	require_once(EVENT_ORGANISER_DIR.'event-organiser-settings.php');
 	require_once(EVENT_ORGANISER_DIR.'event-organiser-venues.php');
 	require_once(EVENT_ORGANISER_DIR.'event-organiser-calendar.php');
-	
-else:
-    /****** Templates ******/
-    require_once('includes/event-organiser-templates.php');    
+	       
 endif;
 
 if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
@@ -203,6 +200,9 @@ require_once(EVENT_ORGANISER_DIR.'includes/event-organiser-venue-functions.php')
 require_once(EVENT_ORGANISER_DIR.'includes/event-organiser-utility-functions.php');
 require_once(EVENT_ORGANISER_DIR.'includes/deprecated.php');
 require_once(EVENT_ORGANISER_DIR.'includes/event.php');
+
+/****** Templates - note some plug-ins will require this to included admin-side too ******/
+require_once('includes/event-organiser-templates.php');
 
 /****** Widgets and Shortcodes ******/
 require_once(EVENT_ORGANISER_DIR.'classes/class-eo-agenda-widget.php');
@@ -221,4 +221,3 @@ function eventorganiser_widgets_init(){
 	register_widget( 'EO_Widget_Categories' );
 	register_widget( 'EO_Widget_Venues' );
 }
-?>
