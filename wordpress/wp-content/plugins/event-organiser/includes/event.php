@@ -30,8 +30,8 @@
 * @uses wp_insert_post()
 *
 * @param int $post_id - the event (post) ID for the event you want to update
-* @param array $post_data - array of data to be used by wp_update_post.
 * @param array $event_data - array of event data
+* @param array $post_data - array of data to be used by wp_update_post.
 * @return int $post_id - the post ID of the updated event
 */
 	function eo_update_event($post_id, $event_data=array(), $post_data=array() ){
@@ -47,6 +47,9 @@
 			unset($event_data['venue']);
 			unset($event_data['category']);
 		}
+		
+		$event_data = apply_filters( 'eventorganiser_update_event_event_data', $event_data, $post_id, $post_data, $event_data );
+		$post_data = apply_filters( 'eventorganiser_update_event_post_data', $post_data, $post_id, $post_data, $event_data );
 
 		if( !empty($post_data) ){
 			$post_data['ID'] = $post_id;		
@@ -61,7 +64,7 @@
 		if( ( empty($event_data['schedule']) || 'once' == $event_data['schedule'] ) && !empty($event_data['include']) ){
 			$event_data['schedule'] = 'custom';
 		}
-
+		
 		//Do we need to delete existing dates from db?
 		$delete_existing = false;
 		$diff = array();
@@ -98,7 +101,7 @@
 			$re = _eventorganiser_insert_occurrences($post_id,$event_data);
 		}
 
-		do_action('eventorganiser_save_event', $post_id);
+		do_action( 'eventorganiser_save_event', $post_id );
 		return $post_id;
 	}
 
@@ -146,17 +149,20 @@
 			$post_data['tax_input']['event-category'] = $event_data['category'];
 			unset($event_data['category']);
 		}
-
+		
 		//If schedule is 'once' and dates are included - set to 'custom':
 		if( ( empty($event_data['schedule']) || 'once' == $event_data['schedule'] ) && !empty($event_data['include']) ){
 			$event_data['schedule'] = 'custom';
 		}
 
 		$event_data = _eventorganiser_generate_occurrences($event_data);
-
+		
 		if( is_wp_error($event_data) )
 			return $event_data;
 
+		$event_data = apply_filters( 'eventorganiser_insert_event_event_data', $event_data, $post_data, $event_data );
+		$post_data = apply_filters( 'eventorganiser_insert_event_post_data', $post_data, $post_data, $event_data );
+		
 		//Finally we create event (first create the post in WP)
 		$post_input = array_merge(array('post_title'=>'untitled event'), $post_data, array('post_type'=>'event'));			
 		$post_id = wp_insert_post($post_input, true);
@@ -168,7 +174,7 @@
 		 _eventorganiser_insert_occurrences($post_id, $event_data);
 			
 		//Action used to break cache & trigger Pro actions (& by other plug-ins?)
-		do_action('eventorganiser_save_event',$post_id);
+		do_action( 'eventorganiser_save_event', $post_id );
 		return $post_id;
 	}
 
@@ -182,7 +188,8 @@
 function eo_delete_event_occurrences($post_id){
 	global $wpdb;
 	
-	do_action('eventorganiser_delete_event', $post_id);
+	do_action( 'eventorganiser_delete_event', $post_id ); //Deprecated - do not use!
+	do_action( 'eventorganiser_delete_event_occurrences', $post_id );
 	$del = $wpdb->get_results($wpdb->prepare("DELETE FROM $wpdb->eo_events WHERE post_id=%d",$post_id));
 }
 add_action( 'delete_post', 'eo_delete_event_occurrences', 10 );
@@ -206,9 +213,8 @@ add_action( 'delete_post', 'eo_delete_event_occurrences', 10 );
 			$duration = date_diff($start,$end);
 
 			/* Storing a DateInterval object can cause errors. Serialize it.
-			http://www.harriswebsolutions.co.uk/event-organiser/forums/topic/error-when-saving-events/
 			 Thanks to Mathieu Parisot, Mathias & Dave Page */
-			$event_data['duration'] = maybe_serialize($duration);
+			$event_data['duration'] = maybe_serialize( $duration );
 		}
 
 		//Work around for PHP < 5.3

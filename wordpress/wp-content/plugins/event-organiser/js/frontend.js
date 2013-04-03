@@ -236,7 +236,7 @@ jQuery(document).ready(function () {
         if ($(".eo_widget_calendar").length > 0 ) {
 
 		$(".eo_widget_calendar tfoot").unbind("click");
-		$(".eo_widget_calendar tfoot a").die("click").live("click", function (a) {
+		$(".eo_widget_calendar").off("click").on("click", 'tfoot a', function (a) {
                 	a.preventDefault();
                 	var b = $(this).closest(".eo_widget_calendar").attr("id");
 	
@@ -360,6 +360,10 @@ function eveorg_getParameterByName(a, b) {
 function eo_load_map() {
 	var maps = EOAjax.map;
 	for (var i = 0; i < maps.length; i++) {
+		
+		if ( null === document.getElementById( "eo_venue_map-" + (i + 1) ) )
+		    continue;
+		
 		var locations = maps[i].locations;
 		var b = {
               		zoom: maps[i].zoom,
