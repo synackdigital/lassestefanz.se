@@ -2,9 +2,9 @@ module.exports = function(grunt) {
 
     // Paths
     var cmp_src    = 'components/';
-    var js_src     = 'wordpress/wp-content/themes/lasse-stefanz/assets/js/';
+    var js_src     = 'src/js/';
     var js_dest    = 'wordpress/wp-content/themes/lasse-stefanz/js/';
-    var css_src    = 'wordpress/wp-content/themes/lasse-stefanz/assets/less/';
+    var css_src    = 'src/less/';
     var css_dest   = 'wordpress/wp-content/themes/lasse-stefanz/';
 
     // Load plugins
@@ -19,12 +19,17 @@ module.exports = function(grunt) {
 
         // LESS task
         less: {
-            main: {
-                // options: {
-                //     yuicompress: true
-                // },
+            compile: {
                 files: {
-                    "wordpress/wp-content/themes/lasse-stefanz/style.css" : 'wordpress/wp-content/themes/lasse-stefanz/assets/less/style.less'
+                    "wordpress/wp-content/themes/lasse-stefanz/style.css" : 'src/less/style.less'
+                }
+            },
+            compress: {
+                options: {
+                    yuicompress: true
+                },
+                files: {
+                    "wordpress/wp-content/themes/lasse-stefanz/style.css" : 'src/less/style.less'
                 }
             }
         },
@@ -59,7 +64,7 @@ module.exports = function(grunt) {
         // Watch task
         watch: {
             main: {
-                files: [js_src+'*.js', css_src+'*.less'],
+                files: [js_src+'*.js', js_src+'*/*.js', css_src+'*.less', css_src+'*/*.less'],
                 tasks: ['default'],
                 options: {
                     nospawn: true
@@ -69,6 +74,7 @@ module.exports = function(grunt) {
     });
 
     // Default task
-    grunt.registerTask('default', ['less', 'concat', 'uglify']);
+    grunt.registerTask('default', ['less:compile', 'concat']);
+    grunt.registerTask('dist', ['default', 'less:compress', 'uglify']);
 
 };
