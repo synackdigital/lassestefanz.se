@@ -36,7 +36,7 @@ class LasseStefanzImporter
         $this->album_types = array();
 
         self::$plugin_slug = dirname( plugin_basename( __FILE__ ) );
-        load_plugin_textdomain( 'lasse-stefanz', false, self::$plugin_slug . '/languages/' );
+        load_plugin_textdomain( 'ls-plugin', false, self::$plugin_slug . '/languages/' );
     }
 
     /**

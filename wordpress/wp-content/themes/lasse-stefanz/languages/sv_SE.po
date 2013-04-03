@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lasse Stefanz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-26 20:48+0100\n"
-"PO-Revision-Date: 2013-03-26 20:49+0100\n"
+"POT-Creation-Date: 2013-04-03 21:38+0100\n"
+"PO-Revision-Date: 2013-04-03 21:38+0100\n"
 "Last-Translator: Simon Fransson <simon@dessibelle.se>\n"
 "Language-Team: LS Produktions AB <kontakt@lassestefanz.se>\n"
 "Language: sv_SE\n"
@@ -32,6 +32,14 @@ msgstr "Förstasidans widgetutrymme"
 #: functions.php:172
 msgid "The home page widget area"
 msgstr "Widgetutrymme som visas på förstasidan"
+
+#: home.php:4
+msgid "Upcoming shows"
+msgstr "Kommande spelningar"
+
+#: home.php:18
+msgid "Fan photos"
+msgstr "Fansens bildet"
 
 #: loop-home.php:4
 msgid "Not Found"

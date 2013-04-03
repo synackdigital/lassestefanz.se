@@ -8,7 +8,7 @@ class LSCampaign extends HWPType {
 
         $this->package = basename(dirname(__FILE__));
         $this->shouldSetThumbnail(true);
-        $this->setRewriteSlug(apply_filters('ls_rewrite_slug_for_type', __('campaigns', 'lasse-stefanz'), $name));
+        $this->setRewriteSlug(apply_filters('ls_rewrite_slug_for_type', __('campaigns', 'ls-plugin'), $name));
 
         parent::__construct($name, $labels, $collection, $args);
     }
@@ -25,21 +25,21 @@ class LSCampaign extends HWPType {
         $this->fields->addField( new CustomField(
             array(
                 'name' => LC_ALBUM_RELEASE_YEAR,
-                'label' => __( 'Year', 'lasse-stefanz' ),
+                'label' => __( 'Year', 'ls-plugin' ),
             )
         ));
 
         $this->fields->addField( new CustomField(
             array(
                 'name' => LC_ALBUM_LABEL,
-                'label' => __( 'Label', 'lasse-stefanz' ),
+                'label' => __( 'Label', 'ls-plugin' ),
             )
         ));
 
         $this->fields->addField( new PostSelectField(
             array(
                 'name' => LC_ALBUM_BACKSIDE_IMAGE,
-                'label' => __( 'Backside image', 'lasse-stefanz' ),
+                'label' => __( 'Backside image', 'ls-plugin' ),
                 'data_callback' => array(&$this, 'backsideImageItems')
             )
         ));
@@ -102,7 +102,7 @@ class LSCampaign extends HWPType {
 
 }
 
-$campaign = LSCampaign::type('campaign', array('singular' => __('Campaign', 'lasse-stefanz'), 'plural' => __('Campaigns', 'lasse-stefanz')));
+$campaign = LSCampaign::type('campaign', array('singular' => __('Campaign', 'ls-plugin'), 'plural' => __('Campaigns', 'ls-plugin')));
 
 
 /* Template tags */

@@ -8,7 +8,7 @@ class LSInstagramImage extends HWPType {
 
         $this->package = basename(dirname(__FILE__));
         $this->shouldSetThumbnail(true);
-        $this->setRewriteSlug(apply_filters('ls_rewrite_slug_for_type', __('images', 'lasse-stefanz'), $name));
+        $this->setRewriteSlug(apply_filters('ls_rewrite_slug_for_type', __('images', 'ls-plugin'), $name));
 
         add_filter( "manage_{$name}_posts_columns", array(&$this, 'manage_posts_columns') );
         add_action( "manage_{$name}_posts_custom_column", array(&$this, 'manage_posts_custom_column'), 10, 2 );
@@ -39,7 +39,7 @@ class LSInstagramImage extends HWPType {
         $this->fields->addField( new CustomField(
             array(
                 'name' => LS_IGIM_ID,
-                'label' => __( 'Image ID', 'lasse-stefanz' ),
+                'label' => __( 'Image ID', 'ls-plugin' ),
                 'readonly' => true,
             )
         ));
@@ -47,7 +47,7 @@ class LSInstagramImage extends HWPType {
         $this->fields->addField( new URLField(
             array(
                 'name' => LS_IGIM_URL,
-                'label' => __( 'Image URL', 'lasse-stefanz' ),
+                'label' => __( 'Image URL', 'ls-plugin' ),
                 'readonly' => true,
             )
         ));
@@ -55,7 +55,7 @@ class LSInstagramImage extends HWPType {
         $this->fields->addField( new CustomField(
             array(
                 'name' => LS_IGIM_LOCATION,
-                'label' => __( 'Location', 'lasse-stefanz' ),
+                'label' => __( 'Location', 'ls-plugin' ),
                 'readonly' => true,
             )
         ));
@@ -63,7 +63,7 @@ class LSInstagramImage extends HWPType {
         $this->fields->addField( new CustomField(
             array(
                 'name' => LS_IGIM_SIZE_THUMBNAIL,
-                'label' => __( 'Thumbnail', 'lasse-stefanz' ),
+                'label' => __( 'Thumbnail', 'ls-plugin' ),
                 'readonly' => true,
             )
         ));
@@ -71,7 +71,7 @@ class LSInstagramImage extends HWPType {
         $this->fields->addField( new CustomField(
             array(
                 'name' => LS_IGIM_SIZE_LOW,
-                'label' => __( 'Low Resolution', 'lasse-stefanz' ),
+                'label' => __( 'Low Resolution', 'ls-plugin' ),
                 'readonly' => true,
             )
         ));
@@ -79,7 +79,7 @@ class LSInstagramImage extends HWPType {
         $this->fields->addField( new CustomField(
             array(
                 'name' => LS_IGIM_SIZE_STANDARD,
-                'label' => __( 'Standard Resolution', 'lasse-stefanz' ),
+                'label' => __( 'Standard Resolution', 'ls-plugin' ),
                 'readonly' => true,
             )
         ));
@@ -87,7 +87,7 @@ class LSInstagramImage extends HWPType {
         $this->fields->addField( new CustomField(
             array(
                 'name' => LS_IGIM_USERNAME,
-                'label' => __( 'Username', 'lasse-stefanz' ),
+                'label' => __( 'Username', 'ls-plugin' ),
                 'readonly' => true,
             )
         ));
@@ -95,7 +95,7 @@ class LSInstagramImage extends HWPType {
         $this->fields->addField( new CustomField(
             array(
                 'name' => LS_IGIM_FULL_NAME,
-                'label' => __( 'Full name', 'lasse-stefanz' ),
+                'label' => __( 'Full name', 'ls-plugin' ),
                 'readonly' => true,
             )
         ));
@@ -103,7 +103,7 @@ class LSInstagramImage extends HWPType {
         $this->fields->addField( new CustomField(
             array(
                 'name' => LS_IGIM_USER_ID,
-                'label' => __( 'User ID', 'lasse-stefanz' ),
+                'label' => __( 'User ID', 'ls-plugin' ),
                 'readonly' => true,
             )
         ));
@@ -118,8 +118,8 @@ class LSInstagramImage extends HWPType {
 
         return array(
             array(
-                'single' => __( 'Tag', 'lasse-stefanz' ),
-                'multiple' => __( 'Tags', 'lasse-stefanz' ),
+                'single' => __( 'Tag', 'ls-plugin' ),
+                'multiple' => __( 'Tags', 'ls-plugin' ),
                 'slug' => LS_IGIM_TAG,
                 'types' => array( $this->name )
             )
@@ -170,8 +170,8 @@ class LSInstagramImage extends HWPType {
         $featured_col = array_slice($defaults, 0, 1);
         array_shift($defaults);
 
-        $featured_col['instagram_image'] = __('Image', 'lasse-stefanz');
-        $featured_col['instagram_actions'] = __('Actions', 'lasse-stefanz');
+        $featured_col['instagram_image'] = __('Image', 'ls-plugin');
+        $featured_col['instagram_actions'] = __('Actions', 'ls-plugin');
 
         $defaults = array_merge($featured_col, $defaults);
 
@@ -194,8 +194,8 @@ class LSInstagramImage extends HWPType {
         if ($column_name == 'instagram_actions') {
 
             echo '<ul class="buttons">';
-            printf('<li><a href="#" class="instagram-action instagram-publish button button-primary" data-id="%d" data-action="%s_publish">%s</a></li>', $post_id, $this->name, __('Publish', 'lasse-stefanz'));
-            printf('<li><a href="#" class="instagram-action instagram-trash button" data-id="%d" data-action="%s_trash">%s</a></li>', $post_id, $this->name, __('Remove', 'lasse-stefanz'));
+            printf('<li><a href="#" class="instagram-action instagram-publish button button-primary" data-id="%d" data-action="%s_publish">%s</a></li>', $post_id, $this->name, __('Publish', 'ls-plugin'));
+            printf('<li><a href="#" class="instagram-action instagram-trash button" data-id="%d" data-action="%s_trash">%s</a></li>', $post_id, $this->name, __('Remove', 'ls-plugin'));
             echo '</ul>';
         }
     }
@@ -290,7 +290,7 @@ class LSInstagramImage extends HWPType {
         if (array_key_exists('trash', $views)) {
 
             $label = trim(strip_tags(__($wp_post_statuses['trash']->label_count[0])), " (%s)");
-            $views['trash'] = str_replace($label, __('Hidden', 'lasse-stefanz'), $views['trash']);
+            $views['trash'] = str_replace($label, __('Hidden', 'ls-plugin'), $views['trash']);
         }
 
         return $views;
@@ -345,5 +345,5 @@ class LSInstagramImage extends HWPType {
 
 }
 
-$instagram_image = LSInstagramImage::type('igimage', array('singular' => __('Fan photo', 'lasse-stefanz'), 'plural' => __('Fan photos', 'lasse-stefanz')));
+$instagram_image = LSInstagramImage::type('igimage', array('singular' => __('Fan photo', 'ls-plugin'), 'plural' => __('Fan photos', 'ls-plugin')));
 

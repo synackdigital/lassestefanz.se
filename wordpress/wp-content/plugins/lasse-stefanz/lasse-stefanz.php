@@ -50,7 +50,7 @@ class LasseStefanz
         }
 
         self::$plugin_slug = dirname( plugin_basename( __FILE__ ) );
-        load_plugin_textdomain( 'lasse-stefanz', false, self::$plugin_slug . '/languages/' );
+        load_plugin_textdomain( 'ls-plugin', false, self::$plugin_slug . '/languages/' );
     }
 
     // TODO: Remove this function
@@ -150,8 +150,8 @@ class LasseStefanz
     {
         // Top level menu page (http://codex.wordpress.org/Function_Reference/add_menu_page)
         add_menu_page(
-            __('Lasse Stefanz', 'lasse-stefanz'),
-            __('Lasse Stefanz', 'lasse-stefanz'),
+            __('Lasse Stefanz', 'ls-plugin'),
+            __('Lasse Stefanz', 'ls-plugin'),
             $this->settings_capability(),
             self::$plugin_slug,
             array(&$this, 'plugin_settings'),
@@ -162,8 +162,8 @@ class LasseStefanz
         if (class_exists('LasseStefanzImporter')) {
             add_submenu_page(
                 self::$plugin_slug,
-                __('Import', 'lasse-stefanz'),
-                __('Import', 'lasse-stefanz'),
+                __('Import', 'ls-plugin'),
+                __('Import', 'ls-plugin'),
                 $this->settings_capability(),
                 trailingslashit(self::$plugin_slug) . 'import',
                 array(&$this, 'settings_import')
@@ -179,7 +179,7 @@ class LasseStefanz
         // Settings section
         add_settings_section(
             'ls_instagram_settings',
-            __('Instagram settings', 'lasse-stefanz'),
+            __('Instagram settings', 'ls-plugin'),
             '__return_false',
             self::$plugin_slug
         );
@@ -187,21 +187,21 @@ class LasseStefanz
         // Settings field
         add_settings_field(
             self::INSTAGRAM_TAGS_KEY,
-            __('Tags for fan photos', 'lasse-stefanz'),
+            __('Tags for fan photos', 'ls-plugin'),
             array(&$this, 'render_settings_field'),
             self::$plugin_slug,
             'ls_instagram_settings',
             array(
                 'field' => self::INSTAGRAM_TAGS_KEY,
                 'type' => 'textarea',
-                'description' => sprintf(__("Separate tags with comma. %1s character should be left out from tag names.", 'lasse-stefanz'), '<span class="code">#</span>')
+                'description' => sprintf(__("Separate tags with comma. %1s character should be left out from tag names.", 'ls-plugin'), '<span class="code">#</span>')
             )
         );
 
         // Settings field
         add_settings_field(
             self::INSTAGRAM_IMPORT_OWNER_KEY,
-            __('Owner of imported photos', 'lasse-stefanz'),
+            __('Owner of imported photos', 'ls-plugin'),
             array(&$this, 'instagram_import_owner_dropdown'),
             self::$plugin_slug,
             'ls_instagram_settings'
@@ -214,7 +214,7 @@ class LasseStefanz
     }
 
     function my_admin_notice(){
-        echo '<div class="updated">' . wpautop(__('Import complete', 'lasse-stefanz')) . '</div>';
+        echo '<div class="updated">' . wpautop(__('Import complete', 'ls-plugin')) . '</div>';
     }
 
     public function perform_import()
@@ -335,7 +335,7 @@ class LasseStefanz
             <?php screen_icon('options-general'); ?>
             <?php //screen_icon(self::$plugin_slug); ?>
 
-            <h2><?php _e('Lasse Stefanz settings', 'lasse-stefanz'); ?></h2>
+            <h2><?php _e('Lasse Stefanz settings', 'ls-plugin'); ?></h2>
 
             <form method="post" action="options.php">
 
@@ -374,19 +374,19 @@ class LasseStefanz
 
             <?php screen_icon('tools'); ?>
 
-            <h2><?php _e('Import data from old website', 'lasse-stefanz'); ?></h2>
+            <h2><?php _e('Import data from old website', 'ls-plugin'); ?></h2>
 
             <?php
 
             echo wpautop(
-                    sprintf(__("Click the import button below to import albums and songs from the old website. Images will be downloaded from the current/previous locations, so you will have to make them available at these URL's in order for the web server to download them, for example using the %s file on your system. Another option is to change the setting for the %s constant in the file %s inside this plugin directory, which will allow you to download the images from an alternative host name.", 'lasse-stefanz'),
+                    sprintf(__("Click the import button below to import albums and songs from the old website. Images will be downloaded from the current/previous locations, so you will have to make them available at these URL's in order for the web server to download them, for example using the %s file on your system. Another option is to change the setting for the %s constant in the file %s inside this plugin directory, which will allow you to download the images from an alternative host name.", 'ls-plugin'),
                         '<span class="code">/etc/hosts</span>',
                         '<span class="code">IMAGES_HOSTNAME</span>',
                         '<span class="code">importer.php</span>'
                     )
                 );
 
-            echo wpautop(__("Performing this import can potentially damage your system or your data, and it might also be very slow, especially on shared hosting environments. It is therefore highly recommended that you backup your files and data, and that you run the import on a local machine of possible.", 'lasse-stefanz'));
+            echo wpautop(__("Performing this import can potentially damage your system or your data, and it might also be very slow, especially on shared hosting environments. It is therefore highly recommended that you backup your files and data, and that you run the import on a local machine of possible.", 'ls-plugin'));
 
             ?>
 
@@ -406,7 +406,7 @@ class LasseStefanz
 
 
                 <?php
-                    submit_button(__('Import', 'lasse-stefanz'));
+                    submit_button(__('Import', 'ls-plugin'));
                 ?>
             </div>
 
