@@ -1,31 +1,48 @@
-// Main
+// Main base
 // -------------------------
 #main {
 
     padding-bottom: @baseLineHeight;
     padding-top: @baseLineHeight;
 
-    // Content container
-    #container {
-
-        // Half page width on home
-        body.home & {
-            .bs-grid-span-base();
-            #grid > .fluid .span(6);
-
-            float: right;
-            margin-left: 0;
-        }
-    } // #container
-
     // Sidebars
     #home-sidebar {
         body.home & {
             .bs-grid-span-base();
-            #grid > .fluid .span(6);
+            #grid > .fluid .span(8);
 
             float: left;
             margin-left: 0;
         }
     }
 } // #main
+
+// Home page variations
+// -------------------------
+body.home {
+
+    #container {
+        .bs-grid-span-base();
+        #grid > .fluid .span(8);
+
+        float: right;
+        margin-left: 0;
+
+        text-align: center;
+    }
+
+    #content {
+        margin-bottom: @baseLineHeight;
+    }
+
+    .post {
+        display: inline-block;
+        width: 28%;
+
+        vertical-align: top;
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
