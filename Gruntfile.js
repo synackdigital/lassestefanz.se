@@ -2,9 +2,9 @@ module.exports = function(grunt) {
 
     // Paths
     var cmp_src    = 'components/';
-    var js_src     = 'wordpress/wp-content/themes/lasse-stefanz/assets/js/';
+    var js_src     = 'src/js/';
     var js_dest    = 'wordpress/wp-content/themes/lasse-stefanz/js/';
-    var css_src    = 'wordpress/wp-content/themes/lasse-stefanz/assets/less/';
+    var css_src    = 'src/less/';
     var css_dest   = 'wordpress/wp-content/themes/lasse-stefanz/';
 
     // Load plugins
@@ -24,7 +24,7 @@ module.exports = function(grunt) {
                 //     yuicompress: true
                 // },
                 files: {
-                    "wordpress/wp-content/themes/lasse-stefanz/style.css" : 'wordpress/wp-content/themes/lasse-stefanz/assets/less/style.less'
+                    "wordpress/wp-content/themes/lasse-stefanz/style.css" : 'src/less/style.less'
                 }
             }
         },
