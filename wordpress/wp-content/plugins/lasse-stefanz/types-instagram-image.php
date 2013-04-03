@@ -15,8 +15,15 @@ class LSInstagramImage extends HWPType {
 
         add_action( 'admin_init', array(&$this, 'admin_init') );
 
+        // Filters
+        add_filter('the_content', array(&$this, 'the_content'));
+
+        // Customize admin screen
         add_action("wp_ajax_{$name}_publish", array(&$this, 'ajax_change_status'));
         add_action("wp_ajax_{$name}_trash", array(&$this, 'ajax_change_status'));
+
+        add_filter("views_edit-{$name}", array(&$this, 'admin_views'));
+        add_filter('admin_body_class', array(&$this, 'admin_body_class'));
 
         parent::__construct($name, $labels, $collection, $args);
     }
@@ -232,8 +239,8 @@ class LSInstagramImage extends HWPType {
 
             extract((array)$args);
 
+            $attrs = '';
             if ($attributes) {
-                $attrs = '';
                 foreach ($attributes as $key => $value) {
                     $attrs .= sprintf('%s="%s" ', esc_attr($key), esc_attr($value));
                 }
@@ -261,6 +268,47 @@ class LSInstagramImage extends HWPType {
         }
 
         return null;
+    }
+
+
+    public function admin_body_class($class)
+    {
+        global $pagenow, $typenow;
+
+        if ($pagenow == 'edit.php' && $typenow == $this->name) {
+            $class .= " edit-{$this->name}";
+        }
+
+        return $class;
+    }
+
+    public function admin_views($views)
+    {
+
+        global $wp_post_statuses;
+
+        if (array_key_exists('trash', $views)) {
+
+            $label = trim(strip_tags(__($wp_post_statuses['trash']->label_count[0])), " (%s)");
+            $views['trash'] = str_replace($label, __('Hidden', 'lasse-stefanz'), $views['trash']);
+        }
+
+        return $views;
+    }
+
+
+    public function the_content($content)
+    {
+        global $post;
+
+        if ($post->post_type == $this->name) {
+
+            $size = apply_filters( 'ls_instagram_content_image_size', LS_IGIM_SIZE_STANDARD );
+
+            return $this->getImageMarkup($post->ID, $size);
+        }
+
+        return $content;
     }
 
 

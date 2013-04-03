@@ -191,6 +191,13 @@ class LSInstagramDownloader {
             $post['post_status'] = 'pending';
         }
 
+        /*
+         * We deliberately avoid setting the _wp_trash_meta_status and
+         * _wp_trash_meta_time meta values as this is what triggers
+         * the auto deletion of posts. Instead we delete these values
+         * below.
+         */
+
         if (!array_key_exists('post_name', $post)) {
             $post['post_name'] = sanitize_title( $caption, 'instagram_' . $id );
         }
@@ -201,6 +208,9 @@ class LSInstagramDownloader {
         if ($post_id) {
             // Update tags tags
             wp_set_post_terms( $post_id, $tags, LS_IGIM_TAG, $append = false );
+
+            delete_post_meta($post_id, '_wp_trash_meta_status');
+            delete_post_meta($post_id, '_wp_trash_meta_time');
 
             // Update post meta
             foreach ($meta_data as $key => $value) {

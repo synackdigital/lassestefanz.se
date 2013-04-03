@@ -20,6 +20,10 @@
 }
 
 
+.edit-igimage #delete_all {
+    display: none;
+}
+
 .column-instagram_image {
     width: 68px;
 }

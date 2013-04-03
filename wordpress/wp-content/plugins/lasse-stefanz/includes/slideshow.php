@@ -120,6 +120,7 @@ class LSSlideshow {
                 array(
                     'prev_text' => __('Previous', 'ls'),
                     'next_text' => __('Next', 'ls'),
+                    'control_nav' => null,
                     'slider_type' => class_exists('LSCampaign') ? LSCampaign::instance()->typeName() : null,
                 )
             );

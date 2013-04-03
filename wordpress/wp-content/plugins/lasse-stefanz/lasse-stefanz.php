@@ -484,6 +484,39 @@ class LasseStefanz
     {
         return get_option(self::INSTAGRAM_IMPORT_OWNER_KEY, 1);
     }
+
+
+    public function instagram_feed($args = null)
+    {
+        $args = wp_parse_args( $args, array(
+            'num' => 20,
+            'size' => LS_IGIM_SIZE_LOW,
+        ) );
+        extract($args);
+
+        if (class_exists('LSInstagramImage')) {
+            $pargs = LSInstagramImage::queryArgs(array(
+                'posts_per_page' => $num,
+            ));
+
+            $photos = get_posts($pargs);
+        }
+
+        $markup = array_filter(array_map(array(&$this, 'instagram_feed_element')));
+    }
+
+    public function instagram_feed_element($post)
+    {
+        if (class_exists('LSInstagramImage')) {
+            $size = apply_filters( 'ls_instagram_feed_image_size', LS_IGIM_SIZE_LOW );
+            $markup = LSInstagramImage::getImageMarkup($post->ID, $size);
+
+            sprintf('<li class="instagram-image %s">%s</li>', $size, $markup);
+
+        }
+
+        return null;
+    }
 }
 
 $ls  = LasseStefanz::instance();

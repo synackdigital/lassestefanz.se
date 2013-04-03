@@ -33,8 +33,8 @@ function ls_setup_menus() {
     unregister_nav_menu('primary');
 
     register_nav_menus( array(
-        'left' => __( 'Left Hand Navigation', 'matdestillat' ),
-        'right' => __( 'Right Hand Navigation', 'matdestillat' ),
+        'left' => __( 'Left Hand Navigation', 'lasse-stefanz' ),
+        'right' => __( 'Right Hand Navigation', 'lasse-stefanz' ),
     ) );
 
     add_action('hobo_nav_menu_args', 'ls_nav_menu_args');
