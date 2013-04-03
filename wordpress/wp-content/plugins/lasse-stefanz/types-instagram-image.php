@@ -271,6 +271,12 @@ class LSInstagramImage extends HWPType {
     }
 
 
+    public static function getInstagramURL($post_id)
+    {
+        return self::optionForKey(LS_IGIM_URL, $post_id);
+    }
+
+
     public function admin_body_class($class)
     {
         global $pagenow, $typenow;

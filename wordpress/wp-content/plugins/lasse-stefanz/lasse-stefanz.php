@@ -520,7 +520,14 @@ class LasseStefanz
             $size = apply_filters( 'ls_instagram_feed_image_size', LS_IGIM_SIZE_LOW );
             $markup = LSInstagramImage::getImageMarkup($post->ID, $size);
 
-            return sprintf('<li class="instagram-image %s">%s</li>', $size, $markup);
+            $ig_url = LSInstagramImage::getInstagramURL($post->ID);
+            if ($markup && $ig_url) {
+                $markup = sprintf('<a href="%s">%s</a>', $ig_url, $markup);
+            }
+
+            if (!empty($markup)) {
+                return sprintf('<li class="instagram-image %s">%s</li>', $size, $markup);
+            }
         }
 
         return null;
