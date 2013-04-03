@@ -22,13 +22,13 @@
 
 // Box module
 // -------------------------
-.box(@bgColor: @white, @color: @grayDarker, @linkColor: @orange) {
+.box(@bgColor: @white, @color: @grayDarker, @linkColor: @orange, @padding: (.5 * @baseLineHeight)) {
   background-color: @bgColor;
   color: @color;
   .border-radius(2px);
-  .box-shadow(0 3px 5px rgba(0, 0, 0, .6));
+  .box-shadow(0 2px 5px rgba(0, 0, 0, .8));
 
-  padding: @baseLineHeight;
+  padding: @padding;
 
   a {
     color: @linkColor;
