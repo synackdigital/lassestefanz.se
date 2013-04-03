@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Lasse Stefanz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-04-03 21:38+0100\n"
-"PO-Revision-Date: 2013-04-03 21:38+0100\n"
+"PO-Revision-Date: 2013-04-03 21:39+0100\n"
 "Last-Translator: Simon Fransson <simon@dessibelle.se>\n"
 "Language-Team: LS Produktions AB <kontakt@lassestefanz.se>\n"
 "Language: sv_SE\n"
@@ -39,7 +39,7 @@ msgstr "Kommande spelningar"
 
 #: home.php:18
 msgid "Fan photos"
-msgstr "Fansens bildet"
+msgstr "Fansens bilder"
 
 #: loop-home.php:4
 msgid "Not Found"
