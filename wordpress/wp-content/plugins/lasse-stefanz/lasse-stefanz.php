@@ -5,7 +5,7 @@ Plugin URI: http://www.lassestefanz.se
 Description: Adds site specific functionality
 Author: LS Produktions AB
 Author URI: http://www.lassestefanz.se
-Version: 1.0b1
+Version: 1.0b2
 */
 
 
@@ -14,7 +14,7 @@ include_once( LS_PLUGIN_PATH . 'defines.php');
 
 class LasseStefanz
 {
-    const PLUGIN_VERSION = '1.0b1';
+    const PLUGIN_VERSION = '1.0b2';
 
     const INSTAGRAM_TAGS_KEY = 'ls_instagram_tags';
     const INSTAGRAM_IMPORT_OWNER_KEY = 'ls_instagram_import_owner';
@@ -40,6 +40,7 @@ class LasseStefanz
         add_action('admin_footer', array(&$this, 'setup_instagram'));
 
         add_action('wp_ajax_instagram_sync', array(&$this, 'wp_ajax_instagram_sync'));
+        // add_action('admin_init', array(&$this, 'instagram_debug'));
 
         add_filter('sanitize_file_name', 'remove_accents'); // We don't want any trouble when moving files up and down from web server
 
@@ -50,6 +51,13 @@ class LasseStefanz
 
         self::$plugin_slug = dirname( plugin_basename( __FILE__ ) );
         load_plugin_textdomain( 'lasse-stefanz', false, self::$plugin_slug . '/languages/' );
+    }
+
+    // TODO: Remove this function
+    public function instagram_debug()
+    {
+        $ig = new LSInstagramDownloader(self::fan_photo_tags());
+        $ig->syncImages();
     }
 
 
@@ -436,8 +444,8 @@ class LasseStefanz
     public static function tag_list_to_array($taglist)
     {
         if (strlen($taglist)) {
-            $taglist = preg_replace('/[^A-Za-z0-9-_,]+/i', '', $taglist);
-            $tags = explode(',', $taglist);
+            $taglist = preg_replace('/[^A-Za-z0-9_,]+/i', '', $taglist);
+            $tags = array_unique(array_filter(explode(',', $taglist)));
 
             return $tags;
         }

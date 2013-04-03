@@ -2,6 +2,9 @@
 
 class LSInstagramDownloader {
 
+    const SYNC_TAG_MAX_ID_KEY = 'ls_instagram_tag_max_id';
+    const SYNC_MAX_PAGINATION = 10;
+
     protected $api;
     protected $tags;
     protected $images;
@@ -36,19 +39,83 @@ class LSInstagramDownloader {
     }
 
     /**
+     * Gets the max id for a given tag
+     * @param  string $tag Tag name
+     * @return string      Max tag id
+     */
+    protected function sync_tag_max_id($tag)
+    {
+        return get_option( sanitize_key( self::SYNC_TAG_MAX_ID_KEY . '_' . $tag), 0 );
+    }
+
+
+    /**
+     * Sets the max id for a given tag
+     * @param string $tag Tag name
+     * @param string $id  Max tag id
+     */
+    protected function set_sync_tag_max_id($tag, $id)
+    {
+        update_option( sanitize_key( self::SYNC_TAG_MAX_ID_KEY . '_' . $tag), $id );
+    }
+
+    /**
      * Downloads images using the Instagram API
-     * @return [type] [description]
+     * @return array Array of image objects
      */
     public function downloadImagesFromTags()
     {
         $this->images = array();
 
+        // round(microtime(true) * 1000)
+
         if ($this->api) {
             foreach ($this->tags as $tag) {
-                $result = $this->api->recentPhotosForTag($tag);
 
-                if ($result && property_exists($result, 'data')) {
-                    $this->images = array_merge($this->images, $result->data);
+                // Get max tag id
+                $last_max_id = $this->sync_tag_max_id($tag);
+                $new_max_id = 0;
+                $current_page_max_id = 0;
+
+
+                $result = null;
+
+                $depth = 0;
+                while (($current_page_max_id == 0 || floatval($current_page_max_id) > floatval($last_max_id)) && $depth < self::SYNC_MAX_PAGINATION) {
+
+                    $params = array();
+                    // Check for pagination info
+                    if ($result && property_exists($result, 'pagination') && property_exists($result->pagination, 'next_max_tag_id')) {
+                        $params['max_tag_id'] = $result->pagination->next_max_tag_id;
+
+                        $current_page_max_id = $result->pagination->next_max_tag_id;
+
+                        // Store max tag id
+                        if ($current_page_max_id > $new_max_id) {
+                            $new_max_id = $current_page_max_id;
+                        }
+                    }
+
+
+                    if ($depth == 0 || ($depth > 0 && count($params))) {
+                        $result = $this->api->recentPhotosForTag($tag, $params);
+
+                        // echo "${tag}: ${depth}/" . self::SYNC_MAX_PAGINATION . " - ";
+                        // print_r($params);
+                        // echo "\n${current_page_max_id} / ${new_max_id} / ${last_max_id}";
+                        // echo "\n\n";
+
+                        if ($result && property_exists($result, 'data')) {
+                            $this->images = array_merge($this->images, $result->data);
+                        }
+                    }
+
+                    $depth++;
+                }
+
+                // Store max tag id
+                if ($new_max_id) {
+                    $this->set_sync_tag_max_id($tag, $new_max_id);
                 }
             }
         }
