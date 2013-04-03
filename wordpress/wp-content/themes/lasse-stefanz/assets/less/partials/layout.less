@@ -1,0 +1,30 @@
+// Background graphic
+// -------------------------
+body {
+    background-image: url('images/dark-wood.png');
+    @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+           only screen and (min-resolution: 144dpi) {
+        background-image: url('images/dark-wood-@2x.png');
+        background-size: 512px; // half actual size
+    }
+}
+
+// Reset figures
+// -------------------------
+figure {
+    margin: 0;
+}
+
+// Wrapper
+// -------------------------
+#wrapper {
+
+    // We need this for absolutely positioned header and hero
+    position: relative;
+
+    // Push #main below #header (or #hero, if present)
+    padding-top: @headerHeight;
+    body.has-hero & {
+        padding-top: @heroHeight
+    }
+} // #wrapper

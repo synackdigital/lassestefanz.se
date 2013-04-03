@@ -7,317 +7,99 @@ Version: 1.0
 Template: hobo-theme
 */
 
+
 // Font import
 // -------------------------
 @import url(http://fonts.googleapis.com/css?family=PT+Serif:400,700,400italic,700italic);
 @import url(http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700);
 
-// Bootstrap
-// -------------------------
-@import "bootstrap/bootstrap.less";
-@import "bootstrap/responsive.less";
 
-// Theme mixins
+// Variables
 // -------------------------
+@import "../../../../../../components/bootstrap/less/variables.less";
+@import "variables";
+
+
+// Mixins
+// -------------------------
+@import "../../../../../../components/bootstrap/less/mixins.less";
 @import "mixins.less";
 
-// Theme variables
+
+// Reset
 // -------------------------
-@logoWidth:         346px;
-@logoHeight:        197px;
-@headerHeight:      280px;
-@heroHeight:        655px;
-@heroWidth:         100%;
+@import "../../../../../../components/bootstrap/less/reset.less";
 
-// Background graphic
+
+// Grid system
 // -------------------------
-body {
-    background-image: url('images/dark-wood.png');
-    @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
-           only screen and (min-resolution: 144dpi) {
-        background-image: url('images/dark-wood-@2x.png');
-        background-size: 512px; // half actual size
-    }
-}
+@import "../../../../../../components/bootstrap/less/scaffolding.less";
+@import "../../../../../../components/bootstrap/less/grid.less";
+@import "../../../../../../components/bootstrap/less/layouts.less";
 
-// Accessibility elements
+
+// Base
 // -------------------------
-.skip-link {
-    display: none;
-}
+@import "../../../../../../components/bootstrap/less/type.less";
+@import "../../../../../../components/bootstrap/less/forms.less";
+@import "../../../../../../components/bootstrap/less/tables.less";
 
-// Unstyled lists
+
+// Components
 // -------------------------
-ul.xoxo,
-nav ul {
-    .unstyled-list();
-}
 
-// Unstyled lists
+// Components: common
+@import "../../../../../../components/bootstrap/less/dropdowns.less";
+@import "../../../../../../components/bootstrap/less/wells.less";
+@import "../../../../../../components/bootstrap/less/component-animations.less";
+@import "../../../../../../components/bootstrap/less/close.less";
+
+// Components: Buttons & Alerts
+@import "../../../../../../components/bootstrap/less/buttons.less";
+@import "../../../../../../components/bootstrap/less/button-groups.less";
+@import "../../../../../../components/bootstrap/less/alerts.less"; // Note: alerts share common CSS with buttons and thus have styles in buttons.less
+
+// Components: Nav
+@import "../../../../../../components/bootstrap/less/navs.less";
+@import "../../../../../../components/bootstrap/less/navbar.less";
+@import "../../../../../../components/bootstrap/less/breadcrumbs.less";
+@import "../../../../../../components/bootstrap/less/pagination.less";
+@import "../../../../../../components/bootstrap/less/pager.less";
+
+// Components: Popovers
+@import "../../../../../../components/bootstrap/less/modals.less";
+@import "../../../../../../components/bootstrap/less/tooltip.less";
+@import "../../../../../../components/bootstrap/less/popovers.less";
+
+// Components: Misc
+@import "../../../../../../components/bootstrap/less/thumbnails.less";
+@import "../../../../../../components/bootstrap/less/media.less";
+@import "../../../../../../components/bootstrap/less/labels-badges.less";
+@import "../../../../../../components/bootstrap/less/progress-bars.less";
+@import "../../../../../../components/bootstrap/less/accordion.less";
+@import "../../../../../../components/bootstrap/less/carousel.less";
+@import "../../../../../../components/bootstrap/less/hero-unit.less";
+
+
+// Partials
 // -------------------------
-figure {
-    margin: 0;
-}
+@import "partials/layout";
+@import "partials/header";
+@import "partials/hero";
+@import "partials/main";
+@import "partials/posts";
+@import "partials/widgets";
 
-// Widgets
+
+// Responsive
+// ------------------
+@import "../../../../../../components/bootstrap/less/responsive-utilities.less";
+@import "../../../../../../components/bootstrap/less/responsive-1200px-min.less";
+@import "../../../../../../components/bootstrap/less/responsive-768px-979px.less";
+@import "../../../../../../components/bootstrap/less/responsive-767px-max.less";
+@import "../../../../../../components/bootstrap/less/responsive-navbar.less";
+
+
+// Utilities
 // -------------------------
-.widget-container {
-    margin-bottom: @baseLineHeight;
-
-    .widget-title {
-        margin-top: 0;
-    }
-}
-
-// Wrapper
-// -------------------------
-#wrapper {
-
-    // We need this for absolutely positioned header and hero
-    position: relative;
-
-    // Push #main below #header (or #hero, if present)
-    padding-top: @headerHeight;
-    body.has-hero & {
-        padding-top: @heroHeight
-    }
-} // #wrapper
-
-// Header
-// -------------------------
-#header {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    height: @headerHeight;
-
-    .inner {
-        position: relative;
-    }
-
-    // Branding (logo + tagline)
-    #branding {
-        position: absolute;
-        z-index: 20;
-        top: @baseLineHeight;
-        left: 50%;
-        width: @logoWidth; // same as logo
-        margin-left: -.5 * @logoWidth;
-
-        // Centered logo replaces title
-        #site-title a {
-            background-image: url('images/lslogo-whiteleather.png');
-
-            display: block;
-            height: @logoHeight;
-            width: @logoWidth;
-
-            .hide-text();
-            text-decoration: none !important;
-
-            @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
-                   only screen and (min-resolution: 144dpi) {
-                background-image: url('images/lslogo-whiteleather-@2x.png');
-                background-size: 346px 197px; // half actual size
-            }
-        }
-
-        // Centered tagline below logo
-        #site-description {
-            .opacity(80);
-
-            cursor: default;
-
-            font-family: @altFontFamily;
-            font-size: 1.2em;
-            font-weight: bold;
-            text-align: center;
-            text-transform: uppercase;
-            text-shadow: rgba(0,0,0,.6) 0 1px 2px;
-            letter-spacing: 2px;
-        }
-    } // #branding
-
-    // Navigation
-    #access {
-        position: absolute;
-        z-index: 10;
-        top: 150px;
-        right: @baseLineHeight;
-        left: @baseLineHeight;
-
-        .nav-menu {
-            background-color: mix(@black, @grayDarker, 50%);
-            #gradient > .vertical(@grayDarker, @black);
-            .border-radius(@baseBorderRadius);
-            .box-shadow(0 1px 4px rgba(0,0,0,.065));
-
-            position: absolute;
-            .clearfix();
-
-            font-family: @altFontFamily;
-            font-size: 1.2em;
-            font-weight: bold;
-            text-align: center;
-            text-transform: uppercase;
-            text-shadow: rgba(0,0,0,.6) 0 1px 2px;
-            letter-spacing: 2px;
-
-            li {
-                padding: .5 * @baseLineHeight;
-
-                a {
-                    color: @white;
-                    .opacity(70);
-
-                    text-decoration: none;
-
-                    &:hover,
-                    &:focus {
-                        .opacity(100);
-                    }
-                }
-            }
-
-            &#menu-left {
-                right: 50%;
-                left: 0;
-                padding-right: .5 * @logoWidth + @baseLineHeight;
-
-                li {
-                    float: right;
-                }
-            }
-            &#menu-right {
-                right: 0;
-                left: 50%;
-                padding-left: .5 * @logoWidth + @baseLineHeight;
-
-                li {
-                    float: left;
-                }
-            }
-        }
-    } // #navigation
-} // #header
-
-// Hero
-// -------------------------
-#hero {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    height: @heroHeight;
-
-    background-color: rgba(0,100,255,.1);
-
-    .wooslider {
-        background: none;
-        border: none;
-        min-height: @heroHeight;
-
-        ul.slides {
-            &, li {
-                min-height: @heroHeight;
-                min-width: @heroWidth;
-            }
-        }
-
-        .slide-content {
-            background-position: center center;
-            min-height: @heroHeight;
-            margin: 0;
-            display: block;
-        }
-    }
-} // #hero
-
-// Main
-// -------------------------
-#main {
-
-    padding-bottom: @baseLineHeight;
-    padding-top: @baseLineHeight;
-
-    // Content container
-    #container {
-
-        // Half page width on home
-        body.home & {
-            .bs-grid-span-base();
-            #grid > .fluid .span(6);
-
-            float: right;
-            margin-left: 0;
-        }
-    } // #container
-
-    // Sidebars
-    #home-sidebar {
-        body.home & {
-            .bs-grid-span-base();
-            #grid > .fluid .span(6);
-
-            float: left;
-            margin-left: 0;
-        }
-    }
-} // #main
-
-// Post styles
-// -------------------------
-.post {
-    &.feature {
-        position: relative;
-
-        .entry-title,
-        .entry-meta {
-            position: absolute;
-            top: 0;
-            right: 0;
-            padding: (.5 * @baseLineHeight) @baseLineHeight;
-            margin: 0;
-        }
-        .entry-title {
-            background-color: rgba(0,0,0,.6);
-
-            left: 0;
-            padding-right: 4em; // make room for date
-        }
-        .entry-meta {
-        }
-
-        // Only show the first post on home
-        // This should be replaced by WooSlider
-        body.home #content & {
-            display: none;
-
-            &:first-child {
-                display: block;
-            }
-        }
-    }
-}
-
-/*
-body.home.blog.logged-in.admin-bar.customize-support
-    #wrapper.hfeed
-        header#header
-            #branding
-                h1#site-title
-                p#site-description
-            #access
-                .skip-link.screen-reader-text
-        #main.clearfix
-            #container
-                #content
-                    article#post-1.post-1.post.type-post.status-publish.format-standard.hentry.category-okategoriserade
-            aside#primary.widget-area
-        footer#footer
-
-        #wpadminbar
-*/
-
-
+@import "utils";

@@ -1,0 +1,45 @@
+// Bootstrap overrides
+// -------------------------
+
+// Grays
+@black:                 rgb(0, 0, 0);
+@grayDarker:            rgb(21, 21, 21);
+@grayDark:              rgb(47, 47, 47);
+@gray:                  rgb(109, 109, 109);
+@grayLight:             rgb(157, 157, 157);
+@grayLighter:           rgb(228, 228, 228);
+@white:                 rgb(255, 255, 255);
+
+// Accent colors
+@blue:                  rgb(80, 175, 219);
+@blueDark:              darken(@blue, 30%);
+@green:                 rgb(121, 219, 77);
+@red:                   rgb(218, 76, 69);
+@yellow:                rgb(234, 195, 76);
+@orange:                saturate(mix(@yellow, @red, 50%), 20%);
+@pink:                  lighten(@red, 30%);
+@purple:                mix(@red, @blue, 50%);
+
+// Scaffolding
+@bodyBackground:        @grayDarker;
+@textColor:             @white;
+
+// Links
+@linkColor:             @yellow;
+@linkColorHover:        darken(@linkColor, 15%);
+
+// Typography
+@sansFontFamily:        "PT Sans Narrow", "Helvetica Neue", Helvetica, Arial, sans-serif;
+@serifFontFamily:       "PT Serif", Georgia, "Times New Roman", Times, serif;
+@baseFontFamily:        @serifFontFamily;
+@altFontFamily:         @sansFontFamily;
+@headingsFontFamily:    @sansFontFamily;
+
+
+// Theme variables
+// -------------------------
+@logoWidth:         346px;
+@logoHeight:        197px;
+@headerHeight:      280px;
+@heroHeight:        655px;
+@heroWidth:         100%;

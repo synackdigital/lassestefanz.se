@@ -1,3 +1,4 @@
+# Wordpress
 wordpress/.htaccess
 wordpress/wp-config.php
 wordpress/wp-content/uploads/
@@ -12,3 +13,11 @@ wordpress/wp-content/cache/
 wordpress/wp-content/backups/
 wordpress/sitemap.xml
 wordpress/sitemap.xml.gz
+
+# Node modules
+node_modules/
+npm-debug.log
+
+
+# Bower components
+components/
