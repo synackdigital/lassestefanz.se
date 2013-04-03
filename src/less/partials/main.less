@@ -1,18 +1,15 @@
 // Main base
 // -------------------------
 #main {
+    padding-bottom: (2 * @rhythmUnit);
+    padding-top: (2 * @rhythmUnit);
 
-    padding-bottom: @baseLineHeight;
-    padding-top: @baseLineHeight;
+    .clearfix();
 
     // Sidebars
     #home-sidebar {
         body.home & {
-            .bs-grid-span-base();
-            #grid > .fluid .span(8);
-
-            float: left;
-            margin-left: 0;
+            .column(3);
         }
     }
 } // #main
@@ -22,27 +19,14 @@
 body.home {
 
     #container {
-        .bs-grid-span-base();
-        #grid > .fluid .span(8);
-
-        float: right;
-        margin-left: 0;
-
-        text-align: center;
+        .column(9);
     }
 
     #content {
-        margin-bottom: @baseLineHeight;
+        .row(9);
     }
 
     .post {
-        display: inline-block;
-        width: 28%;
-
-        vertical-align: top;
-
-        &:last-child {
-            margin-right: 0;
-        }
+        .column(3, 9);
     }
 }

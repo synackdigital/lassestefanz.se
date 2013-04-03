@@ -8,6 +8,7 @@ module.exports = function(grunt) {
     var css_dest   = 'wordpress/wp-content/themes/lasse-stefanz/';
 
     // Load plugins
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-less');
@@ -16,6 +17,18 @@ module.exports = function(grunt) {
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+
+        // Copy files
+        copy: {
+          main: {
+            files: [
+              {
+                src: cmp_src+'normalize-css/normalize.css',
+                dest: css_src+'normalize.less'
+              }
+            ]
+          }
+        },
 
         // LESS task
         less: {
@@ -74,7 +87,7 @@ module.exports = function(grunt) {
     });
 
     // Default task
-    grunt.registerTask('default', ['less:compile', 'concat']);
+    grunt.registerTask('default', ['copy', 'less:compile', 'concat']);
     grunt.registerTask('dist', ['default', 'less:compress', 'uglify']);
 
 };

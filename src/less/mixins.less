@@ -1,10 +1,76 @@
-// Bootstrap grid base
+
+// Center-align a block level element
+// ----------------------------------
+.center-block() {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// IE7 inline-block
+// ----------------
+.ie7-inline-block() {
+  *display: inline; /* IE7 inline-block hack */
+  *zoom: 1;
+}
+
+// Text overflow
 // -------------------------
-// Use span base when extending from span mixins
-.bs-grid-span-base() {
-  float: left;
-  min-height: 1px; // prevent collapsing columns
-  margin-left: @gridGutterWidth;
+// Requires inline-block or block for proper styling
+.text-overflow() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// CSS image replacement
+// -------------------------
+// Source: https://github.com/h5bp/html5-boilerplate/commit/aa0396eae757
+.hide-text {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+
+// Font shortcuts
+// -------------------------
+.microFont(@line-height: 1) {
+  font-size: @microFontFallback; // non-rem fallback
+  font-size: @microFont;
+  line-height: @line-height * @rhythmUnitFallback;  // non-rem fallback
+  line-height: @line-height * @rhythmUnit;
+}
+.smallFont(@line-height: 2) {
+  font-size: @smallFontFallback; // non-rem fallback
+  font-size: @smallFont;
+  line-height: @line-height * @rhythmUnitFallback;  // non-rem fallback
+  line-height: @line-height * @rhythmUnit;
+}
+.baseFont(@line-height: 2) {
+  font-size: 100%; // non-rem fallback
+  font-size: 1rem;
+  line-height: @line-height * @rhythmUnitFallback;  // non-rem fallback
+  line-height: @line-height * @rhythmUnit;
+}
+.largeFont(@line-height: 3) {
+  font-size: @largeFontFallback; // non-rem fallback
+  font-size: @largeFont;
+  line-height: @line-height * @rhythmUnitFallback;  // non-rem fallback
+  line-height: @line-height * @rhythmUnit;
+}
+.xLargeFont(@line-height: 4) {
+  font-size: @xLargeFontFallback; // non-rem fallback
+  font-size: @xLargeFont;
+  line-height: @line-height * @rhythmUnitFallback;  // non-rem fallback
+  line-height: @line-height * @rhythmUnit;
+}
+
+// Shortcut for hiding stuff
+// -------------------------
+.hide() {
+  display: none;
 }
 
 // Unstyled lists
@@ -12,22 +78,31 @@
 .unstyled-list() {
   list-style: none;
   margin: 0;
+  padding: 0;
 
   // Reset the list stack from here
   ul, ol {
     list-style: disc;
-    margin: 0 0 @baseLineHeight / 2 25px;
+    margin: 0 0 @rhythmUnit 25px;
   }
+}
+
+// Invert default colors
+// -------------------------
+.invertColors() {
+  background-color: @textColor;
+  color: @backgroundColor;
 }
 
 // Box module
 // -------------------------
-.box(@bgColor: @white, @color: @grayDarker, @linkColor: @orange, @padding: (.5 * @baseLineHeight)) {
+.box(@bgColor: @white, @color: @grayDarker, @linkColor: @orange, @padding: @rhythmUnit) {
   background-color: @bgColor;
   color: @color;
   .border-radius(2px);
   .box-shadow(0 2px 5px rgba(0, 0, 0, .8));
 
+  box-sizing: border-box;
   padding: @padding;
 
   a {

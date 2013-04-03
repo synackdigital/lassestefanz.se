@@ -1,5 +1,26 @@
-// Bootstrap overrides
-// -------------------------
+
+// Font stacks
+@baseFontStack:           'PT Sans Narrow', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+@altFontStack:            'PT Serif', Georgia, 'Times New Roman', Times, serif;
+
+// Typographic rhythm
+@rhythmUnit:              11px;
+@microFont:               .6875rem;     // 11px
+@smallFont:               .8125rem;     // 13px
+@baseFont:                1rem;         // 16px
+@largeFont:               1.1875rem;    // 19px
+@xLargeFont:              1.75rem;      // 28px
+
+// Fallback for browsers that don't support rem
+@rhythmUnitFallback:      11px;
+@microFontFallback:       11px;
+@smallFontFallback:       13px;
+@largeFontFallback:       24px;
+@xLargeFontFallback:      38px;
+
+// Border radii
+@baseBorderRadius:        4px;
+@largeBorderRadius:       9px;
 
 // Grays
 @black:                 rgb(0, 0, 0);
@@ -21,7 +42,7 @@
 @purple:                mix(@red, @blue, 50%);
 
 // Scaffolding
-@bodyBackground:        @grayDarker;
+@backgroundColor:       @grayDarker;
 @textColor:             @white;
 
 // Links
@@ -43,3 +64,4 @@
 @headerHeight:      280px;
 @heroHeight:        655px;
 @heroWidth:         100%;
+@heroTopMargin:     (5 * @rhythmUnit);

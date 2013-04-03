@@ -1,3 +1,28 @@
+// Base colors and type
+// -------------------------
+body {
+    background-color: @backgroundColor;
+    color: @textColor;
+
+    font-family: @baseFontStack;
+}
+a {
+    color: @linkColor;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+        color: @linkColorHover;
+    }
+}
+
+// Autosize all images
+// -------------------------
+img {
+    max-width: 100%;
+    height: auto;
+}
+
 // Background graphic
 // -------------------------
 body {
@@ -22,9 +47,13 @@ figure {
     // We need this for absolutely positioned header and hero
     position: relative;
 
+    // Set a max content width
+    max-width: 1200px;
+    .center-block();
+
     // Push #main below #header (or #hero, if present)
     padding-top: @headerHeight;
     body.has-hero & {
-        padding-top: @heroHeight + @baseLineHeight;
+        padding-top: (@heroHeight + @heroTopMargin);
     }
 } // #wrapper

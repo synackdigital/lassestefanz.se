@@ -4,48 +4,54 @@
 
 #gigs {
   .clearfix();
-  margin-bottom: @baseLineHeight;
+  margin-bottom: (2 * @rhythmUnit);
+  position: relative;
 
   h1 {
-    background-color: @bodyBackground;
-    #gradient .vertical(@bodyBackground, darken(@bodyBackground, 10%));
+    @backgroundStart:   @backgroundColor;
+    @backgroundEnd:     darken(@backgroundColor, 10%);
+
+    background-color: mix(@backgroundStart, @backgroundEnd, 50%);
+    .gradient(~"linear-gradient(top, @{backgroundStart} 0%, @{backgroundEnd} 100%)");
     color: @textColor;
-    border-right: 1px solid darken(@bodyBackground, 10%);
+    border-right: 1px solid darken(@backgroundColor, 10%);
     .border-top-left-radius(@baseBorderRadius);
     .border-bottom-left-radius(@baseBorderRadius);
 
-    .bs-grid-span-base();
-    #grid > .fluid .span(4);
-    box-sizing: border-box;
-    margin: 0;
-    padding: (.5 * @baseLineHeight) @baseLineHeight;
-
-    font-size: @fontSizeLarge;
-    line-height: (2 * @baseLineHeight);
+    font-size: @largeFont;
+    line-height: (4 * @rhythmUnit);
     text-transform: uppercase;
+
+    position: absolute;
+    top: 0;
+    left: 1.0416666666666665%;
+    padding: 0 (2 * @rhythmUnit);
+    margin: 0;
+    width: 10em;
   }
 
   .eo-events {
-    background-color: darken(@red, 20%);
-    #gradient .vertical(darken(@red, 15%), darken(@red, 25%));
-    color: @textColor;
-    border-left: 1px solid darken(@red, 15%);
-    .border-top-right-radius(@baseBorderRadius);
-    .border-bottom-right-radius(@baseBorderRadius);
+    @backgroundStart:   darken(@red, 15%);
+    @backgroundEnd:     darken(@red, 25%);
 
-    .bs-grid-span-base();
-    #grid > .fluid .span(8);
-    box-sizing: border-box;
-    margin: 0;
-    padding: (.5 * @baseLineHeight) @baseLineHeight;
+    background-color: mix(@backgroundStart, @backgroundEnd, 50%);
+    .gradient(~"linear-gradient(top, @{backgroundStart} 0%, @{backgroundEnd} 100%)");
+    color: @textColor;
+    .border-radius(@baseBorderRadius);
 
     .unstyled-list();
-    font-size: @fontSizeLarge;
-    line-height: (2 * @baseLineHeight);
+    font-size: @largeFont;
+    line-height: (4 * @rhythmUnit);
+
+    .column(12);
 
     li {
       display: inline-block;
-      margin-right: @baseLineHeight;
+      margin-right: 2em;
+
+      &:first-child {
+        margin-left: 14em;
+      }
     }
   }
 }
