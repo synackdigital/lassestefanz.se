@@ -1,6 +1,7 @@
 
-// Header
+// Header base
 // -------------------------
+
 #header {
     position: absolute;
     top: 0;
@@ -11,109 +12,113 @@
     .inner {
         position: relative;
     }
+}
 
-    // Branding (logo + tagline)
-    #branding {
+// Branding
+// -------------------------
+
+#branding {
+    position: absolute;
+    z-index: 20;
+    top: 0;
+    left: 50%;
+    width: @logoWidth; // same as logo
+    margin-left: -.5 * @logoWidth;
+
+    // Centered logo replaces title
+    #site-title a {
+        background-image: url('images/lslogo-whiteleather.png');
+
+        display: block;
+        height: @logoHeight;
+        width: @logoWidth;
+
+        .hide-text();
+        text-decoration: none !important;
+
+        @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+               only screen and (min-resolution: 144dpi) {
+            background-image: url('images/lslogo-whiteleather-@2x.png');
+            background-size: 346px 197px; // half actual size
+        }
+    }
+
+    // Centered tagline below logo
+    #site-description {
+        .opacity(80);
+
+        cursor: default;
+
+        font-family: @altFontFamily;
+        font-size: 1.2em;
+        font-weight: bold;
+        text-align: center;
+        text-transform: uppercase;
+        text-shadow: rgba(0,0,0,.6) 0 1px 2px;
+        letter-spacing: 2px;
+    }
+}
+
+
+// Navigation
+// -------------------------
+#access {
+    position: absolute;
+    z-index: 10;
+    top: 150px;
+    right: @baseLineHeight;
+    left: @baseLineHeight;
+
+    .nav-menu {
+        background-color: mix(@black, @grayDarker, 50%);
+        #gradient > .vertical(@grayDarker, @black);
+        .border-radius(@baseBorderRadius);
+        .box-shadow(0 1px 4px rgba(0,0,0,.065));
+
         position: absolute;
-        z-index: 20;
-        top: @baseLineHeight;
-        left: 50%;
-        width: @logoWidth; // same as logo
-        margin-left: -.5 * @logoWidth;
+        .clearfix();
 
-        // Centered logo replaces title
-        #site-title a {
-            background-image: url('images/lslogo-whiteleather.png');
+        font-family: @altFontFamily;
+        font-size: 1.2em;
+        font-weight: bold;
+        text-align: center;
+        text-transform: uppercase;
+        text-shadow: rgba(0,0,0,.6) 0 1px 2px;
+        letter-spacing: 2px;
 
-            display: block;
-            height: @logoHeight;
-            width: @logoWidth;
+        li {
+            padding: .5 * @baseLineHeight;
 
-            .hide-text();
-            text-decoration: none !important;
+            a {
+                color: @white;
+                .opacity(70);
 
-            @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
-                   only screen and (min-resolution: 144dpi) {
-                background-image: url('images/lslogo-whiteleather-@2x.png');
-                background-size: 346px 197px; // half actual size
+                text-decoration: none;
+
+                &:hover,
+                &:focus {
+                    .opacity(100);
+                }
             }
         }
 
-        // Centered tagline below logo
-        #site-description {
-            .opacity(80);
-
-            cursor: default;
-
-            font-family: @altFontFamily;
-            font-size: 1.2em;
-            font-weight: bold;
-            text-align: center;
-            text-transform: uppercase;
-            text-shadow: rgba(0,0,0,.6) 0 1px 2px;
-            letter-spacing: 2px;
-        }
-    } // #branding
-
-    // Navigation
-    #access {
-        position: absolute;
-        z-index: 10;
-        top: 150px;
-        right: @baseLineHeight;
-        left: @baseLineHeight;
-
-        .nav-menu {
-            background-color: mix(@black, @grayDarker, 50%);
-            #gradient > .vertical(@grayDarker, @black);
-            .border-radius(@baseBorderRadius);
-            .box-shadow(0 1px 4px rgba(0,0,0,.065));
-
-            position: absolute;
-            .clearfix();
-
-            font-family: @altFontFamily;
-            font-size: 1.2em;
-            font-weight: bold;
-            text-align: center;
-            text-transform: uppercase;
-            text-shadow: rgba(0,0,0,.6) 0 1px 2px;
-            letter-spacing: 2px;
+        &#menu-left {
+            right: 50%;
+            left: 0;
+            padding-right: .5 * @logoWidth + @baseLineHeight;
 
             li {
-                padding: .5 * @baseLineHeight;
-
-                a {
-                    color: @white;
-                    .opacity(70);
-
-                    text-decoration: none;
-
-                    &:hover,
-                    &:focus {
-                        .opacity(100);
-                    }
-                }
-            }
-
-            &#menu-left {
-                right: 50%;
-                left: 0;
-                padding-right: .5 * @logoWidth + @baseLineHeight;
-
-                li {
-                    float: right;
-                }
-            }
-            &#menu-right {
-                right: 0;
-                left: 50%;
-                padding-left: .5 * @logoWidth + @baseLineHeight;
-
-                li {
-                    float: left;
-                }
+                float: right;
             }
         }
-    } // #navigation
-} // #header
+        &#menu-right {
+            right: 0;
+            left: 50%;
+            padding-left: .5 * @logoWidth + @baseLineHeight;
+
+            li {
+                float: left;
+            }
+        }
+    }
+}

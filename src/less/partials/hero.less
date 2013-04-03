@@ -1,5 +1,5 @@
 
-// Hero
+// Hero base
 // -------------------------
 #hero {
     position: absolute;
@@ -7,26 +7,33 @@
     right: 0;
     left: 0;
     height: @heroHeight;
+}
 
-    background-color: rgba(0,100,255,.1);
+// Woo slider
+// -------------------------
+#hero .wooslider {
+    background: none;
+    border: none;
+    .border-radius(@borderRadiusLarge);
 
-    .wooslider {
-        background: none;
-        border: none;
-        min-height: @heroHeight;
+    min-height: @heroHeight;
 
-        ul.slides {
-            &, li {
-                min-height: @heroHeight;
-                min-width: @heroWidth;
-            }
-        }
-
-        .slide-content {
-            background-position: center center;
+    ul.slides {
+        &, li {
             min-height: @heroHeight;
-            margin: 0;
-            display: block;
+            min-width: @heroWidth;
         }
     }
-} // #hero
+
+    .slide-content {
+        background-position: center center;
+        background-size: cover;
+        border: 1px solid @black;
+        .border-radius(@borderRadiusLarge);
+        .box-shadow(inset 0 1px 3px rgba(0,0,0,.8));
+
+        min-height: @heroHeight;
+        margin: 0;
+        display: block;
+    }
+}
