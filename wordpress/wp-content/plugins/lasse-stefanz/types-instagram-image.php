@@ -276,6 +276,11 @@ class LSInstagramImage extends HWPType {
         return self::optionForKey(LS_IGIM_URL, $post_id);
     }
 
+    public static function getInstagramUser($post_id)
+    {
+        return self::optionForKey(LS_IGIM_USERNAME, $post_id);
+    }
+
 
     public function admin_body_class($class)
     {

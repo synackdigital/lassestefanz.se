@@ -520,12 +520,27 @@ class LasseStefanz
             $size = apply_filters( 'ls_instagram_feed_image_size', LS_IGIM_SIZE_LOW );
             $markup = LSInstagramImage::getImageMarkup($post->ID, $size);
 
-            $ig_url = LSInstagramImage::getInstagramURL($post->ID);
-            if ($markup && $ig_url) {
-                $markup = sprintf('<a href="%s">%s</a>', $ig_url, $markup);
-            }
 
-            if (!empty($markup)) {
+
+            if ($markup) {
+                $ig_url = LSInstagramImage::getInstagramURL($post->ID);
+                if ($ig_url) {
+                    $markup = sprintf('<a href="%s">%s</a>', $ig_url, $markup);
+                }
+
+                $ts = strtotime($post->post_date);
+                $date = date_i18n('l j F, Y', $ts);
+                $isodate = date_i18n('c', $ts);
+
+                if ($date) {
+                    $markup .= sprintf('<p class="instagram-time"><time datetime="%s">%s</time></p>', $isodate, $date);
+                }
+
+                $username = LSInstagramImage::getInstagramUser($post->ID);
+                if ($username) {
+                    $markup .= sprintf('<p class="instagram-user"><a href="http://instagram.com/%s">@%s</a></p>', $username, $username);
+                }
+
                 return sprintf('<li class="instagram-image %s">%s</li>', $size, $markup);
             }
         }
