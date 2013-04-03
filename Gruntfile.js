@@ -19,10 +19,15 @@ module.exports = function(grunt) {
 
         // LESS task
         less: {
-            main: {
-                // options: {
-                //     yuicompress: true
-                // },
+            compile: {
+                files: {
+                    "wordpress/wp-content/themes/lasse-stefanz/style.css" : 'src/less/style.less'
+                }
+            },
+            compress: {
+                options: {
+                    yuicompress: true
+                },
                 files: {
                     "wordpress/wp-content/themes/lasse-stefanz/style.css" : 'src/less/style.less'
                 }
@@ -69,6 +74,7 @@ module.exports = function(grunt) {
     });
 
     // Default task
-    grunt.registerTask('default', ['less', 'concat', 'uglify']);
+    grunt.registerTask('default', ['less:compile', 'concat']);
+    grunt.registerTask('dist', ['default', 'less:compress', 'uglify']);
 
 };
