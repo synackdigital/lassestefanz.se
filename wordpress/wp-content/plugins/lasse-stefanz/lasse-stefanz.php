@@ -486,7 +486,7 @@ class LasseStefanz
     }
 
 
-    public function instagram_feed($args = null)
+    public static function instagram_feed($args = null)
     {
         $args = wp_parse_args( $args, array(
             'num' => 20,
@@ -502,23 +502,31 @@ class LasseStefanz
             $photos = get_posts($pargs);
         }
 
-        $markup = array_filter(array_map(array(&$this, 'instagram_feed_element')));
+        $inst = self::instance();
+        $markup = array_filter(array_map( array(&$inst, 'instagram_feed_element'), $photos ));
+
+        if (count($markup)) {
+            $markup = sprintf('<div class="instagram-feed"><ul class="instagram-images">%s</ul></div>', implode("", $markup));
+
+            return $markup;
+        }
+
+        return null;
     }
 
-    public function instagram_feed_element($post)
+    public static function instagram_feed_element($post)
     {
         if (class_exists('LSInstagramImage')) {
             $size = apply_filters( 'ls_instagram_feed_image_size', LS_IGIM_SIZE_LOW );
             $markup = LSInstagramImage::getImageMarkup($post->ID, $size);
 
-            sprintf('<li class="instagram-image %s">%s</li>', $size, $markup);
-
+            return sprintf('<li class="instagram-image %s">%s</li>', $size, $markup);
         }
 
         return null;
     }
 }
 
-$ls  = LasseStefanz::instance();
+$ls = LasseStefanz::instance();
 
 include_once( LS_PLUGIN_PATH . 'includes/instagram.php');

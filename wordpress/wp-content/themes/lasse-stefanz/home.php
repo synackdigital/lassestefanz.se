@@ -15,4 +15,6 @@
 
     <?php get_sidebar('home-widget-area'); ?>
 
+    <?php ls_instagram_feed(); ?>
+
 <?php get_footer(); ?>

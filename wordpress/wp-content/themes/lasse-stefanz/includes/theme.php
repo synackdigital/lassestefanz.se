@@ -80,3 +80,26 @@ function ls_campaign_slideshow($args = array(), $extra_args = array(), $echo = t
         return LSSlideshow::campaign_slideshow($args, $extra_args, $echo);
     }
 }
+
+
+function ls_instagram_feed($args = null) {
+    $args = wp_parse_args( $args, array(
+        'size' => null,
+        'num' => null,
+        'echo' => true,
+    ) );
+    extract($args);
+
+    if (class_exists('LasseStefanz')) {
+
+        $feed = LasseStefanz::instagram_feed(array_filter($args));
+
+        if ($echo) {
+            echo $feed;
+        }
+
+        return $feed;
+    }
+
+    return null;
+}
