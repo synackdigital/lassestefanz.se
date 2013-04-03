@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lyrics catalog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-12 14:38+0100\n"
-"PO-Revision-Date: 2013-03-12 14:38+0100\n"
+"POT-Creation-Date: 2013-04-03 16:06+0100\n"
+"PO-Revision-Date: 2013-04-03 16:06+0100\n"
 "Last-Translator: Simon Fransson <simon@dessibelle.se>\n"
 "Language-Team: dessibelle <simon@dessibelle.se>\n"
 "Language: sv_SE\n"
@@ -69,23 +69,23 @@ msgstr "Sånginformation"
 msgid "Author"
 msgstr "Upphovsman"
 
-#: ../types-song.php:54 ../templates/meta-song.php:12
+#: ../types-song.php:56 ../templates/meta-song.php:12
 msgid "Publisher"
 msgstr "Förlag"
 
-#: ../types-song.php:55
+#: ../types-song.php:57
 msgid "Publishers"
 msgstr "Förlag"
 
-#: ../types-song.php:57
+#: ../types-song.php:59
 msgid "publisher"
 msgstr "forlag"
 
-#: ../types-song.php:158
+#: ../types-song.php:163
 msgid "Song"
 msgstr "Sång"
 
-#: ../types-song.php:158
+#: ../types-song.php:163
 msgid "Songs"
 msgstr "Sånger"
 

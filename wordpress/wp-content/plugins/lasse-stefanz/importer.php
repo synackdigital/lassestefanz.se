@@ -279,15 +279,15 @@ class LasseStefanzImporter
     {
         set_time_limit(LS_IMPORT_TIME_LIMIT);
 
-        $command = sprintf('export PATH=/Applications/MAMP/Library/bin/:$PATH; mysql --user=%s --password=%s --host=%s --database=%s < %s',
-            DB_USER,
-            DB_PASSWORD,
-            DB_HOST,
-            DB_NAME,
-            plugin_dir_path(__FILE__) . 'data/' . ($install ? '' : 'un') . 'install.sql'
+        $command = sprintf('export PATH=/usr/local/bin:/Applications/MAMP/Library/bin:$PATH; mysql --user=%s --password=%s --host=%s --database=%s < %s',
+            escapeshellarg(DB_USER),
+            escapeshellarg(DB_PASSWORD),
+            escapeshellarg(DB_HOST),
+            escapeshellarg(DB_NAME),
+            escapeshellarg(plugin_dir_path(__FILE__) . 'data/' . ($install ? '' : 'un') . 'install.sql')
         );
 
-        return shell_exec($command);
+        return shell_exec( $command );
     }
 
     /**

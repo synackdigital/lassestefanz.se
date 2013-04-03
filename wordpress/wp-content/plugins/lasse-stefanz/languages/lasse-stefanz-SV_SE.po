@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lasse Stefanz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-03-26 20:51+0100\n"
-"PO-Revision-Date: 2013-03-26 21:06+0100\n"
+"POT-Creation-Date: 2013-04-03 16:07+0100\n"
+"PO-Revision-Date: 2013-04-03 16:07+0100\n"
 "Last-Translator: Simon Fransson <simon@dessibelle.se>\n"
 "Language-Team: Simon Fransson <simon@dessibelle.se>\n"
 "Language: sv_SE\n"
@@ -17,50 +17,50 @@ msgstr ""
 "X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../lasse-stefanz.php:130 ../lasse-stefanz.php:131
+#: ../lasse-stefanz.php:145 ../lasse-stefanz.php:146
 msgid "Lasse Stefanz"
 msgstr ""
 
-#: ../lasse-stefanz.php:142 ../lasse-stefanz.php:143 ../lasse-stefanz.php:386
+#: ../lasse-stefanz.php:157 ../lasse-stefanz.php:158 ../lasse-stefanz.php:401
 msgid "Import"
 msgstr "Importera"
 
-#: ../lasse-stefanz.php:159
+#: ../lasse-stefanz.php:174
 msgid "Instagram settings"
 msgstr "Instagraminställningar"
 
-#: ../lasse-stefanz.php:167
+#: ../lasse-stefanz.php:182
 msgid "Tags for fan photos"
 msgstr "Taggar för beundrarbilder"
 
-#: ../lasse-stefanz.php:174
+#: ../lasse-stefanz.php:189
 #, php-format
 msgid ""
 "Separate tags with comma. %1s character should be left out from tag names."
 msgstr ""
 "Separera taggar med kommatecken. %1s-tecknet skall inte ingå i taggarna."
 
-#: ../lasse-stefanz.php:181
+#: ../lasse-stefanz.php:196
 msgid "Owner of imported photos"
 msgstr "Ägare av importerade foton"
 
-#: ../lasse-stefanz.php:194
+#: ../lasse-stefanz.php:209
 msgid "Import complete"
 msgstr "Importen är slutförd"
 
-#: ../lasse-stefanz.php:304 ../lasse-stefanz.php:344
+#: ../lasse-stefanz.php:319 ../lasse-stefanz.php:359
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
-#: ../lasse-stefanz.php:315
+#: ../lasse-stefanz.php:330
 msgid "Lasse Stefanz settings"
 msgstr "Lasse Stefanz-inställningar"
 
-#: ../lasse-stefanz.php:354
+#: ../lasse-stefanz.php:369
 msgid "Import data from old website"
 msgstr "Importera data från den gamla webbsidan"
 
-#: ../lasse-stefanz.php:359
+#: ../lasse-stefanz.php:374
 #, php-format
 msgid ""
 "Click the import button below to import albums and songs from the old "
@@ -79,7 +79,7 @@ msgstr ""
 "%s i filen %s i pluginmappen, vilket möjliggör för webbservern att hämta "
 "bilderna från ett alternativt domännamn."
 
-#: ../lasse-stefanz.php:366
+#: ../lasse-stefanz.php:381
 msgid ""
 "Performing this import can potentially damage your system or your data, and "
 "it might also be very slow, especially on shared hosting environments. It is "

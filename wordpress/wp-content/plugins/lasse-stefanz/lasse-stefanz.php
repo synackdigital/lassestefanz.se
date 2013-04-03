@@ -43,8 +43,23 @@ class LasseStefanz
 
         add_filter('sanitize_file_name', 'remove_accents'); // We don't want any trouble when moving files up and down from web server
 
+
+        if (version_compare(self::PLUGIN_VERSION, '1.0') < 0) {
+            add_filter('option_upload_url_path', array(&$this, 'override_upload_path_url'));
+        }
+
         self::$plugin_slug = dirname( plugin_basename( __FILE__ ) );
         load_plugin_textdomain( 'lasse-stefanz', false, self::$plugin_slug . '/languages/' );
+    }
+
+
+    public function override_upload_path_url($path)
+    {
+        if (!empty($path)) {
+            return 'http://media.lassestefanz.se.loopiadns.com';
+        }
+
+        return $path;
     }
 
     /**
