@@ -3,7 +3,7 @@
     <aside id="gigs">
         <h1><?php _e('Upcoming shows', 'lasse-stefanz') ?></h1>
         <?php
-          echo do_shortcode('[eo_events event_start_after="today" showpastevents=false]<time>%start{j F}% kl %start{G:i}%</time> &middot; <a class="venue" href="%event_url%">%event_venue%</a>[/eo_events]');
+          echo do_shortcode('[eo_events numberposts=3 event_start_after="today" showpastevents=false]<time>%start{j F}% kl %start{G:i}%</time> &middot; <a class="venue" href="%event_url%">%event_venue%</a>[/eo_events]');
         ?>
     </aside>
 
