@@ -88,8 +88,11 @@ class LSSlideshow {
         if ( ! is_wp_error( $posts ) && ( count( $posts ) > 0 ) ) {
             foreach ( $posts as $k => $post ) {
                 setup_postdata( $post );
-                $content = get_the_content();
-                $content = apply_filters( 'wooslider_slide_content_slides', $content, $args );
+                $content = get_the_title();
+                if (!empty($content)) {
+                    $content = sprintf('<h2 class="slide-title">%s</h2>', $content);
+                }
+                // $content = apply_filters( 'wooslider_slide_content_slides', $content, $args );
 
                 $data = array(
                     'content' => '<div class="slide-content">' . "\n" . $content . "\n" . '</div>' . "\n"

@@ -36,5 +36,21 @@
         min-height: @heroHeight;
         margin: 0;
         display: block;
+
+        position: relative;
+
+        .slide-title {
+            text-align: center;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            text-align: center;
+            width: 100%;
+
+            text-shadow: 0 1px 3px black;
+            html.rgba & {
+                text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+            }
+        }
     }
 }
