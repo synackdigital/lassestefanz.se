@@ -44,8 +44,9 @@ class LasseStefanz
 
         add_filter('sanitize_file_name', 'remove_accents'); // We don't want any trouble when moving files up and down from web server
 
-
+        /* Venue images */
         add_action( 'add_meta_boxes_event_page_venues', array(&$this, 'venue_metaboxes') );
+        add_action( 'wp_ajax_set_venue_thumbnail', array( &$this, 'set_venue_thumbnail' ) );
         $this->setup_event_images();
 
         if (version_compare(self::PLUGIN_VERSION, '1.0') < 0) {
@@ -559,43 +560,57 @@ class LasseStefanz
 
     public function setup_event_images()
     {
-        $is_venue_image_upload = array_key_exists('type', $_GET) &&
+        $is_venue_image_upload = is_admin() && array_key_exists('type', $_GET) &&
             array_key_exists('venue_id', $_GET) &&
             $_GET['type'] == 'image' &&
-            $_GET['venue_id'] == 2;
-
-
+            is_numeric($_GET['venue_id']);
 
         if ($is_venue_image_upload) {
+            add_action('init', array(&$this, 'event_image_scripts'));
             add_filter( 'attachment_fields_to_edit', array(&$this, 'attachment_fields_to_edit'), 100, 2 );
         }
+    }
 
+
+    public function event_image_scripts()
+    {
+        if (is_admin()) {
+            wp_enqueue_script( 'set-venue-thumbnail', plugins_url( 'admin/js/venue.js', __FILE__ ), array( 'jquery' ), self::PLUGIN_VERSION, true );
+            wp_localize_script( 'set-venue-thumbnail', 'setVenueThumbnailL10n', array(
+                    'setThumbnail' => __( 'Use as featured image' ),
+                    'saving' => __( 'Saving...' ),
+                    'error' => __( 'Could not set that as the thumbnail image. Try a different attachment.' ),
+                    'done' => __( 'Done' )
+                ) );
+        }
     }
 
     public function attachment_fields_to_edit($form_fields, $post)
     {
-        /*
-        if ( $delete && current_user_can( 'delete_post', $attachment_id ) ) {
-            if ( !EMPTY_TRASH_DAYS ) {
-                $delete = "<a href='" . wp_nonce_url( "post.php?action=delete&amp;post=$attachment_id", 'delete-post_' . $attachment_id ) . "' id='del[$attachment_id]' class='delete-permanently'>" . __( 'Delete Permanently' ) . '</a>';
-            } elseif ( !MEDIA_TRASH ) {
-                $delete = "<a href='#' class='del-link' onclick=\"document.getElementById('del_attachment_$attachment_id').style.display='block';return false;\">" . __( 'Delete' ) . "</a>
-                 <div id='del_attachment_$attachment_id' class='del-attachment' style='display:none;'><p>" . sprintf( __( 'You are about to delete <strong>%s</strong>.' ), $filename ) . "</p>
-                 <a href='" . wp_nonce_url( "post.php?action=delete&amp;post=$attachment_id", 'delete-post_' . $attachment_id ) . "' id='del[$attachment_id]' class='button'>" . __( 'Continue' ) . "</a>
-                 <a href='#' class='button' onclick=\"this.parentNode.style.display='none';return false;\">" . __( 'Cancel' ) . "</a>
-                 </div>";
-            } else {
-                $delete = "<a href='" . wp_nonce_url( "post.php?action=trash&amp;post=$attachment_id", 'trash-post_' . $attachment_id ) . "' id='del[$attachment_id]' class='delete'>" . __( 'Move to Trash' ) . "</a>
-                <a href='" . wp_nonce_url( "post.php?action=untrash&amp;post=$attachment_id", 'untrash-post_' . $attachment_id ) . "' id='undo[$attachment_id]' class='undo hidden'>" . __( 'Undo' ) . "</a>";
-            }
-        } else {
-            $delete = '';
+        $venue_id = 0;
+        if (array_key_exists('venue_id', $_GET)) {
+            $venue_id = $_GET['venue_id'];
         }
-        */
 
-        $set_term_image = '<a class="button default">Use as venue image</a>';
+        $type = null;
+        if (array_key_exists('type', $_GET)) {
+            $type = $_GET['type'];
+        }
 
-        $form_fields['buttons'] = array( 'tr' => "\t\t<tr class='submit'><td></td><td class='savesend'>$set_term_image</td></tr>\n" );
+        $image_id = $post->ID;
+        $thumbnail = null;
+
+        if ( 'image' == $type && $venue_id ) {
+            $ajax_nonce = wp_create_nonce( "set_venue_thumbnail-$venue_id" );
+            $thumbnail = "<a class='button button-primary wp-venue-thumbnail' id='wp-venue-thumbnail-" . $image_id . "' href='#' onclick='LSSetAsVenueThumbnail(\"$image_id\", \"$ajax_nonce\");return false;'>" . esc_html__( "Use as venue image", 'ls-plugin' ) . "</a>";
+        }
+
+        if ($thumbnail) {
+            $form_fields['buttons'] = array( 'tr' => "\t\t<tr class='submit'><td></td><td class='savesend'>$thumbnail</td></tr>\n" );
+
+            unset($form_fields['image-size']);
+            unset($form_fields['align']);
+        }
 
         return $form_fields;
     }
@@ -619,15 +634,49 @@ class LasseStefanz
         add_filter('clean_url', $filter, 100, 3);
 
         $upload_iframe_src = esc_url( get_upload_iframe_src('image', 0 ) );
+        echo "<a href='$upload_iframe_src'>$upload_iframe_src</a>";
 
-        echo $upload_iframe_src;
-
+        // TODO: We might need a localized version of this function
         echo _wp_post_thumbnail_html( $thumb_id, $faux_post );
         // echo $this->_wp_post_thumbnail_html( null, $venue, 'event-venue' );
 
         remove_filter('clean_url', $filter, 100, 3);
     }
 
+
+    public function set_venue_thumbnail()
+    {
+        $json = ! empty( $_REQUEST['json'] ); // New-style request
+
+        $venue_id = intval( $_POST['venue_id'] );
+        if ( ! current_user_can( 'manage_venues' ) )
+            wp_die( -1 );
+
+        $thumbnail_id = intval( $_POST['thumbnail_id'] );
+
+        if ( $json )
+            check_ajax_referer( "update-post_$venue_id" );
+        else
+            check_ajax_referer( "set_venue_thumbnail-$venue_id" );
+
+        // TODO: Better return data, + where does this data go?
+
+        if ( $thumbnail_id == '-1' ) {
+            if ( eo_delete_venue_meta( $venue_id, LS_VENUE_IMAGE ) ) {
+                $return = "<p>Deleted venue image</p>"; //_wp_post_thumbnail_html( null, $post_ID );
+                $json ? wp_send_json_success( $return ) : wp_die( $return );
+            } else {
+                wp_die( 0 );
+            }
+        }
+
+        if ( eo_update_venue_meta( $venue_id, LS_VENUE_IMAGE, $thumbnail_id ) ) {
+            $return = "<p>Added venue image</p>"; //_wp_post_thumbnail_html( $thumbnail_id, $post_ID );
+            $json ? wp_send_json_success( $return ) : wp_die( $return );
+        }
+
+        wp_die( 0 );
+    }
 
     /**
      * Output HTML for the post thumbnail meta-box.
@@ -638,32 +687,32 @@ class LasseStefanz
      * @param mixed $term The term_id or object associated with the thumbnail, defaults to global $term.
      * @return string html
      */
-    function _wp_post_thumbnail_html( $thumbnail_id = null, $post = null ) {
-        global $content_width, $_wp_additional_image_sizes;
+    // function _wp_post_thumbnail_html( $thumbnail_id = null, $post = null ) {
+    //     global $content_width, $_wp_additional_image_sizes;
 
-        $post = get_post( $post );
+    //     $post = get_post( $post );
 
-        $upload_iframe_src = esc_url( get_upload_iframe_src('image', $post->ID ) );
-        $set_thumbnail_link = '<p class="hide-if-no-js"><a title="' . esc_attr__( 'Set featured image' ) . '" href="%s" id="set-post-thumbnail" class="thickbox">%s</a></p>';
-        $content = sprintf( $set_thumbnail_link, $upload_iframe_src, esc_html__( 'Set featured image' ) );
+    //     $upload_iframe_src = esc_url( get_upload_iframe_src('image', $post->ID ) );
+    //     $set_thumbnail_link = '<p class="hide-if-no-js"><a title="' . esc_attr__( 'Set featured image' ) . '" href="%s" id="set-post-thumbnail" class="thickbox">%s</a></p>';
+    //     $content = sprintf( $set_thumbnail_link, $upload_iframe_src, esc_html__( 'Set featured image' ) );
 
-        if ( $thumbnail_id && get_post( $thumbnail_id ) ) {
-            $old_content_width = $content_width;
-            $content_width = 266;
-            if ( !isset( $_wp_additional_image_sizes['post-thumbnail'] ) )
-                $thumbnail_html = wp_get_attachment_image( $thumbnail_id, array( $content_width, $content_width ) );
-            else
-                $thumbnail_html = wp_get_attachment_image( $thumbnail_id, 'post-thumbnail' );
-            if ( !empty( $thumbnail_html ) ) {
-                $ajax_nonce = wp_create_nonce( 'set_post_thumbnail-' . $post->ID );
-                $content = sprintf( $set_thumbnail_link, $upload_iframe_src, $thumbnail_html );
-                $content .= '<p class="hide-if-no-js"><a href="#" id="remove-post-thumbnail" onclick="WPRemoveThumbnail(\'' . $ajax_nonce . '\');return false;">' . esc_html__( 'Remove featured image' ) . '</a></p>';
-            }
-            $content_width = $old_content_width;
-        }
+    //     if ( $thumbnail_id && get_post( $thumbnail_id ) ) {
+    //         $old_content_width = $content_width;
+    //         $content_width = 266;
+    //         if ( !isset( $_wp_additional_image_sizes['post-thumbnail'] ) )
+    //             $thumbnail_html = wp_get_attachment_image( $thumbnail_id, array( $content_width, $content_width ) );
+    //         else
+    //             $thumbnail_html = wp_get_attachment_image( $thumbnail_id, 'post-thumbnail' );
+    //         if ( !empty( $thumbnail_html ) ) {
+    //             $ajax_nonce = wp_create_nonce( 'set_post_thumbnail-' . $post->ID );
+    //             $content = sprintf( $set_thumbnail_link, $upload_iframe_src, $thumbnail_html );
+    //             $content .= '<p class="hide-if-no-js"><a href="#" id="remove-post-thumbnail" onclick="WPRemoveThumbnail(\'' . $ajax_nonce . '\');return false;">' . esc_html__( 'Remove featured image' ) . '</a></p>';
+    //         }
+    //         $content_width = $old_content_width;
+    //     }
 
-        return apply_filters( 'admin_post_thumbnail_html', $content, $post->ID );
-    }
+    //     return apply_filters( 'admin_post_thumbnail_html', $content, $post->ID );
+    // }
 }
 
 $ls = LasseStefanz::instance();
