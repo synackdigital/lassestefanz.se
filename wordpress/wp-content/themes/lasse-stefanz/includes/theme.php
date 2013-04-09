@@ -121,7 +121,8 @@ function ls_news_link($title = null, $args = null)
     if (!$title || empty($title)) {
         $cat = get_category( get_option( 'default_category', 0 ) );
 
-        $title = sprintf(__('More %s', 'lasse-stefanz'), $cat->name);
+        $title = sprintf(__('More %s', 'lasse-stefanz'), strtolower($cat->name));
+        $title = apply_filters('ls_news_link_title', $title, $args);
     }
 
     if (is_array($class)) {

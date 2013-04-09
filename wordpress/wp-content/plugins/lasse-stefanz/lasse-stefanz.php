@@ -45,6 +45,8 @@ class LasseStefanz
         add_filter('sanitize_file_name', 'remove_accents'); // We don't want any trouble when moving files up and down from web server
 
 
+        add_action( 'add_meta_boxes_event_page_venues', array(&$this, 'venue_metaboxes') );
+
         if (version_compare(self::PLUGIN_VERSION, '1.0') < 0) {
             add_filter('option_upload_url_path', array(&$this, 'override_upload_path_url'));
         }
@@ -551,6 +553,53 @@ class LasseStefanz
         }
 
         return null;
+    }
+
+    public function venue_metaboxes($venue)
+    {
+        add_meta_box( 'ls_venue_image', __('Image', 'ls-plugin'), array(&$this, 'venue_image_metabox'), $screen = null, 'advanced', $priority = 'default', array('venue' => $venue) );
+    }
+
+    public function venue_image_metabox($venue)
+    {
+        echo $this->_wp_term_thumbnail_html( null, $venue, 'event-venue' );
+    }
+
+
+    /**
+     * Output HTML for the post thumbnail meta-box.
+     *
+     * @since 2.9.0
+     *
+     * @param int $thumbnail_id ID of the attachment used for thumbnail
+     * @param mixed $term The term_id or object associated with the thumbnail, defaults to global $term.
+     * @return string html
+     */
+    public function _wp_term_thumbnail_html( $thumbnail_id = null, $term = null, $taxonomy = null ) {
+        global $content_width, $_wp_additional_image_sizes;
+
+        $term = get_term( $term, $taxonomy );
+
+        $upload_iframe_src = esc_url( get_upload_iframe_src('image', null ) );
+        $set_thumbnail_link = '<p class="hide-if-no-js"><a title="' . esc_attr__( 'Set featured image' ) . '" href="%s" id="set-term-thumbnail" class="thickbox">%s</a></p>';
+        $content = sprintf( $set_thumbnail_link, $upload_iframe_src, esc_html__( 'Set featured image' ) );
+
+        if ( $thumbnail_id && get_term( $thumbnail_id ) ) {
+            $old_content_width = $content_width;
+            $content_width = 266;
+            if ( !isset( $_wp_additional_image_sizes['term-thumbnail'] ) )
+                $thumbnail_html = wp_get_attachment_image( $thumbnail_id, array( $content_width, $content_width ) );
+            else
+                $thumbnail_html = wp_get_attachment_image( $thumbnail_id, 'term-thumbnail' );
+            if ( !empty( $thumbnail_html ) ) {
+                $ajax_nonce = wp_create_nonce( 'set_term_thumbnail-' . $term->term_id );
+                $content = sprintf( $set_thumbnail_link, $upload_iframe_src, $thumbnail_html );
+                $content .= '<p class="hide-if-no-js"><a href="#" id="remove-term-thumbnail" onclick="WPRemoveThumbnail(\'' . $ajax_nonce . '\');return false;">' . esc_html__( 'Remove featured image' ) . '</a></p>';
+            }
+            $content_width = $old_content_width;
+        }
+
+        return apply_filters( 'admin_term_thumbnail_html', $content, $term->term_id );
     }
 }
 
