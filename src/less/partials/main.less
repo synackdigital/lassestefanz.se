@@ -24,7 +24,32 @@ body.home {
     }
 
     #fanphotos {
-        .column(12);
+
+        ul.instagram-images {
+            .column(12);
+
+            li {
+                .column(3, 12);
+
+                position: relative;
+
+                .meta {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    padding: 0.8em 0;
+
+                    background: black;
+                    background: rgba(0, 0, 0, 0.5);
+
+                    p {
+                        margin: 0 5%;
+                    }
+                }
+            }
+        }
+
     }
 
 }

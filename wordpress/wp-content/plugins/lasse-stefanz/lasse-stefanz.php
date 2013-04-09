@@ -532,13 +532,18 @@ class LasseStefanz
                 $date = date_i18n('l j F, Y', $ts);
                 $isodate = date_i18n('c', $ts);
 
+                $meta = null;
                 if ($date) {
-                    $markup .= sprintf('<p class="instagram-time"><time datetime="%s">%s</time></p>', $isodate, $date);
+                    $meta .= sprintf('<p class="instagram-time"><time datetime="%s">%s</time></p>', $isodate, $date);
                 }
 
                 $username = LSInstagramImage::getInstagramUser($post->ID);
                 if ($username) {
-                    $markup .= sprintf('<p class="instagram-user"><a href="http://instagram.com/%s">@%s</a></p>', $username, $username);
+                    $meta .= sprintf('<p class="instagram-user"><a href="http://instagram.com/%s">@%s</a></p>', $username, $username);
+                }
+
+                if (!empty($meta)) {
+                    $markup .= sprintf('<div class="meta">%s</div>', $meta);
                 }
 
                 return sprintf('<li class="instagram-image %s">%s</li>', $size, $markup);
