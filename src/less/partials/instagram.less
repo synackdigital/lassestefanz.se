@@ -1,9 +1,36 @@
 
 #fanphotos {
-  .column(12);
+  clear: both;
+  .clearfix();
+
+  background-color: rgba(0,0,0,.2);
+  .border-radius(@baseBorderRadius);
+  .box-shadow(inset 0 1px 3px rgba(0,0,0,.8));
+
+  header {
+    .column(12);
+
+    > h1 {
+      .column(6, 12);
+
+      font-size: @largeFont;
+      line-height: (4 * @rhythmUnit);
+      text-transform: uppercase;
+    }
+
+    > p {
+      .column(6, 12);
+
+      font-size: @largeFont;
+      line-height: (4 * @rhythmUnit);
+      text-align: right;
+    }
+  }
 
     ul.instagram-images {
       .unstyled-list();
+      .column(12);
+      margin-bottom: @rhythmUnit;
 
         li {
             .column(3, 12);

@@ -14,7 +14,10 @@
     <?php get_sidebar('home-widget-area'); ?>
 
     <aside id="fanphotos">
-        <h1><?php _e('Fan photos', 'lasse-stefanz') ?></h1>
+        <header>
+            <h1><?php _e('Fan photos', 'lasse-stefanz') ?></h1>
+            <p><?php _e('Tag a photo with #lassestefanz on Instagram, and we might include it here.', 'lasse-stefanz') ?></p>
+        </header>
         <?php ls_instagram_feed(); ?>
     </aside>
 
