@@ -68,6 +68,7 @@
     right: (2 * @rhythmUnit);
     left: (2 * @rhythmUnit);
 
+    /* Menu bar base */
     .nav-menu {
         background-color: mix(@black, @grayDarker, 50%);
         .gradient(~"linear-gradient(top, @{grayDarker} 0%, @{black} 100%)");
@@ -75,13 +76,46 @@
 
         position: absolute;
         .clearfix();
+    }
 
-        li {
-            padding: @rhythmUnit;
+    /* Left menu bar */
+    #menu-left {
+        .border-top-left-radius(@baseBorderRadius);
+        .border-bottom-left-radius(@baseBorderRadius);
+
+        right: 50%;
+        left: 0;
+        padding-right: ((.5 * @logoWidth) + @rhythmUnit);
+
+        .menu >.menu-item {
+            float: right;
         }
+    }
 
-        // Buttons
-        a {
+    /* Right menu bar */
+    #menu-right {
+        .border-top-right-radius(@baseBorderRadius);
+        .border-bottom-right-radius(@baseBorderRadius);
+
+        right: 0;
+        left: 50%;
+        padding-left: ((.5 * @logoWidth) + @rhythmUnit);
+
+        .menu >.menu-item {
+            float: left;
+        }
+    }
+}
+
+/* First level items */
+#access .nav-menu .menu {
+
+    /* Menu items */
+    > .menu-item {
+        padding: @rhythmUnit;
+
+        // Menu item buttons
+        > a {
             color: @grayLight;
 
             font-family: @altFontFamily;
@@ -102,39 +136,46 @@
                 color: @linkColor;
             }
         }
+    }
 
-        // Current menu item highlight
-        .current-menu-item,
-        .current-menu-parent,
-        .current-menu-ancestor {
-            a {
-                color: @white;
-            }
-        }
+    // Current menu item highlight
+    > .current-menu-item a,
+    > .current-menu-parent a,
+    > .current-menu-ancestor a {
+        color: @white;
+    }
+}
 
-        &#menu-left {
-            .border-top-left-radius(@baseBorderRadius);
-            .border-bottom-left-radius(@baseBorderRadius);
+/* Second level items */
+#access .nav-menu .sub-menu {
+    .unstyled-list();
 
-            right: 50%;
-            left: 0;
-            padding-right: ((.5 * @logoWidth) + @rhythmUnit);
+    /* Inverse colors */
+    background-color: fade(mix(@black, @grayDarker, 50%), 80%);
+    color: @grayLighter;
+    // .gradient(~"linear-gradient(top, @{grayDarker} 0%, @{black} 100%)");
+    .box-shadow(0 1px 4px rgba(0,0,0,.065));
+    .border-radius(@baseBorderRadius);
 
-            li {
-                float: right;
-            }
-        }
-        &#menu-right {
-            .border-top-right-radius(@baseBorderRadius);
-            .border-bottom-right-radius(@baseBorderRadius);
+    position: absolute;
+    padding: @rhythmUnit;
 
-            right: 0;
-            left: 50%;
-            padding-left: ((.5 * @logoWidth) + @rhythmUnit);
+    a {
+        color: inherit;
 
-            li {
-                float: left;
-            }
+        display: block;
+        padding: (.5 * @rhythmUnit) 0;
+
+        &:hover {
+            color: @linkColorHover;
         }
     }
+}
+
+/* Second level hover behavior */
+#access .nav-menu .menu-item .sub-menu {
+    display: none;
+}
+#access .nav-menu .menu-item:hover .sub-menu {
+    display: block;
 }
