@@ -103,3 +103,65 @@ function ls_instagram_feed($args = null) {
 
     return null;
 }
+
+
+function ls_news_url()
+{
+    return get_category_link( get_option( 'default_category', 0 ) );
+}
+
+function ls_news_link($title = null, $args = null)
+{
+    $args = wp_parse_args( $args, array(
+        'class' => array('news-link'),
+        'echo' => true,
+    ) );
+    extract($args);
+
+    if (!$title || empty($title)) {
+        $cat = get_category( get_option( 'default_category', 0 ) );
+
+        $title = sprintf(__('More %s', 'lasse-stefanz'), $cat->name);
+    }
+
+    if (is_array($class)) {
+        $class = implode(" ", $class);
+    }
+
+    $class_attr = null;
+    if (!empty($class)) {
+        $class_attr = sprintf(' class="%s"', $class);
+    }
+
+    $url = ls_news_url();
+
+    $link = null;
+    if (!empty($url)) {
+        $link = sprintf('<a href="%s"%s>%s</a>', esc_url($url), $class_attr, $title);
+    }
+
+    if ($echo)
+        echo $link;
+
+    return $link;
+}
+
+function ls_upcoming_events($fargs = null)
+{
+    $fargs = wp_parse_args( $fargs, $defaults = '' );
+
+    // echo do_shortcode('[eo_events numberposts=3 event_start_after="today" showpastevents=false]<time>%start{j F}% kl %start{G:i}%</time> &middot; <a class="venue" href="%event_url%">%event_venue%</a>[/eo_events]');
+
+    $p = eventorganiser_list_events(array(
+          'numberposts' => 3,
+          'event_start_after' => 'today',
+          'showpastevents' => false,
+      ), array(
+          'class' => 'eo-events eo-events-shortcode',
+          'template' => null,
+          'no_events' => null,
+          'content' => '<time>%start{j F}% kl %start{G:i}%</time> &middot; <a class="venue" href="%event_url%">%event_venue%</a>'
+      ), 0);
+
+      echo $p;
+}

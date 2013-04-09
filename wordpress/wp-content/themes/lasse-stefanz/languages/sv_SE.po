@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lasse Stefanz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-03 21:38+0100\n"
-"PO-Revision-Date: 2013-04-03 21:39+0100\n"
+"POT-Creation-Date: 2013-04-09 11:02+0100\n"
+"PO-Revision-Date: 2013-04-09 11:02+0100\n"
 "Last-Translator: Simon Fransson <simon@dessibelle.se>\n"
 "Language-Team: LS Produktions AB <kontakt@lassestefanz.se>\n"
 "Language: sv_SE\n"
@@ -37,7 +37,7 @@ msgstr "Widgetutrymme som visas på förstasidan"
 msgid "Upcoming shows"
 msgstr "Kommande spelningar"
 
-#: home.php:18
+#: home.php:16
 msgid "Fan photos"
 msgstr "Fansens bilder"
 
@@ -52,3 +52,8 @@ msgid ""
 msgstr ""
 "Tyvärr kunde inget innehåll hittas. Försök att använda sökfältet för att "
 "hitta det du letar efter."
+
+#: includes/theme.php:124
+#, php-format
+msgid "More %s"
+msgstr "Fler %s"
