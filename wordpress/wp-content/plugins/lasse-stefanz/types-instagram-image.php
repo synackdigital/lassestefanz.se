@@ -173,7 +173,12 @@ class LSInstagramImage extends HWPType {
         $featured_col['instagram_image'] = __('Image', 'ls-plugin');
         $featured_col['instagram_actions'] = __('Actions', 'ls-plugin');
 
-        $defaults = array_merge($featured_col, $defaults);
+
+        $title_col = array_slice($defaults, 0, 1);
+        array_shift($defaults);
+        $title_col['instagram_username'] = __('User', 'ls-plugin');
+
+        $defaults = array_merge($featured_col, $title_col, $defaults);
 
         return $defaults;
     }
@@ -197,6 +202,10 @@ class LSInstagramImage extends HWPType {
             printf('<li><a href="#" class="instagram-action instagram-publish button button-primary" data-id="%d" data-action="%s_publish">%s</a></li>', $post_id, $this->name, __('Publish', 'ls-plugin'));
             printf('<li><a href="#" class="instagram-action instagram-trash button" data-id="%d" data-action="%s_trash">%s</a></li>', $post_id, $this->name, __('Remove', 'ls-plugin'));
             echo '</ul>';
+        }
+
+        if ($column_name == 'instagram_username') {
+            echo self::getInstagramUserLink($post_id);
         }
     }
 
@@ -281,6 +290,32 @@ class LSInstagramImage extends HWPType {
         return self::optionForKey(LS_IGIM_USERNAME, $post_id);
     }
 
+    public static  function getInstagramUserURL($post_id)
+    {
+        $user = self::getInstagramUser($post_id);
+
+        if ($user) {
+            $title = empty($title) ? '@' . $user : $title;
+
+            return esc_url('http://instagram.com/' . trailingslashit( $user ));
+        }
+
+        return null;
+    }
+
+    public static function getInstagramUserLink($post_id, $title = null)
+    {
+        $user = self::getInstagramUser($post_id);
+        $url = self::getInstagramUserURL($post_id);
+
+        if ($url) {
+
+            $title = empty($title) ? '@' . $user : $title;
+            return sprintf('<a href="%s">%s</a>', $url, $title);
+        }
+
+        return null;
+    }
 
     public function admin_body_class($class)
     {

@@ -24,6 +24,10 @@
     display: none;
 }
 
+.column-instagram_username {
+    width: 120px;
+}
+
 .column-instagram_image {
     width: 68px;
 }
