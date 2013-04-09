@@ -1,8 +1,30 @@
-.instagram-feed {
 
-}
+#fanphotos {
+  .column(12);
 
-ul.instagram-images {
-    display: inline;
-    list-style: none;
+    ul.instagram-images {
+      .unstyled-list();
+
+        li {
+            .column(3, 12);
+
+            position: relative;
+
+            .meta {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                padding: 0.8em 0;
+
+                background: black;
+                background: rgba(0, 0, 0, 0.5);
+
+                p {
+                    margin: 0 5%;
+                }
+            }
+        }
+    }
+
 }
