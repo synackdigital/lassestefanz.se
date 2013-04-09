@@ -14,3 +14,5 @@
     <?php get_template_part('content', 'feature'); ?>
 
 <?php endwhile; // End the loop. Whew. ?>
+
+<?php ls_news_link(); ?>
