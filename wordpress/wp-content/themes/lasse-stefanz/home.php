@@ -13,7 +13,9 @@
 
     <?php get_sidebar('home-widget-area'); ?>
 
-    <h1><?php _e('Fan photos', 'lasse-stefanz') ?></h1>
-    <?php ls_instagram_feed(); ?>
+    <aside id="fanphotos">
+        <h1><?php _e('Fan photos', 'lasse-stefanz') ?></h1>
+        <?php ls_instagram_feed(); ?>
+    </aside>
 
 <?php get_footer(); ?>

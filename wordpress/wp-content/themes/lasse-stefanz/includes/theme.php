@@ -38,7 +38,7 @@ add_filter('ls_campaign_image_size', function() { return LS_CAMPAIGN_IMAGE_SIZE;
 function ls_home_query($query)
 {
     if ((is_home() || is_front_page()) && $query->is_main_query()) {
-        $query->set( 'posts_per_page', '3' );
+        $query->set( 'posts_per_page', '2' );
     }
 }
 add_action( 'pre_get_posts', 'ls_home_query' );
