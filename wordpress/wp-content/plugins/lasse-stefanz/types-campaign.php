@@ -10,6 +10,8 @@ class LSCampaign extends HWPType {
         $this->shouldSetThumbnail(true);
         $this->setRewriteSlug(apply_filters('ls_rewrite_slug_for_type', __('campaigns', 'ls-plugin'), $name));
 
+        add_action( 'template_redirect', array(&$this, 'redirect') );
+
         parent::__construct($name, $labels, $collection, $args);
     }
 
@@ -21,29 +23,23 @@ class LSCampaign extends HWPType {
 
         $this->fields = new FieldCollection();
 
-        /*
-        $this->fields->addField( new CustomField(
+        $this->fields->addField( new URLField(
             array(
-                'name' => LC_ALBUM_RELEASE_YEAR,
-                'label' => __( 'Year', 'ls-plugin' ),
-            )
-        ));
-
-        $this->fields->addField( new CustomField(
-            array(
-                'name' => LC_ALBUM_LABEL,
-                'label' => __( 'Label', 'ls-plugin' ),
+                'name' => LS_CAMPAIGN_URL,
+                'label' => __( 'Link to URL', 'ls-plugin' ),
             )
         ));
 
         $this->fields->addField( new PostSelectField(
             array(
-                'name' => LC_ALBUM_BACKSIDE_IMAGE,
-                'label' => __( 'Backside image', 'ls-plugin' ),
-                'data_callback' => array(&$this, 'backsideImageItems')
+                'name' => LS_CAMPAIGN_PAGE_ID,
+                'label' => __( 'Link to page', 'ls-plugin' ),
+                'description' => __('This settings takes precedence in case both a page and a URL is supplied.', 'ls-plugin'),
+                'data_callback' => array(&$this, 'campaignLinkPages'),
+                'required' => false,
             )
         ));
-        */
+
     }
 
     /**
@@ -67,7 +63,11 @@ class LSCampaign extends HWPType {
             'editor',
             'revisions',
             'thumbnail',
+            'page-attributes',
         );
+
+        $args['supports'] = array_diff($args['supports'], array('editor'));
+
 
         return $args;
     }
@@ -81,7 +81,7 @@ class LSCampaign extends HWPType {
     public static function queryArgs($args = null) {
         $defaults = parent::queryArgs();
         $type_args = array(
-            'orderby' => 'date',
+            'orderby' => 'menu_order, date',
             'order' => 'DESC',
             'posts_per_page' => 3,
 
@@ -92,12 +92,81 @@ class LSCampaign extends HWPType {
 
 
     /**
+     * Returns a list of all pages for use with the pages dropdown
+     * @return array Array of page objects
+     */
+    public function campaignLinkPages()
+    {
+        return get_posts(array(
+            'post_type' => 'page',
+            'post_status' => 'publish',
+            'order' => 'ASC',
+            'orderby' => 'title',
+            'posts_per_page' => -1,
+        ));
+    }
+
+    /**
      * Returns the image size used for campaigns
      * @return string Image size string
      */
     public static function image_size()
     {
         return apply_filters('ls_campaign_image_size', 'large');
+    }
+
+
+    public function redirect()
+    {
+        $o = get_queried_object();
+
+        if ($o && get_post_type( $o ) == $this->typeName()) {
+
+            $url = self::redirectURL($o->ID);
+
+            wp_redirect( wp_sanitize_redirect($url), 301 );
+            die();
+        }
+    }
+
+
+    public static function redirectURL($id = null)
+    {
+        $page = self::campaignPage($id);
+
+        if ($page) {
+            return get_permalink($page->ID);
+        }
+
+        $url = self::campaignURL($id);
+
+        if ($url) {
+            return $url;
+        }
+
+        return null;
+    }
+
+    public static function campaignURL($id = null)
+    {
+        return self::optionForKey(LS_CAMPAIGN_URL);
+    }
+
+
+    public static function campaignPageID($id = null)
+    {
+        return self::optionForKey(LS_CAMPAIGN_PAGE_ID);
+    }
+
+    public static function campaignPage($id = null)
+    {
+        $pid = self::campaignPageID($id);
+
+        if (is_numeric($pid) && $pid > 0) {
+            return get_post( $pid );
+        }
+
+        return null;
     }
 
 }
