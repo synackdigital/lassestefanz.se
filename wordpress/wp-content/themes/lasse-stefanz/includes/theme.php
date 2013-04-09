@@ -148,20 +148,27 @@ function ls_news_link($title = null, $args = null)
 
 function ls_upcoming_events($fargs = null)
 {
-    $fargs = wp_parse_args( $fargs, $defaults = '' );
-
     // echo do_shortcode('[eo_events numberposts=3 event_start_after="today" showpastevents=false]<time>%start{j F}% kl %start{G:i}%</time> &middot; <a class="venue" href="%event_url%">%event_venue%</a>[/eo_events]');
 
-    $p = eventorganiser_list_events(array(
-          'numberposts' => 3,
-          'event_start_after' => 'today',
-          'showpastevents' => false,
-      ), array(
-          'class' => 'eo-events eo-events-shortcode',
-          'template' => null,
-          'no_events' => null,
-          'content' => '<time>%start{j F}% kl %start{G:i}%</time> &middot; <a class="venue" href="%event_url%">%event_venue%</a>'
-      ), 0);
+    $fargs = wp_parse_args( $fargs, array(
+        'atts' => array(),
+        'args' => array(),
+        'echo' => true,
+        'content' => sprintf('<time>%s</time> &middot; <a class="venue" href="%%event_url%%">%%event_venue%%</a>',
+            __('%start{j F}% kl %start{G:i}%', 'lasse-stefanz')),
+    ) );
+    extract($fargs);
 
-      echo $p;
+    $atts = wp_parse_args( $args, array(
+        'numberposts' => 3,
+        'event_start_after' => 'today',
+        'showpastevents' => false,
+    ) );
+    $args = wp_parse_args( $args, array(
+        'class' => 'eo-events eo-events-shortcode',
+        'no_events' => null,
+        'content' => $content
+    ) );
+
+    return eventorganiser_list_events($atts, $args, $echo);
 }
