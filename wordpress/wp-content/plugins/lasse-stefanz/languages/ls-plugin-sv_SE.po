@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lasse Stefanz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-03 16:07+0100\n"
-"PO-Revision-Date: 2013-04-03 16:07+0100\n"
+"POT-Creation-Date: 2013-04-09 11:59+0100\n"
+"PO-Revision-Date: 2013-04-09 12:00+0100\n"
 "Last-Translator: Simon Fransson <simon@dessibelle.se>\n"
 "Language-Team: Simon Fransson <simon@dessibelle.se>\n"
 "Language: sv_SE\n"
@@ -17,50 +17,50 @@ msgstr ""
 "X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../lasse-stefanz.php:145 ../lasse-stefanz.php:146
+#: ../lasse-stefanz.php:153 ../lasse-stefanz.php:154
 msgid "Lasse Stefanz"
 msgstr ""
 
-#: ../lasse-stefanz.php:157 ../lasse-stefanz.php:158 ../lasse-stefanz.php:401
+#: ../lasse-stefanz.php:165 ../lasse-stefanz.php:166 ../lasse-stefanz.php:409
 msgid "Import"
 msgstr "Importera"
 
-#: ../lasse-stefanz.php:174
+#: ../lasse-stefanz.php:182
 msgid "Instagram settings"
 msgstr "Instagraminställningar"
 
-#: ../lasse-stefanz.php:182
+#: ../lasse-stefanz.php:190
 msgid "Tags for fan photos"
 msgstr "Taggar för beundrarbilder"
 
-#: ../lasse-stefanz.php:189
+#: ../lasse-stefanz.php:197
 #, php-format
 msgid ""
 "Separate tags with comma. %1s character should be left out from tag names."
 msgstr ""
 "Separera taggar med kommatecken. %1s-tecknet skall inte ingå i taggarna."
 
-#: ../lasse-stefanz.php:196
+#: ../lasse-stefanz.php:204
 msgid "Owner of imported photos"
 msgstr "Ägare av importerade foton"
 
-#: ../lasse-stefanz.php:209
+#: ../lasse-stefanz.php:217
 msgid "Import complete"
 msgstr "Importen är slutförd"
 
-#: ../lasse-stefanz.php:319 ../lasse-stefanz.php:359
+#: ../lasse-stefanz.php:327 ../lasse-stefanz.php:367
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
-#: ../lasse-stefanz.php:330
+#: ../lasse-stefanz.php:338
 msgid "Lasse Stefanz settings"
 msgstr "Lasse Stefanz-inställningar"
 
-#: ../lasse-stefanz.php:369
+#: ../lasse-stefanz.php:377
 msgid "Import data from old website"
 msgstr "Importera data från den gamla webbsidan"
 
-#: ../lasse-stefanz.php:374
+#: ../lasse-stefanz.php:382
 #, php-format
 msgid ""
 "Click the import button below to import albums and songs from the old "
@@ -79,7 +79,7 @@ msgstr ""
 "%s i filen %s i pluginmappen, vilket möjliggör för webbservern att hämta "
 "bilderna från ett alternativt domännamn."
 
-#: ../lasse-stefanz.php:381
+#: ../lasse-stefanz.php:389
 msgid ""
 "Performing this import can potentially damage your system or your data, and "
 "it might also be very slow, especially on shared hosting environments. It is "
@@ -96,11 +96,24 @@ msgstr ""
 msgid "campaigns"
 msgstr "kampanjer"
 
-#: ../types-campaign.php:105
+#: ../types-campaign.php:29
+msgid "Link to URL"
+msgstr "Länka till URL"
+
+#: ../types-campaign.php:36
+msgid "Link to page"
+msgstr "Länka till sida"
+
+#: ../types-campaign.php:37
+msgid ""
+"This settings takes precedence in case both a page and a URL is supplied."
+msgstr "Den här inställningen har företräde i fall du anger både sida och URL."
+
+#: ../types-campaign.php:174
 msgid "Campaign"
 msgstr "Kampanj"
 
-#: ../types-campaign.php:105
+#: ../types-campaign.php:174
 msgid "Campaigns"
 msgstr "Kampanjer"
 
@@ -108,79 +121,87 @@ msgstr "Kampanjer"
 msgid "images"
 msgstr "bilder"
 
-#: ../types-instagram-image.php:35
+#: ../types-instagram-image.php:42
 msgid "Image ID"
 msgstr "Bild-ID"
 
-#: ../types-instagram-image.php:43
+#: ../types-instagram-image.php:50
 msgid "Image URL"
 msgstr "Bild-URL"
 
-#: ../types-instagram-image.php:51
+#: ../types-instagram-image.php:58
 msgid "Location"
 msgstr "Plats"
 
-#: ../types-instagram-image.php:59
+#: ../types-instagram-image.php:66
 msgid "Thumbnail"
 msgstr "Thumbnail"
 
-#: ../types-instagram-image.php:67
+#: ../types-instagram-image.php:74
 msgid "Low Resolution"
 msgstr "Låg upplösning"
 
-#: ../types-instagram-image.php:75
+#: ../types-instagram-image.php:82
 msgid "Standard Resolution"
 msgstr "Normal upplösning"
 
-#: ../types-instagram-image.php:83
+#: ../types-instagram-image.php:90
 msgid "Username"
 msgstr "Användarnamn"
 
-#: ../types-instagram-image.php:91
+#: ../types-instagram-image.php:98
 msgid "Full name"
 msgstr "Fullständigt namn"
 
-#: ../types-instagram-image.php:99
+#: ../types-instagram-image.php:106
 msgid "User ID"
 msgstr "Användar-ID"
 
-#: ../types-instagram-image.php:114
+#: ../types-instagram-image.php:121
 msgid "Tag"
 msgstr "Tagg"
 
-#: ../types-instagram-image.php:115
+#: ../types-instagram-image.php:122
 msgid "Tags"
 msgstr "Taggar"
 
-#: ../types-instagram-image.php:166
+#: ../types-instagram-image.php:173
 msgid "Image"
 msgstr "Bild"
 
-#: ../types-instagram-image.php:167
+#: ../types-instagram-image.php:174
 msgid "Actions"
 msgstr "Åtgärder"
 
-#: ../types-instagram-image.php:190
+#: ../types-instagram-image.php:179
+msgid "User"
+msgstr "Användare"
+
+#: ../types-instagram-image.php:202
 msgid "Publish"
 msgstr "Publicera"
 
-#: ../types-instagram-image.php:191
+#: ../types-instagram-image.php:203
 msgid "Remove"
 msgstr "Ta bort"
 
-#: ../types-instagram-image.php:300
+#: ../types-instagram-image.php:339
+msgid "Hidden"
+msgstr "Dold"
+
+#: ../types-instagram-image.php:394
 msgid "Fan photo"
 msgstr "Beundrarbild"
 
-#: ../types-instagram-image.php:300
+#: ../types-instagram-image.php:394
 msgid "Fan photos"
 msgstr "Beundrarbilder"
 
-#: ../includes/slideshow.php:121
+#: ../includes/slideshow.php:124
 msgid "Previous"
 msgstr "Föregående"
 
-#: ../includes/slideshow.php:122
+#: ../includes/slideshow.php:125
 msgid "Next"
 msgstr "Nästa"
 
