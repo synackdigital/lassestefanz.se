@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lasse Stefanz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-09 11:02+0100\n"
-"PO-Revision-Date: 2013-04-09 11:02+0100\n"
-"Last-Translator: Simon Fransson <simon@dessibelle.se>\n"
+"POT-Creation-Date: 2013-04-09 15:00+0100\n"
+"PO-Revision-Date: 2013-04-09 15:01+0100\n"
+"Last-Translator: Fredrik Broman <fredrik@syn-ack.se>\n"
 "Language-Team: LS Produktions AB <kontakt@lassestefanz.se>\n"
 "Language: sv_SE\n"
 "MIME-Version: 1.0\n"
@@ -37,9 +37,15 @@ msgstr "Widgetutrymme som visas på förstasidan"
 msgid "Upcoming shows"
 msgstr "Kommande spelningar"
 
-#: home.php:16
+#: home.php:18
 msgid "Fan photos"
-msgstr "Fansens bilder"
+msgstr "Bilder från fans"
+
+#: home.php:19
+msgid ""
+"Tag a photo with #lassestefanz on Instagram, and we might include it here."
+msgstr ""
+"Tagga en bild med #lassestefanz på Instagram så publicerar vi den kanske här."
 
 #: loop-home.php:4
 msgid "Not Found"
@@ -57,3 +63,7 @@ msgstr ""
 #, php-format
 msgid "More %s"
 msgstr "Fler %s"
+
+#: includes/theme.php:159
+msgid "%start{j F}% kl %start{G:i}%"
+msgstr ""
