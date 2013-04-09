@@ -10,7 +10,7 @@
             <?php get_template_part('loop', 'home'); ?>
         </div>
     </div>
-<?php ls_news_link(); ?>
+
     <?php get_sidebar('home-widget-area'); ?>
 
     <h1><?php _e('Fan photos', 'lasse-stefanz') ?></h1>
