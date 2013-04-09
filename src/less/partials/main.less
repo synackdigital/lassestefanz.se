@@ -5,28 +5,26 @@
     padding-top: (2 * @rhythmUnit);
 
     .clearfix();
-
-    // Sidebars
-    #home-sidebar {
-        body.home & {
-            .column(3);
-        }
-    }
-} // #main
+}
 
 // Home page variations
 // -------------------------
 body.home {
 
     #container {
-        .column(9);
+        .column(6);
+
+        .post {
+            .column(3, 6);
+        }
     }
 
-    #content {
-        .row(9);
+    #home-sidebar {
+        .column(6);
     }
 
-    .post {
-        .column(3, 9);
+    #fanphotos {
+        .column(12);
     }
+
 }
