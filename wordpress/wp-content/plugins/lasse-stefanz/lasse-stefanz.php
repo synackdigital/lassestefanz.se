@@ -46,6 +46,7 @@ class LasseStefanz
 
 
         add_action( 'add_meta_boxes_event_page_venues', array(&$this, 'venue_metaboxes') );
+        $this->setup_event_images();
 
         if (version_compare(self::PLUGIN_VERSION, '1.0') < 0) {
             add_filter('option_upload_url_path', array(&$this, 'override_upload_path_url'));
@@ -555,14 +556,76 @@ class LasseStefanz
         return null;
     }
 
+
+    public function setup_event_images()
+    {
+        $is_venue_image_upload = array_key_exists('type', $_GET) &&
+            array_key_exists('venue_id', $_GET) &&
+            $_GET['type'] == 'image' &&
+            $_GET['venue_id'] == 2;
+
+
+
+        if ($is_venue_image_upload) {
+            add_filter( 'attachment_fields_to_edit', array(&$this, 'attachment_fields_to_edit'), 100, 2 );
+        }
+
+    }
+
+    public function attachment_fields_to_edit($form_fields, $post)
+    {
+        /*
+        if ( $delete && current_user_can( 'delete_post', $attachment_id ) ) {
+            if ( !EMPTY_TRASH_DAYS ) {
+                $delete = "<a href='" . wp_nonce_url( "post.php?action=delete&amp;post=$attachment_id", 'delete-post_' . $attachment_id ) . "' id='del[$attachment_id]' class='delete-permanently'>" . __( 'Delete Permanently' ) . '</a>';
+            } elseif ( !MEDIA_TRASH ) {
+                $delete = "<a href='#' class='del-link' onclick=\"document.getElementById('del_attachment_$attachment_id').style.display='block';return false;\">" . __( 'Delete' ) . "</a>
+                 <div id='del_attachment_$attachment_id' class='del-attachment' style='display:none;'><p>" . sprintf( __( 'You are about to delete <strong>%s</strong>.' ), $filename ) . "</p>
+                 <a href='" . wp_nonce_url( "post.php?action=delete&amp;post=$attachment_id", 'delete-post_' . $attachment_id ) . "' id='del[$attachment_id]' class='button'>" . __( 'Continue' ) . "</a>
+                 <a href='#' class='button' onclick=\"this.parentNode.style.display='none';return false;\">" . __( 'Cancel' ) . "</a>
+                 </div>";
+            } else {
+                $delete = "<a href='" . wp_nonce_url( "post.php?action=trash&amp;post=$attachment_id", 'trash-post_' . $attachment_id ) . "' id='del[$attachment_id]' class='delete'>" . __( 'Move to Trash' ) . "</a>
+                <a href='" . wp_nonce_url( "post.php?action=untrash&amp;post=$attachment_id", 'untrash-post_' . $attachment_id ) . "' id='undo[$attachment_id]' class='undo hidden'>" . __( 'Undo' ) . "</a>";
+            }
+        } else {
+            $delete = '';
+        }
+        */
+
+        $set_term_image = '<a class="button default">Use as venue image</a>';
+
+        $form_fields['buttons'] = array( 'tr' => "\t\t<tr class='submit'><td></td><td class='savesend'>$set_term_image</td></tr>\n" );
+
+        return $form_fields;
+    }
+
     public function venue_metaboxes($venue)
     {
-        add_meta_box( 'ls_venue_image', __('Image', 'ls-plugin'), array(&$this, 'venue_image_metabox'), $screen = null, 'advanced', $priority = 'default', array('venue' => $venue) );
+        add_meta_box( 'ls_venue_image', __('Image', 'ls-plugin'), array(&$this, 'venue_image_metabox'), $screen = null, 'side', $priority = 'default', array('venue' => $venue) );
     }
 
     public function venue_image_metabox($venue)
     {
-        echo $this->_wp_term_thumbnail_html( null, $venue, 'event-venue' );
+        $attachment_id = 0;
+
+        $faux_post = new stdClass();
+        $faux_post->ID = 0;
+
+        $thumb_id = eo_get_venue_meta( $venue->term_id, LS_VENUE_IMAGE, true );
+
+        $filter = create_function('$url, $original_url = null, $_context = null', 'return str_replace("?", "?venue_id=' . $venue->term_id . '&#038;", $url);');
+
+        add_filter('clean_url', $filter, 100, 3);
+
+        $upload_iframe_src = esc_url( get_upload_iframe_src('image', 0 ) );
+
+        echo $upload_iframe_src;
+
+        echo _wp_post_thumbnail_html( $thumb_id, $faux_post );
+        // echo $this->_wp_post_thumbnail_html( null, $venue, 'event-venue' );
+
+        remove_filter('clean_url', $filter, 100, 3);
     }
 
 
@@ -575,31 +638,31 @@ class LasseStefanz
      * @param mixed $term The term_id or object associated with the thumbnail, defaults to global $term.
      * @return string html
      */
-    public function _wp_term_thumbnail_html( $thumbnail_id = null, $term = null, $taxonomy = null ) {
+    function _wp_post_thumbnail_html( $thumbnail_id = null, $post = null ) {
         global $content_width, $_wp_additional_image_sizes;
 
-        $term = get_term( $term, $taxonomy );
+        $post = get_post( $post );
 
-        $upload_iframe_src = esc_url( get_upload_iframe_src('image', null ) );
-        $set_thumbnail_link = '<p class="hide-if-no-js"><a title="' . esc_attr__( 'Set featured image' ) . '" href="%s" id="set-term-thumbnail" class="thickbox">%s</a></p>';
+        $upload_iframe_src = esc_url( get_upload_iframe_src('image', $post->ID ) );
+        $set_thumbnail_link = '<p class="hide-if-no-js"><a title="' . esc_attr__( 'Set featured image' ) . '" href="%s" id="set-post-thumbnail" class="thickbox">%s</a></p>';
         $content = sprintf( $set_thumbnail_link, $upload_iframe_src, esc_html__( 'Set featured image' ) );
 
-        if ( $thumbnail_id && get_term( $thumbnail_id ) ) {
+        if ( $thumbnail_id && get_post( $thumbnail_id ) ) {
             $old_content_width = $content_width;
             $content_width = 266;
-            if ( !isset( $_wp_additional_image_sizes['term-thumbnail'] ) )
+            if ( !isset( $_wp_additional_image_sizes['post-thumbnail'] ) )
                 $thumbnail_html = wp_get_attachment_image( $thumbnail_id, array( $content_width, $content_width ) );
             else
-                $thumbnail_html = wp_get_attachment_image( $thumbnail_id, 'term-thumbnail' );
+                $thumbnail_html = wp_get_attachment_image( $thumbnail_id, 'post-thumbnail' );
             if ( !empty( $thumbnail_html ) ) {
-                $ajax_nonce = wp_create_nonce( 'set_term_thumbnail-' . $term->term_id );
+                $ajax_nonce = wp_create_nonce( 'set_post_thumbnail-' . $post->ID );
                 $content = sprintf( $set_thumbnail_link, $upload_iframe_src, $thumbnail_html );
-                $content .= '<p class="hide-if-no-js"><a href="#" id="remove-term-thumbnail" onclick="WPRemoveThumbnail(\'' . $ajax_nonce . '\');return false;">' . esc_html__( 'Remove featured image' ) . '</a></p>';
+                $content .= '<p class="hide-if-no-js"><a href="#" id="remove-post-thumbnail" onclick="WPRemoveThumbnail(\'' . $ajax_nonce . '\');return false;">' . esc_html__( 'Remove featured image' ) . '</a></p>';
             }
             $content_width = $old_content_width;
         }
 
-        return apply_filters( 'admin_term_thumbnail_html', $content, $term->term_id );
+        return apply_filters( 'admin_post_thumbnail_html', $content, $post->ID );
     }
 }
 

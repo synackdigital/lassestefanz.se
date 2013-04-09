@@ -47,6 +47,8 @@ function ls_setup_hero()
 {
     if (ls_has_hero()) {
         add_action('hobo_before_main', 'ls_insert_hero');
+    } else if (is_page()) {
+        add_action('hobo_before_main', 'ls_insert_featured_image');
     }
 }
 add_action('wp', 'ls_setup_hero');
@@ -61,6 +63,10 @@ function ls_insert_hero()
     if (ls_has_hero()) {
         get_template_part( 'hero' );
     }
+}
+
+function ls_insert_featured_image() {
+    get_template_part( 'featured', 'image' );
 }
 
 function ls_body_class($classes)

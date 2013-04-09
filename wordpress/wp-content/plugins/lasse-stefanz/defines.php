@@ -12,9 +12,11 @@ define('LS_IGIM_FULL_NAME', '_ls_igim_full_name');
 define('LS_IGIM_USER_ID', '_ls_igim_user_id');
 
 /* Fields */
-
 define('LS_CAMPAIGN_URL', '_ls_campaign_url');
 define('LS_CAMPAIGN_PAGE_ID', '_ls_campaign_page_id');
 
 /* Taxonomies */
 define('LS_IGIM_TAG', 'instagram_tag');
+
+/* Taxonomy meta */
+define('LS_VENUE_IMAGE', '_ls_venue_image');
