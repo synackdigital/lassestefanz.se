@@ -12,6 +12,7 @@ Version: 1.0b2
 define( 'LS_PLUGIN_PATH', plugin_dir_path(__FILE__) );
 include_once( LS_PLUGIN_PATH . 'defines.php');
 
+
 class LasseStefanz
 {
     const PLUGIN_VERSION = '1.0b2';
@@ -524,8 +525,6 @@ class LasseStefanz
             $size = apply_filters( 'ls_instagram_feed_image_size', LS_IGIM_SIZE_LOW );
             $markup = LSInstagramImage::getImageMarkup($post->ID, $size);
 
-
-
             if ($markup) {
                 $ig_url = LSInstagramImage::getInstagramURL($post->ID);
                 if ($ig_url) {
@@ -565,12 +564,26 @@ class LasseStefanz
             $_GET['type'] == 'image' &&
             is_numeric($_GET['venue_id']);
 
-        if ($is_venue_image_upload) {
-            add_action('init', array(&$this, 'event_image_scripts'));
+        $is_venue_image_upload_js_response = false;
+
+        if (is_admin() && array_key_exists('HTTP_REFERER', $_SERVER)) {
+            $pattern = '/' . preg_quote(admin_url( 'media-upload.php' ), '/') . '\?venue_id=([0-9]+).*/i';
+            $referer = $_SERVER['HTTP_REFERER'];
+
+            $is_venue_image_upload_js_response = (bool)preg_match($pattern, $referer);
+        }
+
+        // var_dump($is_venue_image_upload);
+        // var_dump($is_venue_image_upload_js_response);
+
+        if ($is_venue_image_upload || $is_venue_image_upload_js_response) {
             add_filter( 'attachment_fields_to_edit', array(&$this, 'attachment_fields_to_edit'), 100, 2 );
         }
-    }
 
+        if (is_admin()) {
+            add_action('init', array(&$this, 'event_image_scripts'));
+        }
+    }
 
     public function event_image_scripts()
     {
@@ -590,6 +603,13 @@ class LasseStefanz
         $venue_id = 0;
         if (array_key_exists('venue_id', $_GET)) {
             $venue_id = $_GET['venue_id'];
+        } else if (array_key_exists('HTTP_REFERER', $_SERVER)) {
+            $referer = $_SERVER['HTTP_REFERER'];
+            $query = parse_url($referer, PHP_URL_QUERY);
+            $vars = array('venue_id' => 0);
+            parse_str($query, $vars);
+
+            $venue_id = $vars['venue_id'];
         }
 
         $type = null;
@@ -600,7 +620,7 @@ class LasseStefanz
         $image_id = $post->ID;
         $thumbnail = null;
 
-        if ( 'image' == $type && $venue_id ) {
+        if ( $venue_id ) {
             $ajax_nonce = wp_create_nonce( "set_venue_thumbnail-$venue_id" );
             $thumbnail = "<a class='button button-primary wp-venue-thumbnail' id='wp-venue-thumbnail-" . $image_id . "' href='#' onclick='LSSetAsVenueThumbnail(\"$image_id\", \"$ajax_nonce\");return false;'>" . esc_html__( "Use as venue image", 'ls-plugin' ) . "</a>";
         }
@@ -629,16 +649,14 @@ class LasseStefanz
 
         $thumb_id = eo_get_venue_meta( $venue->term_id, LS_VENUE_IMAGE, true );
 
-        $filter = create_function('$url, $original_url = null, $_context = null', 'return str_replace("?", "?venue_id=' . $venue->term_id . '&#038;", $url);');
+        $filter = create_function('$url, $original_url = null, $_context = null', 'return preg_replace("/(post_id=[0-9]+)/", "venue_id=' . $venue->term_id . '", $url);');
 
         add_filter('clean_url', $filter, 100, 3);
 
         $upload_iframe_src = esc_url( get_upload_iframe_src('image', 0 ) );
-        echo "<a href='$upload_iframe_src'>$upload_iframe_src</a>";
+        // echo "<a href='$upload_iframe_src'>$upload_iframe_src</a>";
 
-        // TODO: We might need a localized version of this function
-        echo _wp_post_thumbnail_html( $thumb_id, $faux_post );
-        // echo $this->_wp_post_thumbnail_html( null, $venue, 'event-venue' );
+        echo $this->_wp_venue_thumbnail_html( $thumb_id, $venue );
 
         remove_filter('clean_url', $filter, 100, 3);
     }
@@ -663,7 +681,7 @@ class LasseStefanz
 
         if ( $thumbnail_id == '-1' ) {
             if ( eo_delete_venue_meta( $venue_id, LS_VENUE_IMAGE ) ) {
-                $return = "<p>Deleted venue image</p>"; //_wp_post_thumbnail_html( null, $post_ID );
+                $return = $this->_wp_venue_thumbnail_html( null, $venue_id );
                 $json ? wp_send_json_success( $return ) : wp_die( $return );
             } else {
                 wp_die( 0 );
@@ -671,7 +689,7 @@ class LasseStefanz
         }
 
         if ( eo_update_venue_meta( $venue_id, LS_VENUE_IMAGE, $thumbnail_id ) ) {
-            $return = "<p>Added venue image</p>"; //_wp_post_thumbnail_html( $thumbnail_id, $post_ID );
+            $return = $this->_wp_venue_thumbnail_html( $thumbnail_id, $venue_id );
             $json ? wp_send_json_success( $return ) : wp_die( $return );
         }
 
@@ -687,32 +705,34 @@ class LasseStefanz
      * @param mixed $term The term_id or object associated with the thumbnail, defaults to global $term.
      * @return string html
      */
-    // function _wp_post_thumbnail_html( $thumbnail_id = null, $post = null ) {
-    //     global $content_width, $_wp_additional_image_sizes;
+    function _wp_venue_thumbnail_html( $thumbnail_id = null, $venue = null ) {
+        global $content_width, $_wp_additional_image_sizes;
 
-    //     $post = get_post( $post );
+        if (!is_object($venue)) {
+            $venue = get_term($venue, 'event-venue');
+        }
 
-    //     $upload_iframe_src = esc_url( get_upload_iframe_src('image', $post->ID ) );
-    //     $set_thumbnail_link = '<p class="hide-if-no-js"><a title="' . esc_attr__( 'Set featured image' ) . '" href="%s" id="set-post-thumbnail" class="thickbox">%s</a></p>';
-    //     $content = sprintf( $set_thumbnail_link, $upload_iframe_src, esc_html__( 'Set featured image' ) );
+        $upload_iframe_src = esc_url( get_upload_iframe_src('image', $venue->term_id ) );
+        $set_thumbnail_link = '<p class="hide-if-no-js"><a title="' . esc_attr__( 'Set venue image', 'ls-plugin' ) . '" href="%s" id="set-venue-thumbnail" class="thickbox">%s</a></p>';
+        $content = sprintf( $set_thumbnail_link, $upload_iframe_src, esc_html__( 'Set venue image', 'ls-plugin' ) );
 
-    //     if ( $thumbnail_id && get_post( $thumbnail_id ) ) {
-    //         $old_content_width = $content_width;
-    //         $content_width = 266;
-    //         if ( !isset( $_wp_additional_image_sizes['post-thumbnail'] ) )
-    //             $thumbnail_html = wp_get_attachment_image( $thumbnail_id, array( $content_width, $content_width ) );
-    //         else
-    //             $thumbnail_html = wp_get_attachment_image( $thumbnail_id, 'post-thumbnail' );
-    //         if ( !empty( $thumbnail_html ) ) {
-    //             $ajax_nonce = wp_create_nonce( 'set_post_thumbnail-' . $post->ID );
-    //             $content = sprintf( $set_thumbnail_link, $upload_iframe_src, $thumbnail_html );
-    //             $content .= '<p class="hide-if-no-js"><a href="#" id="remove-post-thumbnail" onclick="WPRemoveThumbnail(\'' . $ajax_nonce . '\');return false;">' . esc_html__( 'Remove featured image' ) . '</a></p>';
-    //         }
-    //         $content_width = $old_content_width;
-    //     }
+        if ( $thumbnail_id && get_post( $thumbnail_id ) ) {
+            $old_content_width = $content_width;
+            $content_width = 266;
+            if ( !isset( $_wp_additional_image_sizes['post-thumbnail'] ) )
+                $thumbnail_html = wp_get_attachment_image( $thumbnail_id, array( $content_width, $content_width ) );
+            else
+                $thumbnail_html = wp_get_attachment_image( $thumbnail_id, 'post-thumbnail' );
+            if ( !empty( $thumbnail_html ) ) {
+                $ajax_nonce = wp_create_nonce( 'set_venue_thumbnail-' . $venue->term_id );
+                $content = sprintf( $set_thumbnail_link, $upload_iframe_src, $thumbnail_html );
+                $content .= '<p class="hide-if-no-js"><a href="#" id="remove-post-thumbnail" onclick="LSRemoveThumbnail(\'' . $ajax_nonce . '\');return false;">' . esc_html__( 'Remove venue image', 'ls-plugin' ) . '</a></p>';
+            }
+            $content_width = $old_content_width;
+        }
 
-    //     return apply_filters( 'admin_post_thumbnail_html', $content, $post->ID );
-    // }
+        return apply_filters( 'ls_admin_venue_thumbnail_html', $content, $venue->term_id );
+    }
 }
 
 $ls = LasseStefanz::instance();

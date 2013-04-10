@@ -3,6 +3,10 @@
     <aside id="gigs">
         <h1><?php _e('Upcoming shows', 'lasse-stefanz') ?></h1>
         <?php ls_upcoming_events(); ?>
+
+        <?php if (function_exists('eventorganiser_get_option') && eventorganiser_get_option('feed') && function_exists('eo_get_events_feed')) : ?>
+        <p><a href="<?php echo eo_get_events_feed(); ?>"><?php _e('Subscribe to events', 'lasse-stefanz') ?></a></p>
+        <?php endif; ?>
     </aside>
 
     <div id="container"<?php echo hobo_class_for_element_id('container'); ?>>

@@ -9,7 +9,7 @@
  */
 function eventorganiser_register_script() {
 	global $wp_locale;
-	$version = '1.8.5';
+	$version = '2.0';
 
 	$ext = (defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG) ? '' : '.min';
 
@@ -76,7 +76,7 @@ add_action('init', 'eventorganiser_register_script');
  * @access private
  */
 function eventorganiser_register_scripts(){
-	$version = '1.8.5';
+	$version = '2.0';
 	$ext = (defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG) ? '' : '.min';
 
 	/*  Venue scripts for venue & event edit */
@@ -376,6 +376,9 @@ function eventorganiser_get_next_cron_time( $cron_name ){
 function eventorganiser_delete_expired_events(){
 	//Get expired events
 	$events = eo_get_events(array('showrepeats'=>0,'showpastevents'=>1,'eo_interval'=>'expired'));
+	
+	$time_until_expired = (int) apply_filters( 'eventorganiser_events_expire_time', 24*60*60 );
+	$time_until_expired = max( $time_until_expired, 0 );
 
 	if($events):
 		$now = new DateTime('now', eo_get_blog_timezone());
@@ -385,13 +388,13 @@ function eventorganiser_delete_expired_events(){
 			$start = eo_get_the_start( DATETIMEOBJ, $event->ID, null, $event->occurrence_id );
 			$end = eo_get_the_end( DATETIMEOBJ, $event->ID, null, $event->occurrence_id );
 			
-			$expired = round(abs($end->format('U')-$start->format('U'))) + 24*60*60; //Duration + 24 hours
+			$expired = round(abs($end->format('U')-$start->format('U'))) + $time_until_expired; //Duration + expire time
 			
 			$finished =  eo_get_schedule_last( DATETIMEOBJ, $event->ID );
-			$finished->modify("+$expired seconds");//24 horus after the last occurrence finishes
+			$finished->modify("+$expired seconds");//[Expired time] after the last occurrence finishes
 			
-			//Delete if 24 hours has passed
-			if($finished <= $now){
+			//Delete if [expired time] has passed
+			if( $finished <= $now ){
 				wp_trash_post((int) $event->ID);
 			}
 			
@@ -756,4 +759,24 @@ function _eventorganiser_autofill_city(){
 	wp_safe_redirect(admin_url('edit.php?post_type=event&page=venues'));
 }
 add_action('admin_post_eo-autofillcity','_eventorganiser_autofill_city');
+
+function _eventorganiser_theme_check_results(){
+	delete_option( 'eo_wp_footer_present' );
+	delete_option( 'eo_sidebar_correct' );
+}
+add_action( 'switch_theme', '_eventorganiser_theme_check_results' );
+
+function _eventorganiser_check_sidebars( $sidebar ){
+	$before_widget = $sidebar['before_widget'];
+	
+	if( did_action( 'register_sidebar') > 1 && ( -1 == get_option( 'eo_sidebar_correct' ) ) )
+		return;
+	
+	if( strpos( $before_widget, '%1$s' ) == false || strpos( $before_widget, '%2$s' ) == false ){
+		update_option( 'eo_sidebar_correct', -1 );
+	}else{
+		update_option( 'eo_sidebar_correct', 1 );
+	}
+}
+
  ?>
