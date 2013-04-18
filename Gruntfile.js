@@ -78,7 +78,7 @@ module.exports = function(grunt) {
         watch: {
             main: {
                 files: [js_src+'*.js', js_src+'*/*.js', css_src+'*.less', css_src+'*/*.less'],
-                tasks: ['default'],
+                tasks: ['dist'],
                 options: {
                     nospawn: true
                 }

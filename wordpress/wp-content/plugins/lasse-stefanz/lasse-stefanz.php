@@ -496,8 +496,15 @@ class LasseStefanz
         $args = wp_parse_args( $args, array(
             'num' => 20,
             'size' => LS_IGIM_SIZE_LOW,
+            'container_class' => array('flexslider', 'carousel'),
+            'list_class' => 'slides',
+            'item_class' => 'slide',
         ) );
         extract($args);
+
+        $container_class = implode(' ', (array)$container_class);
+        $list_class = implode(' ', (array)$list_class);
+        $item_class = implode(' ', (array)$item_class);
 
         if (class_exists('LSInstagramImage')) {
             $pargs = LSInstagramImage::queryArgs(array(
@@ -508,10 +515,14 @@ class LasseStefanz
         }
 
         $inst = self::instance();
-        $markup = array_filter(array_map( array(&$inst, 'instagram_feed_element'), $photos ));
+
+        $markup = array();
+        foreach ($photos as $photo) {
+            $markup[] = self::instagram_feed_element($photo, array('class' => $item_class));
+        }
 
         if (count($markup)) {
-            $markup = sprintf('<div class="instagram-feed"><ul class="instagram-images">%s</ul></div>', implode("", $markup));
+            $markup = sprintf('<div class="instagram-feed %s"><ul class="instagram-images %s">%s</ul></div>', $container_class, $list_class, implode("", $markup));
 
             return $markup;
         }
@@ -519,9 +530,15 @@ class LasseStefanz
         return null;
     }
 
-    public static function instagram_feed_element($post)
+    public static function instagram_feed_element($post, $args = null)
     {
         if (class_exists('LSInstagramImage')) {
+
+            $args = wp_parse_args( $args, array(
+                'class' => null,
+            ) );
+            extract($args);
+
             $size = apply_filters( 'ls_instagram_feed_image_size', LS_IGIM_SIZE_LOW );
             $markup = LSInstagramImage::getImageMarkup($post->ID, $size);
 
@@ -549,7 +566,11 @@ class LasseStefanz
                     $markup .= sprintf('<div class="meta">%s</div>', $meta);
                 }
 
-                return sprintf('<li class="instagram-image %s">%s</li>', $size, $markup);
+                $class = (array)$class;
+                $class[] = $size;
+                $class = implode(' ', $class);
+
+                return sprintf('<li class="instagram-image %s">%s</li>', $class, $markup);
             }
         }
 
