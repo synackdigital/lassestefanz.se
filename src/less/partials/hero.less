@@ -11,7 +11,7 @@
 
 // Woo slider
 // -------------------------
-#hero .wooslider {
+#hero .flexslider {
     background: none;
     border: none;
     .border-radius(@largeBorderRadius);
@@ -47,10 +47,15 @@
             text-align: center;
             width: 100%;
 
-            text-shadow: 0 1px 3px black;
-            html.rgba & {
-                text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+            &, & a {
+                text-shadow: 0 1px 3px black;
+                html.rgba & {
+                    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+                }
+                color: white;
             }
+
+
         }
     }
 }

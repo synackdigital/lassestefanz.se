@@ -108,7 +108,7 @@ class LSCampaign extends HWPType {
             'post_status' => 'publish',
             'order' => 'ASC',
             'orderby' => 'title',
-            'posts_per_page' => -1,
+            'posts_per_page' => 500,
         ));
     }
 
@@ -145,7 +145,7 @@ class LSCampaign extends HWPType {
         $page = self::campaignPage($id);
 
         if ($page) {
-            return get_permalink($page->ID);
+            return get_permalink($page);
         }
 
         $url = self::campaignURL($id);
@@ -179,6 +179,68 @@ class LSCampaign extends HWPType {
         return null;
     }
 
+    public static function slideshow($args = null)
+    {
+        $args = wp_parse_args( $args, array(
+            'container_class' => 'flexslider',
+            'list_class' => 'slides',
+            'item_class' => 'slide',
+            'num' => 3,
+            'posts' => null,
+            'echo' => true,
+        ) );
+        extract($args);
+
+        if (!$posts) {
+            $posts = get_posts(self::queryArgs(array(
+                'posts_per_page' => $num,
+            )));
+        }
+
+        $items = array();
+        foreach ($posts as $slide) {
+            $items[] = self::slide_markup($slide, array('class' => $item_class));
+        }
+
+        $output = null;
+
+        if (count($items))
+            $output = sprintf('<div class="%s"><ul class="%s">%s</ul></div>', esc_attr($container_class), esc_attr($list_class), implode('', $items));
+
+        if ($echo)
+            echo $output;
+
+        return $output;
+    }
+
+
+    public static function slide_markup($post, $args = null)
+    {
+        $args = wp_parse_args( $args, array(
+            'class' => null,
+            'title' => null,
+        ) );
+        extract($args);
+
+        $class = implode(" ", (array)$class);
+
+        $title = empty($title) ? apply_filters('the_title', $post->post_title) : $title;
+        $title = esc_html(apply_filters( 'ls_campaign_slideshow_slide_title', $title, $post, $args ));
+
+        $thumb_data = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), self::image_size() );
+        $thumb_url = count($thumb_data) ? esc_url($thumb_data[0]) : null;
+
+        $campaign_url = get_permalink($post->ID);
+        if (!empty($campaign_url)) {
+            $title = sprintf('<a href="%s">%s</a>', esc_attr($campaign_url), $title);
+        }
+
+
+
+        $markup = sprintf('<li class="%s"><div style="background-image: url(%s);" class="slide-content"><h2 class="slide-title">%s</h2></div></li>', esc_attr( $class ), esc_attr( $thumb_url ), $title );
+
+        return $markup;
+    }
 }
 
 $campaign = LSCampaign::type('campaign', array('singular' => __('Campaign', 'ls-plugin'), 'plural' => __('Campaigns', 'ls-plugin')));

@@ -1,5 +1,7 @@
 <?php
-
+/*
+ * THIS FILE IS DEPRECATED!
+ */
 
 class LSSlideshow {
 

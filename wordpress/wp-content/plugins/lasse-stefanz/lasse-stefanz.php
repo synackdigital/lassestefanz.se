@@ -468,7 +468,7 @@ class LasseStefanz
         include_once(dirname(__FILE__) . '/types-campaign.php');
         include_once(dirname(__FILE__) . '/types-instagram-image.php');
 
-        include_once(dirname(__FILE__) . '/includes/slideshow.php');
+        // include_once(dirname(__FILE__) . '/includes/slideshow.php');
     }
 
 
@@ -522,7 +522,7 @@ class LasseStefanz
         }
 
         if (count($markup)) {
-            $markup = sprintf('<div class="instagram-feed %s"><ul class="instagram-images %s">%s</ul></div>', $container_class, $list_class, implode("", $markup));
+            $markup = sprintf('<div class="instagram-feed %s"><ul class="instagram-images %s">%s</ul></div>', esc_attr( $container_class ), esc_attr( $list_class ), implode("", $markup));
 
             return $markup;
         }
@@ -545,7 +545,7 @@ class LasseStefanz
             if ($markup) {
                 $ig_url = LSInstagramImage::getInstagramURL($post->ID);
                 if ($ig_url) {
-                    $markup = sprintf('<a href="%s">%s</a>', $ig_url, $markup);
+                    $markup = sprintf('<a href="%s">%s</a>', esc_attr($ig_url), $markup);
                 }
 
                 $ts = strtotime($post->post_date);
@@ -554,12 +554,12 @@ class LasseStefanz
 
                 $meta = null;
                 if ($date) {
-                    $meta .= sprintf('<p class="instagram-time"><time datetime="%s">%s</time></p>', $isodate, $date);
+                    $meta .= sprintf('<p class="instagram-time"><time datetime="%s">%s</time></p>', esc_attr($isodate), esc_html($date));
                 }
 
                 $username = LSInstagramImage::getInstagramUser($post->ID);
                 if ($username) {
-                    $meta .= sprintf('<p class="instagram-user"><a href="http://instagram.com/%s">@%s</a></p>', $username, $username);
+                    $meta .= sprintf('<p class="instagram-user"><a href="http://instagram.com/%s">@%s</a></p>', esc_attr($username), esc_html($username));
                 }
 
                 if (!empty($meta)) {
@@ -570,7 +570,7 @@ class LasseStefanz
                 $class[] = $size;
                 $class = implode(' ', $class);
 
-                return sprintf('<li class="instagram-image %s">%s</li>', $class, $markup);
+                return sprintf('<li class="instagram-image %s">%s</li>', esc_attr($class), $markup);
             }
         }
 

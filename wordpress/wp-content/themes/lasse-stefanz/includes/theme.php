@@ -82,9 +82,15 @@ add_filter('body_class', 'ls_body_class');
 
 function ls_campaign_slideshow($args = array(), $extra_args = array(), $echo = true)
 {
-    if (class_exists('LSSlideshow')) {
-        return LSSlideshow::campaign_slideshow($args, $extra_args, $echo);
+    if (class_exists('LSCampaign'))
+    {
+        return LSCampaign::slideshow();
     }
+
+    // if (class_exists('LSSlideshow'))
+    // {
+    //     return LSSlideshow::campaign_slideshow($args, $extra_args, $echo);
+    // }
 }
 
 
