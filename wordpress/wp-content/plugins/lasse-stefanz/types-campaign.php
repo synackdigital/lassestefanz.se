@@ -1,6 +1,8 @@
 <?php
 
 include_once(dirname(__FILE__) . '/defines.php');
+include_once(dirname(__FILE__) . '/includes/maps.php');
+
 
 class LSCampaign extends HWPType {
 
@@ -11,6 +13,10 @@ class LSCampaign extends HWPType {
         $this->setRewriteSlug(apply_filters('ls_rewrite_slug_for_type', __('campaigns', 'ls-plugin'), $name));
 
         add_action( 'template_redirect', array(&$this, 'redirect') );
+
+        if (class_exists('LSEventMaps')) {
+            $maps = new LSEventMaps();
+        }
 
         parent::__construct($name, $labels, $collection, $args);
     }
