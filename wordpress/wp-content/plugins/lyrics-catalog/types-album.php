@@ -10,6 +10,8 @@ class LCAlbum extends HWPType {
         $this->shouldSetThumbnail(true);
         $this->setRewriteSlug(apply_filters('lc_rewrite_slug_for_type', __('albums', 'lyrics-catalog'), $name));
 
+        add_action( 'pre_get_posts', array( &$this, 'archive_query' ) );
+
         parent::__construct($name, $labels, $collection, $args);
     }
 
@@ -100,6 +102,19 @@ class LCAlbum extends HWPType {
     }
 
 
+    public function archive_query($query)
+    {
+        if ($query->is_main_query() && is_post_type_archive($this->typeName())) {
+            $query->set( 'orderby', 'meta_value_num' );
+            $query->set( 'meta_key', LC_ALBUM_RELEASE_YEAR );
+            $query->set( 'order', 'desc' );
+            $query->set( 'posts_per_page', 100 );
+        }
+
+        // var_dump($query); die();
+    }
+
+
     public function backsideImageItems()
     {
         global $post;
@@ -108,7 +123,7 @@ class LCAlbum extends HWPType {
         $args = array(
             'post_type' => 'attachment',
             'post_mime_type' => 'image',
-            'posts_per_page' => -1,
+            'posts_per_page' => 100,
             'post_parent' => $id,
             'exclude' => get_post_thumbnail_id($id),
         );
@@ -237,4 +252,47 @@ function lc_album_tracklisting($id = null) {
     }
 
     return null;
+}
+
+
+function lc_album_cover($id = null, $args = null) {
+
+    $args = wp_parse_args( $args, array(
+        'echo' => true,
+        'link' => 'post',
+    ) );
+    extract($args);
+
+    if (!$id) {
+        global $post;
+        $id = $post->ID;
+    }
+
+    $output = null;
+
+    if (has_post_thumbnail( $id )) {
+        $size = lc_album_image_size();
+
+        switch ($link) {
+            case 'post':
+                $link_url = get_permalink( $id );
+                break;
+            case 'image':
+                $thumb_src = wp_get_attachment_image_src( get_post_thumbnail_id( $id ), $size );
+                $link_url = $thumb_src[0];
+                break;
+            default:
+                $link_url = $link;
+                break;
+        }
+
+        $album_title = esc_attr( get_the_title( $id ) );
+
+        $output = sprintf('<figure class="album-cover"><a href="%s">%s</a></figure>', $link_url, get_the_post_thumbnail( $id, $size, array('alt' => $album_title, 'title' => $album_title) ));
+    }
+
+    if ($echo)
+        echo $output;
+
+    return $output;
 }

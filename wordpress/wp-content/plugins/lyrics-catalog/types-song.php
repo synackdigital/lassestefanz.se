@@ -10,6 +10,8 @@ class LCSong extends HWPType {
         $this->shouldSetThumbnail(false);
         $this->setRewriteSlug(apply_filters('lc_rewrite_slug_for_type', __('songs', 'lyrics-catalog'), $name));
 
+        add_action( 'pre_get_posts', array( &$this, 'archive_query' ) );
+
         parent::__construct($name, $labels, $collection, $args);
     }
 
@@ -97,6 +99,16 @@ class LCSong extends HWPType {
         return array_merge($defaults, $type_args, (array)$args);
     }
 
+    public function archive_query($query)
+    {
+        if ($query->is_main_query() && is_post_type_archive($this->typeName())) {
+            $query->set( 'orderby', 'title' );
+            $query->set( 'order', 'asc' );
+            $query->set( 'posts_per_page', 500 );
+        }
+
+        // var_dump($query); die();
+    }
 
     /**
      * Returns an array of all albums

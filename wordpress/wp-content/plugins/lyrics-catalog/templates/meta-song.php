@@ -5,13 +5,13 @@ $publisher = lc_song_publisher();
 ?>
 
 <?php if ($authors) : ?>
-    <p><strong><?php _e('Author', 'lyrics-catalog'); ?></strong>: <?php echo $authors; ?></p>
+    <p class="song-meta song-author"><strong><?php _e('Author', 'lyrics-catalog'); ?></strong>: <?php echo $authors; ?></p>
 <?php endif; ?>
 
 <?php if ($publisher) : ?>
-    <p><strong><?php _e('Publisher', 'lyrics-catalog'); ?></strong>: <?php echo $publisher; ?></p>
+    <p class="song-meta song-publisher"><strong><?php _e('Publisher', 'lyrics-catalog'); ?></strong>: <?php echo $publisher; ?></p>
 <?php endif; ?>
 
 <?php if ($album) : ?>
-    <p><?php _e('From the album', 'lyrics-catalog'); ?> <?php echo $album; ?></p>
+    <p class="song-meta song-album"><?php _e('From the album', 'lyrics-catalog'); ?> <?php echo $album; ?></p>
 <?php endif; ?>

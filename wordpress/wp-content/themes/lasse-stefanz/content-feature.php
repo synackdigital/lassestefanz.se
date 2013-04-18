@@ -14,7 +14,7 @@
     </figure>
 
     <div class="entry-meta">
-      <?php the_date(); ?>
+      <?php echo get_the_date(); ?>
     </div><!-- .entry-meta -->
 
     <h2 class="entry-title"><?php the_title(); ?></h2>
