@@ -41,6 +41,7 @@ module.exports = function(grunt) {
             },
             main: {
                 src: [
+                    cmp_src+'flexslider-less/jquery.flexslider.js',
                     js_src+'main.js'
                 ],
                 dest: js_dest+'<%= pkg.name %>.js'
