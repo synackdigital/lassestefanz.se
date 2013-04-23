@@ -16,19 +16,30 @@
   &.size-ls_square_banner_image,
   &.size-ls_portrait_banner_image {
     .column(3, 6);
-    margin-bottom: @rhythmUnit;
   }
 
   /* Landscape fills 6 cols */
   &.size-ls_landscape_banner_image {
     .column(6, 6);
+  }
+
+  /* Right aligned banners */
+  &.size-ls_square_banner_image,
+  &.size-ls_portrait_banner_image,
+  &.size-ls_landscape_banner_image {
+    margin-top: @rhythmUnit;
     margin-bottom: @rhythmUnit;
+
+    &.alignright {
+      float: right;
+    }
   }
 
   /* Rounded corners and box shadow on images */
   img {
     .border-radius(@baseBorderRadius);
     .box-shadow(0 2px 5px rgba(0, 0, 0, .8));
+    display: block;
   }
 
   &:hover {
