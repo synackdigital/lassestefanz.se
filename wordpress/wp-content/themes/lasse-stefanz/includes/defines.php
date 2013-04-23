@@ -20,12 +20,12 @@ define('LS_SQUARE_BANNER_SIZE_CROP', true);
 
 /* Landscape Banner Image Size */
 define('LS_BANNER_LANDSCAPE_SIZE', 'ls_landscape_banner_image');
-define('LS_BANNER_LANDSCAPE_SIZE_WIDTH', 552);
+define('LS_BANNER_LANDSCAPE_SIZE_WIDTH', LS_SQUARE_BANNER_SIZE_WIDTH * 2 + 24 );
 define('LS_BANNER_LANDSCAPE_SIZE_HEIGHT', 264);
 define('LS_BANNER_LANDSCAPE_SIZE_CROP', true);
 
 /* Portrait Banner Image Size */
 define('LS_BANNER_PORTRAIT_SIZE', 'ls_portrait_banner_image');
 define('LS_BANNER_PORTRAIT_SIZE_WIDTH', 264);
-define('LS_BANNER_PORTRAIT_SIZE_HEIGHT', 552);
+define('LS_BANNER_PORTRAIT_SIZE_HEIGHT', LS_SQUARE_BANNER_SIZE_HEIGHT * 2 + 22 );
 define('LS_BANNER_PORTRAIT_SIZE_CROP', true);
