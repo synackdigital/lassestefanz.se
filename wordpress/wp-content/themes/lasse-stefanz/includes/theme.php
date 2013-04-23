@@ -173,12 +173,12 @@ function ls_upcoming_events($fargs = null)
     extract($fargs);
 
     $atts = wp_parse_args( $args, array(
-        'numberposts' => 3,
+        'numberposts' => 3 * 4,
         'event_start_after' => 'today',
         'showpastevents' => false,
     ) );
     $args = wp_parse_args( $args, array(
-        'class' => 'eo-events eo-events-shortcode',
+        'class' => 'slides eo-events eo-events-shortcode',
         'no_events' => null,
         'content' => $content
     ) );

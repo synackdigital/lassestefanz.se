@@ -2,7 +2,9 @@
 
     <aside id="gigs">
         <h1><?php _e('Upcoming shows', 'lasse-stefanz') ?></h1>
-        <?php ls_upcoming_events(); ?>
+        <div class="gigs flexslider carousel">
+            <?php ls_upcoming_events(); ?>
+        </div>
     </aside>
 
     <?php query_posts(array(

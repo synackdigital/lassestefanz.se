@@ -2,14 +2,26 @@ jQuery(window).load(function() {
     $ = jQuery;
 
     /* Instagram feed */
-    $('.instagram-feed').flexslider({
+    $('.instagram-feed.flexslider').flexslider({
         animation: "slide",
-        animationLoop: true,
+        controlNav: false,
         itemWidth: 269,
         itemMargin: 5
     });
 
-    $('#hero .flexslider').flexslider({
+    /* Gigs list */
 
+    $('.gigs.flexslider').flexslider({
+        animation: "slide",
+        controlNav: false,
+        itemWidth: 269,
+        itemMargin: 5,
+        slideshowSpeed: 7000,
+        animationSpeed: 600
     });
+
+    $('#hero .flexslider').flexslider({
+        controlNav: false
+    });
+
 });
