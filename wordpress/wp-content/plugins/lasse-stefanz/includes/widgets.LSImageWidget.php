@@ -39,9 +39,9 @@ class LS_Image_Widget extends Tribe_Image_Widget {
      */
     function widget( $args, $instance ) {
 
-        $size = 'size-' . $instance['size'];
+        $class = 'size-' . $instance['size'] . ' align' . $instance['align'];
 
-        $args['before_widget'] = preg_replace('/(.*class=["\'])([^"\']*)(["\'].*)/i', "$1$2 $size$3", $args['before_widget']);
+        $args['before_widget'] = preg_replace('/(.*class=["\'])([^"\']*)(["\'].*)/i', "$1$2 $class$3", $args['before_widget']);
 
         return parent::widget($args, $instance);
     }
@@ -80,6 +80,10 @@ class LS_Image_Widget extends Tribe_Image_Widget {
     {
         if (array_key_exists('style', $args)) {
             unset($args['style']);
+        }
+
+        if (array_key_exists('align', $args)) {
+            unset($args['align']);
         }
 
         return $args;
