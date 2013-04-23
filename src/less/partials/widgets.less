@@ -8,7 +8,21 @@
     }
 }
 
-.widget_sp_image {
-    float: left;
-    margin: 0 22px 22px 0;
+// SP Image Widget
+// -------------------------
+.widget-container.widget_sp_image {
+
+  /* Square and portrait fill 3 cols */
+  &.size-ls_square_banner_image,
+  &.size-ls_portrait_banner_image {
+    .column(3, 6);
+    margin-bottom: @rhythmUnit;
+  }
+
+  /* Landscape fills 6 cols */
+  &.size-ls_landscape_banner_image {
+    .column(6, 6);
+    margin-bottom: @rhythmUnit;
+  }
+
 }
