@@ -55,4 +55,10 @@ if ( !defined('ABSPATH') )
         </p>
     </div>
 
+    <p><label for="<?php echo $this->get_field_id('align'); ?>"><?php _e('Align', 'image_widget'); ?>:</label>
+    <select name="<?php echo $this->get_field_name('align'); ?>" id="<?php echo $this->get_field_id('align'); ?>">
+        <option value="none"<?php selected( $instance['align'], 'none' ); ?>><?php _e('none', 'image_widget'); ?></option>
+        <option value="left"<?php selected( $instance['align'], 'left' ); ?>><?php _e('left', 'image_widget'); ?></option>
+        <option value="right"<?php selected( $instance['align'], 'right' ); ?>><?php _e('right', 'image_widget'); ?></option>
+    </select></p>
 </div>
