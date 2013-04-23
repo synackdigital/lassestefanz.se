@@ -3,9 +3,41 @@
 // -------------------------
 
 #gigs {
-  .clearfix();
-  margin-bottom: (2 * @rhythmUnit);
+  .column(12);
+
   position: relative;
+  top: (-2 * @rhythmUnit);
+
+  .flexslider {
+    @backgroundStart:   darken(@red, 15%);
+    @backgroundEnd:     darken(@red, 25%);
+
+    background-color: mix(@backgroundStart, @backgroundEnd, 50%);
+    .gradient(~"linear-gradient(top, @{backgroundStart} 0%, @{backgroundEnd} 100%)");
+    color: @textColor;
+    .border-top-left-radius(0);
+    .border-bottom-left-radius(0);
+
+    border: none;
+
+    float: left;
+    box-sizing: border-box;
+    padding: (.5 * @rhythmUnit) 0 0 0;
+    margin: 0;
+    height: (5 * @rhythmUnit);
+    width: 80%;
+
+    /* No nav */
+    .flex-direction-nav {
+      display: none;
+    }
+
+    /* Padding on items */
+    li {
+      box-sizing: border-box;
+      padding: 0 (.5 * @rhythmUnit);
+    }
+  }
 
   h1 {
     @backgroundStart:   @backgroundColor;
@@ -18,42 +50,21 @@
     .border-top-left-radius(@baseBorderRadius);
     .border-bottom-left-radius(@baseBorderRadius);
 
-    font-size: @largeFont;
-    line-height: (4 * @rhythmUnit);
-    text-transform: uppercase;
-
-    position: absolute;
-    top: 0;
-    left: 1.0416666666666665%;
+    float: left;
+    box-sizing: border-box;
     padding: 0 (2 * @rhythmUnit);
     margin: 0;
-    width: 10em;
-    z-index: 10;
-  }
+    width: 20%;
+    height: (5 * @rhythmUnit);
 
-  .eo-events {
-
-    @backgroundStart:   darken(@red, 15%);
-    @backgroundEnd:     darken(@red, 25%);
-
-    background-color: mix(@backgroundStart, @backgroundEnd, 50%);
-    .gradient(~"linear-gradient(top, @{backgroundStart} 0%, @{backgroundEnd} 100%)");
-    color: @textColor;
-    .border-radius(@baseBorderRadius);
-
-    .unstyled-list();
     font-size: @largeFont;
-    line-height: (4 * @rhythmUnit);
-
-    .column(12);
-
-    li {
-      display: inline-block;
-      margin-right: 2em;
-
-      &:first-child {
-        margin-left: 14em;
-      }
-    }
+    line-height: (5 * @rhythmUnit);
+    text-transform: uppercase;
   }
+
+  time,
+  a {
+    display: block;
+  }
+
 }
