@@ -11,21 +11,6 @@ remove_action('widgets_init', 'tribe_load_image_widget');
 
 class LS_Image_Widget extends Tribe_Image_Widget {
 
-    function _set($number) {
-
-        parent::_set($number);
-
-        $all_settings = $this->get_settings();
-
-        if (is_array($all_settings) && array_key_exists($number, $all_settings)) {
-            $settings = $all_settings[$number];
-
-            if (is_array($settings) && array_key_exists('size', $settings)) {
-                $this->widget_options['classname'] .= ' size-' . $settings['size'];
-            }
-        }
-    }
-
     /**
      * Render an array of default values.
      *
@@ -38,6 +23,23 @@ class LS_Image_Widget extends Tribe_Image_Widget {
         $defaults['size'] = array_shift(self::image_sizes());
 
         return $defaults;
+    }
+
+
+    /**
+     * Widget frontend output
+     *
+     * @param array $args
+     * @param array $instance
+     * @author Modern Tribe, Inc.
+     */
+    function widget( $args, $instance ) {
+
+        $size = 'size-' . $instance['size'];
+
+        $args['before_widget'] = preg_replace('/(.*class=")([^"]*)(".*)/i', "$1$2 $size$3", $args['before_widget']);
+
+        return parent::widget($args, $instance);
     }
 
     protected static function image_sizes()
