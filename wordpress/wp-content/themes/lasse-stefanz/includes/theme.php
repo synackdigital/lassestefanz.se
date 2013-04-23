@@ -190,14 +190,22 @@ function ls_news_link($title = null, $args = null)
     return $link;
 }
 
+function ls_event_date_format() {
+    return __('F j \a\t G:i', 'lasse-stefanz');
+}
+
+function ls_event_datetime_attr_format() {
+    return 'Y-m-d\TH:i:sP';
+}
+
 function ls_upcoming_events($fargs = null)
 {
     $fargs = wp_parse_args( $fargs, array(
         'atts' => array(),
         'args' => array(),
         'echo' => true,
-        'template' => sprintf('<time>%s</time> &middot; <a class="venue" href="%%event_url%%">%%event_title%%</a>',
-            __('%start{j F}% at %start{G:i}%', 'lasse-stefanz')),
+        'template' => sprintf('<time datetime="%%start{%s}%%">%%start{%s}%%</time> <a class="venue" href="%%event_url%%">%%event_title%%</a>',
+            ls_event_datetime_attr_format(), ls_event_date_format()),
     ) );
     extract($fargs);
 

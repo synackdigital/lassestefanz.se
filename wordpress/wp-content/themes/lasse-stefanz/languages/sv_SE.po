@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lasse Stefanz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-23 11:56+0100\n"
-"PO-Revision-Date: 2013-04-23 14:33+0100\n"
+"POT-Creation-Date: 2013-04-23 16:52+0100\n"
+"PO-Revision-Date: 2013-04-23 16:52+0100\n"
 "Last-Translator: Simon Fransson <simon@dessibelle.se>\n"
 "Language-Team: LS Produktions AB <kontakt@lassestefanz.se>\n"
 "Language: sv_SE\n"
@@ -110,6 +110,9 @@ msgstr "Stående banner"
 msgid "More %s"
 msgstr "Fler %s"
 
-#: includes/theme.php:200
-msgid "%start{j F}% at %start{G:i}%"
-msgstr "%start{j F}% kl %start{G:i}%"
+#: includes/theme.php:194
+msgid "F j \\a\\t G:i"
+msgstr "j F \\k\\l G:i"
+
+#~ msgid "%start{j F}% at %start{G:i}%"
+#~ msgstr "%start{j F}% kl %start{G:i}%"
