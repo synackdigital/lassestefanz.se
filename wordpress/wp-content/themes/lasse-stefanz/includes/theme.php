@@ -196,7 +196,7 @@ function ls_upcoming_events($fargs = null)
         'atts' => array(),
         'args' => array(),
         'echo' => true,
-        'content' => sprintf('<time>%s</time> &middot; <a class="venue" href="%%event_url%%">%%event_venue%%</a>',
+        'template' => sprintf('<time>%s</time> &middot; <a class="venue" href="%%event_url%%">%%event_title%%</a>',
             __('%start{j F}% at %start{G:i}%', 'lasse-stefanz')),
     ) );
     extract($fargs);
@@ -209,7 +209,7 @@ function ls_upcoming_events($fargs = null)
     $args = wp_parse_args( $args, array(
         'class' => 'slides eo-events eo-events-shortcode',
         'no_events' => null,
-        'content' => $content
+        'template' => $template
     ) );
 
     return eventorganiser_list_events($atts, $args, $echo);
