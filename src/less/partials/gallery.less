@@ -1,0 +1,44 @@
+
+// Gallery base
+// -------------------------
+.gallery {
+
+  .gallery-item {
+    background-color: rgba(0,100,200,.1);
+
+    float: left;
+    margin: 0 2% @rhythmUnit;
+    width: 29%;
+
+    text-align: center;
+
+    .gallery-caption {
+      .smallFont();
+      margin: 0;
+    }
+  }
+}
+
+// Gallery column sizes
+// -------------------------
+.gallery.gallery-columns-1 .gallery-item {
+  float: none;
+  margin-left: 0;
+  margin-right: 0;
+  width: auto;
+}
+.gallery.gallery-columns-2 .gallery-item {
+  width: 46%;
+}
+/* 3-cols uses default */
+.gallery.gallery-columns-4 .gallery-item {
+  width: 20%;
+}
+/* We allow max 5 cols but WP spits out classes for 9 */
+.gallery.gallery-columns-5 .gallery-item,
+.gallery.gallery-columns-6 .gallery-item,
+.gallery.gallery-columns-7 .gallery-item,
+.gallery.gallery-columns-8 .gallery-item,
+.gallery.gallery-columns-9 .gallery-item {
+  width: 16%;
+}
