@@ -174,7 +174,7 @@ function ls_widgets_init() {
     }
 
     register_sidebar( array(
-        'name' => __( 'Home Widget Area', 'lasse-stefanz' ),
+        'name' => __( 'Banners Widget Area', 'lasse-stefanz' ),
         'id' => 'home-widget-area',
         'description' => __( 'The home page widget area', 'lasse-stefanz' ),
         'before_widget' => '<li id="%1$s" class="widget-container %2$s">',

@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lasse Stefanz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-09 15:00+0100\n"
-"PO-Revision-Date: 2013-04-09 15:01+0100\n"
-"Last-Translator: Fredrik Broman <fredrik@syn-ack.se>\n"
+"POT-Creation-Date: 2013-04-23 11:56+0100\n"
+"PO-Revision-Date: 2013-04-23 11:56+0100\n"
+"Last-Translator: Simon Fransson <simon@dessibelle.se>\n"
 "Language-Team: LS Produktions AB <kontakt@lassestefanz.se>\n"
 "Language: sv_SE\n"
 "MIME-Version: 1.0\n"
@@ -17,19 +17,53 @@ msgstr ""
 "X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: functions.php:36
+#: content-album-single.php:8 content-post.php:15 content.php:7
+msgid "Pages:"
+msgstr "Sidor:"
+
+#: content-album-single.php:9 content-post.php:36 content.php:8
+msgid "Edit"
+msgstr "Redigera"
+
+#: content-post.php:14
+msgid "Continue reading <span class=\"meta-nav\">&rarr;</span>"
+msgstr "Läs mer <span class=\"meta-nav\">&rarr;</span>"
+
+#: content-post.php:22
+#, php-format
+msgid "<span class=\"%1$s\">Posted in</span> %2$s"
+msgstr "<span class=\"%1$s\">Publicerad i</span> %2$s"
+
+#: content-post.php:31
+#, php-format
+msgid "<span class=\"%1$s\">Tagged</span> %2$s"
+msgstr "<span class=\"%1$s\">Taggad</span> %2$s"
+
+#: content-post.php:35
+msgid "Leave a comment"
+msgstr "Lämna en kommentar"
+
+#: content-post.php:35
+msgid "1 Comment"
+msgstr "1 kommentar"
+
+#: content-post.php:35
+msgid "% Comments"
+msgstr "% kommentarer"
+
+#: functions.php:43
 msgid "Left Hand Navigation"
 msgstr "Vänster navigationsmeny"
 
-#: functions.php:37
+#: functions.php:44
 msgid "Right Hand Navigation"
 msgstr "Höger navigationsmeny"
 
-#: functions.php:170
-msgid "Home Widget Area"
-msgstr "Förstasidans widgetutrymme"
+#: functions.php:177
+msgid "Banners Widget Area"
+msgstr "Widgetutrymme för Banners"
 
-#: functions.php:172
+#: functions.php:179
 msgid "The home page widget area"
 msgstr "Widgetutrymme som visas på förstasidan"
 
@@ -37,21 +71,21 @@ msgstr "Widgetutrymme som visas på förstasidan"
 msgid "Upcoming shows"
 msgstr "Kommande spelningar"
 
-#: home.php:18
+#: home.php:24
 msgid "Fan photos"
 msgstr "Bilder från fans"
 
-#: home.php:19
+#: home.php:25
 msgid ""
 "Tag a photo with #lassestefanz on Instagram, and we might include it here."
 msgstr ""
 "Tagga en bild med #lassestefanz på Instagram så publicerar vi den kanske här."
 
-#: loop-home.php:4
+#: loop-home.php:4 loop-song.php:6
 msgid "Not Found"
 msgstr "Hittades inte"
 
-#: loop-home.php:6
+#: loop-home.php:6 loop-song.php:8
 msgid ""
 "Apologies, but no results were found for the requested archive. Perhaps "
 "searching will help find a related post."
@@ -59,11 +93,23 @@ msgstr ""
 "Tyvärr kunde inget innehåll hittas. Försök att använda sökfältet för att "
 "hitta det du letar efter."
 
-#: includes/theme.php:124
+#: includes/theme.php:63
+msgid "Square Banner"
+msgstr "Kvadratisk banner"
+
+#: includes/theme.php:64
+msgid "Landscape Banner"
+msgstr "Liggande banner"
+
+#: includes/theme.php:65
+msgid "Portrait Banner"
+msgstr "Ståender banner"
+
+#: includes/theme.php:167
 #, php-format
 msgid "More %s"
 msgstr "Fler %s"
 
-#: includes/theme.php:159
-msgid "%start{j F}% kl %start{G:i}%"
-msgstr ""
+#: includes/theme.php:200
+msgid "%start{j F}% at %start{G:i}%"
+msgstr "%start{j F}% kl %start{G:i}%"

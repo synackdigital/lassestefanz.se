@@ -192,14 +192,12 @@ function ls_news_link($title = null, $args = null)
 
 function ls_upcoming_events($fargs = null)
 {
-    // echo do_shortcode('[eo_events numberposts=3 event_start_after="today" showpastevents=false]<time>%start{j F}% kl %start{G:i}%</time> &middot; <a class="venue" href="%event_url%">%event_venue%</a>[/eo_events]');
-
     $fargs = wp_parse_args( $fargs, array(
         'atts' => array(),
         'args' => array(),
         'echo' => true,
         'content' => sprintf('<time>%s</time> &middot; <a class="venue" href="%%event_url%%">%%event_venue%%</a>',
-            __('%start{j F}% kl %start{G:i}%', 'lasse-stefanz')),
+            __('%start{j F}% at %start{G:i}%', 'lasse-stefanz')),
     ) );
     extract($fargs);
 
