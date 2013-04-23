@@ -27,6 +27,27 @@ function ls_setup_images()
             LS_CAMPAIGN_IMAGE_SIZE_HEIGHT,
             LS_CAMPAIGN_IMAGE_SIZE_CROP
         );
+
+        add_image_size(
+            LS_SQUARE_BANNER_SIZE,
+            LS_SQUARE_BANNER_SIZE_WIDTH,
+            LS_SQUARE_BANNER_SIZE_HEIGHT,
+            LS_SQUARE_BANNER_SIZE_CROP
+        );
+
+        add_image_size(
+            LS_BANNER_LANDSCAPE_SIZE,
+            LS_BANNER_LANDSCAPE_SIZE_WIDTH,
+            LS_BANNER_LANDSCAPE_SIZE_HEIGHT,
+            LS_BANNER_LANDSCAPE_SIZE_CROP
+        );
+
+        add_image_size(
+            LS_BANNER_PORTRAIT_SIZE,
+            LS_BANNER_PORTRAIT_SIZE_WIDTH,
+            LS_BANNER_PORTRAIT_SIZE_HEIGHT,
+            LS_BANNER_PORTRAIT_SIZE_CROP
+        );
     }
 
 }
@@ -34,6 +55,16 @@ add_action('init', 'ls_setup_images');
 
 add_filter('lc_album_image_size', function() { return LS_ALBUM_IMAGE_SIZE; });
 add_filter('ls_campaign_image_size', function() { return LS_CAMPAIGN_IMAGE_SIZE; });
+
+add_filter('image_size_names_choose', 'ls_image_widget_sizes');
+
+function ls_image_widget_sizes($sizes) {
+    return array(
+        LS_SQUARE_BANNER_SIZE => __('Square Banner', 'lasse-stefanz'),
+        LS_BANNER_LANDSCAPE_SIZE => __('Landscape Banner', 'lasse-stefanz'),
+        LS_BANNER_PORTRAIT_SIZE => __('Portrait Banner', 'lasse-stefanz'),
+    );
+}
 
 function ls_home_query($query)
 {

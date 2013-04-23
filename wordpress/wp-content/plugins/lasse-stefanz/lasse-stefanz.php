@@ -759,3 +759,10 @@ class LasseStefanz
 $ls = LasseStefanz::instance();
 
 include_once( LS_PLUGIN_PATH . 'includes/instagram.php');
+
+function ls_load_widgets() {
+    if (class_exists('Tribe_Image_Widget')) {
+        include_once( LS_PLUGIN_PATH . 'includes/widgets.LSImageWidget.php');
+    }
+}
+add_action('plugins_loaded', 'ls_load_widgets');
