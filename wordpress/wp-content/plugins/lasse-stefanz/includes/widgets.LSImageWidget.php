@@ -37,7 +37,7 @@ class LS_Image_Widget extends Tribe_Image_Widget {
 
         $size = 'size-' . $instance['size'];
 
-        $args['before_widget'] = preg_replace('/(.*class=")([^"]*)(".*)/i', "$1$2 $size$3", $args['before_widget']);
+        $args['before_widget'] = preg_replace('/(.*class=["\'])([^"\']*)(["\'].*)/i', "$1$2 $size$3", $args['before_widget']);
 
         return parent::widget($args, $instance);
     }
