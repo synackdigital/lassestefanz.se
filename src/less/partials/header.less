@@ -20,12 +20,17 @@
 #branding {
     position: absolute;
     z-index: 20;
-    top: 0;
+    top: (2 * @rhythmUnit);
     left: 50%;
     width: @logoWidth; // same as logo
     margin-left: (-.5 * @logoWidth);
 
+    text-align: center;
+
     // Centered logo replaces title
+    #site-title {
+        margin: 0;
+    }
     #site-title a {
         background-image: url('images/lslogo-whiteleather.png');
 
@@ -45,13 +50,18 @@
 
     // Centered tagline below logo
     #site-description {
+        background: @black;
+        .border-radius(@smallBorderRadius);
         .opacity(80);
+
+        display: inline;
+        padding: .1em .5em;
+        margin-top: @rhythmUnit;
 
         cursor: default;
 
         font-family: @altFontFamily;
         font-weight: bold;
-        text-align: center;
         text-transform: uppercase;
         text-shadow: rgba(0,0,0,.6) 0 1px 2px;
         letter-spacing: 2px;
