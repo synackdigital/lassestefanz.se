@@ -1,6 +1,10 @@
 <?php
 
 
+if (!defined('I_HAVE_SUPPORTED_THE_IMAGE_WIDGET')) {
+    define( 'I_HAVE_SUPPORTED_THE_IMAGE_WIDGET', true );
+}
+
 // Load the widget on widgets_init
 function ls_load_image_widget() {
     register_widget('LS_Image_Widget');
@@ -71,4 +75,15 @@ class LS_Image_Widget extends Tribe_Image_Widget {
         return apply_filters( 'ls_template_image-widget_'.$template, $file);
     }
 
+
+    public function image_widget_image_attributes($args, $intance = null)
+    {
+        if (array_key_exists('style', $args)) {
+            unset($args['style']);
+        }
+
+        return $args;
+    }
 }
+
+add_filter('image_widget_image_attributes', array('LS_Image_Widget', 'image_widget_image_attributes'), 100, 2);
