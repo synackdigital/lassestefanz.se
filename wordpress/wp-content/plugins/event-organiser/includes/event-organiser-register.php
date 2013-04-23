@@ -9,7 +9,7 @@
  */
 function eventorganiser_register_script() {
 	global $wp_locale;
-	$version = '2.0';
+	$version = '2.0.1';
 
 	$ext = (defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG) ? '' : '.min';
 
@@ -59,6 +59,9 @@ function eventorganiser_register_script() {
 				)
 			));
 
+	/* WP-JS-Hooks */
+	wp_register_script( 'eo-wp-js-hooks', EVENT_ORGANISER_URL."js/event-manager{$ext}.js",array('jquery'),$version,true);
+	
 	/* Q-Tip */
 	wp_register_script( 'eo_qtip2', EVENT_ORGANISER_URL.'js/qtip2.js',array('jquery'),$version,true);
 
@@ -76,7 +79,7 @@ add_action('init', 'eventorganiser_register_script');
  * @access private
  */
 function eventorganiser_register_scripts(){
-	$version = '2.0';
+	$version = '2.0.1';
 	$ext = (defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG) ? '' : '.min';
 
 	/*  Venue scripts for venue & event edit */
@@ -353,17 +356,12 @@ function eventorganiser_clear_cron_jobs(){
  *it could not be found.
 */
 function eventorganiser_get_next_cron_time( $cron_name ){
-
-    foreach( _get_cron_array() as $timestamp => $crons ){
-
-        if( in_array( $cron_name, array_keys( $crons ) ) ){
-            return $timestamp - time();
-        }
-
-    }
-
-    return false;
+	if( $timestamp = wp_next_scheduled( $cron_name ) ){
+		$timestamp = $timestamp - time();
+	}
+	return $timestamp;
 }
+
 
 /**
  * Callback for the delete expired events cron job. Deletes events that finished at least 24 hours ago.
