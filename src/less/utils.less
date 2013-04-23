@@ -11,17 +11,24 @@ nav ul {
     .unstyled-list();
 }
 
+// Easy alignment
+// -------------------------
+.alignleft {
+  float: left;
+}
+.alignright {
+  float: right;
+}
+
 // Wordpress embedded image classes
 // -------------------------
 img.aligncenter {
   .center-block();
 }
 img.alignleft {
-  float: left;
   margin-right: (2 * @rhythmUnit);
 }
 img.alignright {
-  float: right;
   margin-left: (2 * @rhythmUnit);
 }
 /* Ensure space for content next to left/right aligned images */
