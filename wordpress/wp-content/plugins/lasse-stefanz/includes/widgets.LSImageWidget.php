@@ -76,18 +76,18 @@ class LS_Image_Widget extends Tribe_Image_Widget {
     }
 
 
-    public function image_widget_image_attributes($args, $intance = null)
+    public function image_attributes($args, $intance = null)
     {
         if (array_key_exists('style', $args)) {
             unset($args['style']);
         }
 
-        if (array_key_exists('align', $args)) {
-            unset($args['align']);
+        if (array_key_exists('class', $args)) {
+            $args['class'] = trim(preg_replace('/align[^\h]+/i', '', $args['class']));
         }
 
         return $args;
     }
 }
 
-add_filter('image_widget_image_attributes', array('LS_Image_Widget', 'image_widget_image_attributes'), 100, 2);
+add_filter('image_widget_image_attributes', array('LS_Image_Widget', 'image_attributes'), 100, 2);
