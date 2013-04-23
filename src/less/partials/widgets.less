@@ -25,4 +25,30 @@
     margin-bottom: @rhythmUnit;
   }
 
+  /* Rounded corners and box shadow on images */
+  img {
+    .border-radius(@baseBorderRadius);
+    .box-shadow(0 2px 5px rgba(0, 0, 0, .8));
+  }
+
+  &:hover {
+    position: relative;
+
+    &:after {
+      content: ' ';
+
+      background-color: fade(@linkColor, 10%);
+      .border-radius(@baseBorderRadius);
+      .box-shadow(inset 0 -2px 5px rgba(0, 0, 0, .8));
+
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+
+      cursor: pointer;
+    }
+  }
+
 }
