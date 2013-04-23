@@ -10,8 +10,9 @@ Template: hobo-theme
 
 // Font import
 // -------------------------
-@import url(http://fonts.googleapis.com/css?family=PT+Serif:400,700,400italic,700italic);
+@import url(http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic);
 @import url(http://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700);
+@import url(http://fonts.googleapis.com/css?family=PT+Serif:400,700);
 
 
 // LESS Hat
@@ -48,15 +49,18 @@ Template: hobo-theme
 
 // Partials
 // -------------------------
-@import "partials/album";
 @import "partials/base";
+// --
+@import "partials/hentry";
+@import "partials/page";
+@import "partials/post";
+@import "partials/widgets";
+// --
 @import "partials/header";
 @import "partials/hero";
-@import "partials/gigs";
 @import "partials/main";
-@import "partials/page";
-@import "partials/posts";
-@import "partials/widgets";
+@import "partials/gigs";
+@import "partials/album";
 @import "partials/instagram";
 
 

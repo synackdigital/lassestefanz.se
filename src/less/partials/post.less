@@ -1,15 +1,15 @@
 
 // Post base
 // -------------------------
-.post {
+.hentry.type-post {
+    .entry-content {
+      font-family: @textFontStack;
+    }
 }
 
 // Feature posts
 // -------------------------
-.post.feature {
-    .box();
-
-    position: relative;
+.hentry.type-post.feature {
 
     .entry-meta {
         background-color: rgba(0,0,0,.6);
