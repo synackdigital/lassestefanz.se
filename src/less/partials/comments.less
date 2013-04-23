@@ -1,15 +1,40 @@
 
 // Comments base
 // -------------------------
-#comments {
-
-}
-
+#comments,
 #respond {
   box-sizing: border-box;
-  padding: (2 * @rhythmUnit);
 
   position: relative;
   max-width: @contentMaxWidth;
-  margin: 0 auto;
+  margin: @rhythmUnit auto;
+}
+
+
+#comments {
+
+    .commentlist {
+        .unstyled-list();
+    }
+
+    .comment {
+        .box();
+        padding: (2 * @rhythmUnit);
+
+        img.avatar {
+            .alignleft();
+            margin: 0 @rhythmUnit @rhythmUnit 0;
+
+        }
+    }
+}
+
+
+#respond {
+    .box();
+    padding: (2 * @rhythmUnit);
+
+    label {
+        .column(2, 12);
+    }
 }
