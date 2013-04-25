@@ -66,7 +66,7 @@ module.exports = function(grunt) {
         watch: {
             main: {
                 files: [js_src+'*.js', js_src+'*/*.js', css_src+'*.less', css_src+'*/*.less'],
-                tasks: ['dist'],
+                tasks: ['default'],
                 options: {
                     nospawn: true
                 }
@@ -75,7 +75,7 @@ module.exports = function(grunt) {
     });
 
     // Default task
-    grunt.registerTask('default', ['less:compile', 'concat']);
-    grunt.registerTask('dist', ['default', 'less:compress', 'uglify']);
+    grunt.registerTask('default', ['less:compile']);
+    grunt.registerTask('dist', ['default', 'less:compress', 'concat', 'uglify']);
 
 };
