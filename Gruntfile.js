@@ -41,6 +41,7 @@ module.exports = function(grunt) {
             },
             main: {
                 src: [
+                    cmp_src+'fancybox/source/jquery.fancybox.js',
                     cmp_src+'flexslider-less/jquery.flexslider.js',
                     js_src+'main.js'
                 ],
