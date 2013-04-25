@@ -62,10 +62,15 @@
     text-transform: uppercase;
   }
 
-  .venue,
-  .date {
+  /* Venue on separate row with text-overflow */
+  .venue {
     display: block;
     .text-overflow();
+  }
+
+  /* Generate a comma after city */
+  .city:after {
+    content: ",";
   }
 
 }
