@@ -3,7 +3,7 @@
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class('feature'); ?>>
 
-  <?php if (!is_single()) : ?><a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', 'hobo' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php endif; ?>
+  <?php if (!is_single()) : ?><a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( '%s', 'lasse-stefanz' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php endif; ?>
 
     <figure class="entry-image">
       <?php
@@ -11,13 +11,12 @@
         the_post_thumbnail();
       }
       ?>
+      <figcaption class="entry-title"><?php the_title(); ?></figcaption>
     </figure>
 
     <div class="entry-meta">
       <?php echo get_the_date(); ?>
     </div><!-- .entry-meta -->
-
-    <h2 class="entry-title"><?php the_title(); ?></h2>
 
   <?php if (!is_single()) : ?></a><?php endif; ?>
 
