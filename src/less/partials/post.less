@@ -10,25 +10,32 @@
 // -------------------------
 .hentry.type-post.feature {
 
+    /* Override default box padding */
+    padding: @rhythmUnit;
+
     .entry-meta {
         background-color: rgba(0,0,0,.6);
         color: @textColor;
+        .border-top-left-radius(@baseBorderRadius);
+        .border-bottom-right-radius(@baseBorderRadius);
 
+        /* Position in top left corner of photo */
         position: absolute;
         top: @rhythmUnit;
         left: @rhythmUnit;
         padding-left: .25em;
         padding-right: .25em;
         margin-bottom: 0;
-
-        font-family: @altFontFamily;
     }
 
+    /* Smaller than ususal title */
     .entry-title {
-        margin-top: @rhythmUnit;
-        margin-bottom: 0;
+        margin-top: (.5 * @rhythmUnit);
+        margin-bottom: (.5 * @rhythmUnit);
+        .largeFont();
     }
 
+    /* Reset link style */
     a,
     a:hover {
         color: inherit;
