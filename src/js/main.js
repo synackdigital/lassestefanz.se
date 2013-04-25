@@ -10,10 +10,10 @@ jQuery(window).load(function() {
     });
 
     /* Gigs list */
-
     $('.gigs.flexslider').flexslider({
         animation: "slide",
         controlNav: false,
+        directionNav: false,
         itemWidth: 269,
         itemMargin: 5,
         slideshowSpeed: 7000,
@@ -21,7 +21,8 @@ jQuery(window).load(function() {
     });
 
     $('#hero .flexslider').flexslider({
-        controlNav: false
+        controlNav: false,
+        directionNav: false
     });
 
 });
