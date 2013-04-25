@@ -12,6 +12,9 @@
 // -------------------------
 .widget-container.widget_sp_image {
 
+  /* Enable absolute positioning inside */
+  position: relative;
+
   /* Square and portrait fill 3 cols */
   &.size-ls_square_banner_image,
   &.size-ls_portrait_banner_image {
@@ -41,22 +44,33 @@
     min-width: 100%;
   }
 
-  /* Hover fx on linked images */
-  a {
+  /* Image caption positioned above image */
+  figcaption {
     background-color: @linkColor;
+    color: @linkContrastColor;
     .border-radius(@baseBorderRadius);
-    .box-shadow(0 2px 5px rgba(0, 0, 0, .8));
 
-    display: block;
-    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: @rhythmUnit;
 
-    /* Animate the effect */
-    img {
+    /* Large font */
+    .largeFont();
+  }
+
+  /* Show/hide caption on hover */
+  a {
+    figcaption {
+      .opacity(0);
       .transition(~"opacity 100ms linear");
     }
+    &:hover {
+      figcaption {
+        .opacity(.9);
+      }
+    }
   }
-  a:hover img {
-    .opacity(.8);
-  }
-
 }
