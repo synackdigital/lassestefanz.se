@@ -204,7 +204,7 @@ function ls_upcoming_events($fargs = null)
         'atts' => array(),
         'args' => array(),
         'echo' => true,
-        'template' => sprintf('<a class="venue" href="%%event_url%%">%%event_title%%</a> <time datetime="%%start{%s}%%">%%start{%s}%%</time>',
+        'template' => sprintf('<a class="venue" href="%%event_url%%">%%event_title%%</a> <time class="date" datetime="%%start{%s}%%">%%start{%s}%%</time>',
             ls_event_datetime_attr_format(), ls_event_date_format()),
     ) );
     extract($fargs);
