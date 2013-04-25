@@ -1,7 +1,7 @@
 jQuery(window).load(function() {
     $ = jQuery;
 
-    /* Instagram feed */
+    /* Instagram flexslider */
     $('.instagram-feed.flexslider').flexslider({
         animation: "slide",
         controlNav: false,
@@ -9,7 +9,7 @@ jQuery(window).load(function() {
         itemMargin: 5
     });
 
-    /* Gigs list */
+    /* Gigs flexslider */
     $('.gigs.flexslider').flexslider({
         direction: "vertical",
         animation: "slide",
@@ -19,9 +19,18 @@ jQuery(window).load(function() {
         animationSpeed: 300
     });
 
+    /* Hero flexslider */
     $('#hero .flexslider').flexslider({
         controlNav: false,
         directionNav: false
+    });
+
+    /* Fancybox */
+    $('a[href*=".jpg"], a[href*=".jpeg"], a[href*=".png"], a[href*=".gif"]').fancybox({
+        'transitionIn'  :   'elastic',
+        'transitionOut' :   'elastic',
+        'speedIn'       :   200,
+        'speedOut'      :   200
     });
 
 });
