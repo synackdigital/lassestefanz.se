@@ -11,13 +11,12 @@ jQuery(window).load(function() {
 
     /* Gigs list */
     $('.gigs.flexslider').flexslider({
+        direction: "vertical",
         animation: "slide",
         controlNav: false,
         directionNav: false,
-        itemWidth: 269,
-        itemMargin: 5,
-        slideshowSpeed: 7000,
-        animationSpeed: 600
+        slideshowSpeed: 4000,
+        animationSpeed: 300
     });
 
     $('#hero .flexslider').flexslider({
