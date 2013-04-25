@@ -18,20 +18,15 @@
     .border-top-left-radius(0);
     .border-bottom-left-radius(0);
 
+    /* Remove default border */
     border: none;
 
     float: left;
     box-sizing: border-box;
-    padding: (.5 * @rhythmUnit) 0 0 0;
+    padding: 0 0 0 (2 * @rhythmUnit);
     margin: 0;
-    height: (5 * @rhythmUnit);
     width: 80%;
-
-    /* Padding on items */
-    li {
-      box-sizing: border-box;
-      padding: 0 (.5 * @rhythmUnit);
-    }
+    height: (5 * @rhythmUnit);
   }
 
   h1 {
@@ -55,12 +50,21 @@
     font-size: @largeFont;
     line-height: (5 * @rhythmUnit);
     text-transform: uppercase;
+
+    .text-overflow();
   }
 
   /* Venue on separate row with text-overflow */
-  .venue {
-    display: block;
+  .title {
+    font-size: @largeFont;
+    line-height: (5 * @rhythmUnit);
+
     .text-overflow();
+  }
+
+  /* Generate a caret after city */
+  .city:after {
+    content: ",";
   }
 
   /* Generate a comma after city */
