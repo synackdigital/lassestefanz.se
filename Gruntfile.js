@@ -8,6 +8,8 @@ module.exports = function(grunt) {
     var css_dest   = 'wordpress/wp-content/themes/lasse-stefanz/';
 
     // Load plugins
+    grunt.loadNpmTasks('grunt-string-replace');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-less');
@@ -16,6 +18,40 @@ module.exports = function(grunt) {
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+
+        // Copy task
+        copy: {
+          main: {
+            files: [
+              {
+                expand: true,
+                cwd: cmp_src+'fancybox/source/',
+                src: [
+                    '*.png',
+                    '*.gif'
+                ],
+                dest: css_dest+'images/'
+              }
+            ]
+          }
+        },
+
+        // String replace task
+        'string-replace': {
+          main: {
+            files: {
+              'wordpress/wp-content/themes/lasse-stefanz/style.css': 'wordpress/wp-content/themes/lasse-stefanz/style.css'
+            },
+            options: {
+              replacements: [
+                {
+                  pattern: "url('fancybox_",
+                  replacement: "url('images/fancybox_"
+                }
+              ]
+            }
+          }
+        },
 
         // LESS task
         less: {
@@ -76,7 +112,11 @@ module.exports = function(grunt) {
     });
 
     // Default task
-    grunt.registerTask('default', ['less:compile']);
-    grunt.registerTask('dist', ['default', 'less:compress', 'concat', 'uglify']);
+    grunt.registerTask('default', ['less', 'string-replace-loop']);
+    grunt.registerTask('dist', ['default', 'copy', 'concat', 'uglify']);
+
+    // Loop through string-replace
+    // Since string-replace seems broken we must loop a few times manually
+    grunt.registerTask('string-replace-loop', ['string-replace', 'string-replace', 'string-replace', 'string-replace']);
 
 };
