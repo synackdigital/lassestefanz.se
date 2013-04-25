@@ -21,6 +21,11 @@
     /* Remove default border */
     border: none;
 
+    /* Larger text */
+    font-size: @largeFont;
+    line-height: (5 * @rhythmUnit);
+
+    /* Position container */
     float: left;
     box-sizing: border-box;
     padding: 0 0 0 (2 * @rhythmUnit);
@@ -40,6 +45,7 @@
     .border-top-left-radius(@baseBorderRadius);
     .border-bottom-left-radius(@baseBorderRadius);
 
+    /* Position title */
     float: left;
     box-sizing: border-box;
     padding: 0 (2 * @rhythmUnit);
@@ -47,6 +53,7 @@
     width: 20%;
     height: (5 * @rhythmUnit);
 
+    /* Override default type */
     font-size: @largeFont;
     line-height: (5 * @rhythmUnit);
     text-transform: uppercase;
@@ -54,22 +61,9 @@
     .text-overflow();
   }
 
-  /* Venue on separate row with text-overflow */
-  .title {
-    font-size: @largeFont;
-    line-height: (5 * @rhythmUnit);
-
-    .text-overflow();
-  }
-
-  /* Generate a caret after city */
-  .city:after {
-    content: ",";
-  }
-
-  /* Generate a comma after city */
-  .city:after {
-    content: ",";
+  /* Generate a caret after date */
+  .date:after {
+    content: " \203A";
   }
 
 }

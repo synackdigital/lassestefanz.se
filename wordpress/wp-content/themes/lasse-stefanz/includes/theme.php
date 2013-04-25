@@ -191,7 +191,7 @@ function ls_news_link($title = null, $args = null)
 }
 
 function ls_event_date_format() {
-    return __('F j \a\t G:i', 'lasse-stefanz');
+    return __('j F', 'lasse-stefanz');
 }
 
 function ls_event_datetime_attr_format() {
@@ -204,7 +204,7 @@ function ls_upcoming_events($fargs = null)
         'atts' => array(),
         'args' => array(),
         'echo' => true,
-        'template' => sprintf('<a class="title" href="%%event_url%%">%%event_title%%</a> <span class="city">%%event_venue_city%%</span> <time class="date" datetime="%%start{%s}%%">%%start{%s}%%</time>',
+        'template' => sprintf('<div class="text-overflow"><time class="date" datetime="%%start{%s}%%">%%start{%s}%%</time> <a class="title" href="%%event_url%%">%%event_title%%</a></div>',
             ls_event_datetime_attr_format(), ls_event_date_format()),
     ) );
     extract($fargs);
