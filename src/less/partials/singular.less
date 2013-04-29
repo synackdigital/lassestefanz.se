@@ -27,9 +27,24 @@ body.attachment {
       .border-radius(@baseBorderRadius);
     }
 
-    /* Content font */
+    /* Entry content */
     .entry-content {
       font-family: @textFontStack;
+
+      p {
+        margin-bottom: @rhythmUnit;
+        line-height: (2 * @rhythmUnit);
+      }
+    }
+
+    /* Entry utility */
+    .entry-utility {
+      .mute();
+      border-top: 1px solid @grayLighter;
+
+      padding-top: @rhythmUnit;
+
+      .smallFont();
     }
   }
 

@@ -67,6 +67,21 @@
   line-height: @line-height * @rhythmUnit;
 }
 
+// Mute content
+// -------------------------
+.mute() {
+  color: @grayLight;
+
+  a {
+    color: @grayLight;
+    text-decoration: underline;
+
+    &:hover {
+      color: @linkHoverColor;
+    }
+  }
+}
+
 // Shortcut for hiding stuff
 // -------------------------
 .hide() {
