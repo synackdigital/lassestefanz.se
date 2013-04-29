@@ -18,7 +18,6 @@ body.archive {
 
 }
 
-
 // Category archives
 // -------------------------
 body.archive.category {
@@ -37,4 +36,46 @@ body.archive.category {
     }
   }
 
+}
+
+// Event archives
+// Includes the tour map
+// -------------------------
+body.archive.post-type-archive-event {
+  #content,
+  #map {
+    .column(6);
+  }
+
+  /* Events list */
+  .eo-events {
+
+    li {
+      @backgroundStart:   darken(@red, 15%);
+      @backgroundEnd:     darken(@red, 25%);
+
+      background-color: mix(@backgroundStart, @backgroundEnd, 50%);
+      .gradient(~"linear-gradient(top, @{backgroundStart} 0%, @{backgroundEnd} 100%)");
+      color: @textColor;
+      .border-radius(@baseBorderRadius);
+
+      /* Larger text */
+      font-size: @largeFont;
+      line-height: (5 * @rhythmUnit);
+
+      /* Position container */
+      padding: 0 (2 * @rhythmUnit);
+      margin-bottom: 1px;
+
+      .date {
+        display: inline-block;
+        min-width: (10 * @rhythmUnit);
+      }
+    }
+  }
+
+  /* Tour map */
+  #map {
+    .box();
+  }
 }
