@@ -30,10 +30,22 @@
     /* Position container */
     float: left;
     box-sizing: border-box;
-    padding: 0 0 0 (2 * @rhythmUnit);
+    padding: 0;
     margin: 0 0 0 @titleWidth;
     width: 80%;
     height: (5 * @rhythmUnit);
+
+    /* Remove default margin on items */
+    li {
+      margin: 0;
+    }
+
+    /* Content container */
+    .eo-event-content {
+      border-left: 1px solid @backgroundStart;
+      border-right: 1px solid @backgroundEnd;
+      padding: 0 @rhythmUnit;
+    }
   }
 
   h1 {

@@ -3,20 +3,26 @@ jQuery(window).load(function() {
 
     /* Instagram flexslider */
     $('.instagram-feed.flexslider').flexslider({
+        itemWidth: 240,
+        itemMargin: 5,
         animation: "slide",
-        controlNav: false,
-        itemWidth: 269,
-        itemMargin: 5
+        slideshowSpeed: 3800,
+        animationSpeed: 310
     });
 
     /* Gigs flexslider */
     $('.gigs.flexslider').flexslider({
-        direction: "vertical",
+        itemWidth: 260,
+        itemMargin: 0,
+        minItems: 2,
+        maxItems: 4,
+        direction: "horizontal",
         animation: "slide",
         controlNav: false,
         directionNav: false,
-        slideshowSpeed: 4000,
-        animationSpeed: 300
+        slideshowSpeed: 4200,
+        animationSpeed: 280,
+        initDelay: 900
     });
 
     /* Hero flexslider */
