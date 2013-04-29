@@ -111,7 +111,7 @@
 
 // Box module
 // -------------------------
-.box(@bgColor: @white, @color: @grayDarker, @linkColor: @orange, @padding: @rhythmUnit) {
+.box(@bgColor: @textColor, @color: @backgroundColor, @padding: @rhythmUnit) {
   background-color: @bgColor;
   color: @color;
   .border-radius(@baseBorderRadius);
@@ -119,14 +119,6 @@
 
   box-sizing: border-box;
   padding: @padding;
-
-  a {
-    color: @linkColor;
-    &:hover,
-    &:focus {
-      color: darken(@linkColor, 10%);
-    }
-  }
 }
 
 // Polaroid image widget

@@ -1,0 +1,40 @@
+
+// Archive base
+// -------------------------
+body.archive {
+
+  /* Page header */
+  .page-header {
+    .column(12);
+  }
+
+  /* Navigation */
+  #nav-above {
+    .hide();
+  }
+  #nav-below {
+    .column(12);
+  }
+
+}
+
+
+// Category archives
+// -------------------------
+body.archive.category {
+
+  /* Entry content */
+  .hentry {
+    .box();
+
+    /* Column layout */
+    .column(4);
+    margin-bottom: (2 * @rhythmUnit);
+
+    /* Clear rows */
+    &:nth-child(3n) {
+      clear: left;
+    }
+  }
+
+}
