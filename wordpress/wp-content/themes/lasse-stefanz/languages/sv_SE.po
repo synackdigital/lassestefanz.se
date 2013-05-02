@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lasse Stefanz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-23 16:52+0100\n"
-"PO-Revision-Date: 2013-04-23 16:52+0100\n"
+"POT-Creation-Date: 2013-05-02 13:51+0100\n"
+"PO-Revision-Date: 2013-05-02 13:53+0100\n"
 "Last-Translator: Simon Fransson <simon@dessibelle.se>\n"
 "Language-Team: LS Produktions AB <kontakt@lassestefanz.se>\n"
 "Language: sv_SE\n"
@@ -17,39 +17,76 @@ msgstr ""
 "X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: content-album-single.php:8 content-post.php:15 content.php:7
+#: comments-message-board.php:19
+msgid "Message"
+msgstr "Meddelande"
+
+#: comments-message-board.php:21
+msgid "Leave a message"
+msgstr "Skriv ett meddelande"
+
+#: comments-message-board.php:22
+#, php-format
+msgid "Reply to %s's message"
+msgstr "Svara på %ss meddelande"
+
+#: comments-message-board.php:23
+msgid "Post message"
+msgstr "Skicka meddelande"
+
+#: comments-message-board.php:24
+msgid "Cancel"
+msgstr "Avbryt"
+
+#: comments-message-board.php:28 comments.php:18
+msgid ""
+"This post is password protected. Enter the password to view any comments."
+msgstr ""
+
+#: comments-message-board.php:45
+msgid "Messages"
+msgstr "Meddelanden"
+
+#: comments-message-board.php:49 comments-message-board.php:74
+msgid "<span class=\"meta-nav\">&larr;</span> Older messages"
+msgstr "<span class=\"meta-nav\">&larr;</span> Äldre meddelanden"
+
+#: comments-message-board.php:50 comments-message-board.php:75
+msgid "Newer messages <span class=\"meta-nav\">&rarr;</span>"
+msgstr "Nyare meddelanden <span class=\"meta-nav\">&rarr;</span>"
+
+#: comments-message-board.php:86 comments.php:72
+msgid "Comments are closed."
+msgstr "Kommentarer avstängda."
+
+#: comments.php:35
+#, php-format
+msgid "One Response to %2$s"
+msgid_plural "%1$s Responses to %2$s"
+msgstr[0] "Ett svar på %2$s"
+msgstr[1] "%1$s svar på %2$s"
+
+#: comments.php:41 comments.php:60
+msgid "<span class=\"meta-nav\">&larr;</span> Older Comments"
+msgstr "<span class=\"meta-nav\">&larr;</span> Äldre kommentarer"
+
+#: comments.php:42 comments.php:61
+msgid "Newer Comments <span class=\"meta-nav\">&rarr;</span>"
+msgstr "Nyare kommentarer <span class=\"meta-nav\">&rarr;</span>"
+
+#: content-album-single.php:8 content-message-board.php:7 content-post.php:11
+#: content.php:7
 msgid "Pages:"
 msgstr "Sidor:"
 
-#: content-album-single.php:9 content-post.php:36 content.php:8
+#: content-album-single.php:9 content-message-board.php:8 content-post.php:17
+#: content.php:8
 msgid "Edit"
 msgstr "Redigera"
 
-#: content-post.php:14
+#: content-post.php:10
 msgid "Continue reading <span class=\"meta-nav\">&rarr;</span>"
 msgstr "Läs mer <span class=\"meta-nav\">&rarr;</span>"
-
-#: content-post.php:22
-#, php-format
-msgid "<span class=\"%1$s\">Posted in</span> %2$s"
-msgstr "<span class=\"%1$s\">Publicerad i</span> %2$s"
-
-#: content-post.php:31
-#, php-format
-msgid "<span class=\"%1$s\">Tagged</span> %2$s"
-msgstr "<span class=\"%1$s\">Taggad</span> %2$s"
-
-#: content-post.php:35
-msgid "Leave a comment"
-msgstr "Lämna en kommentar"
-
-#: content-post.php:35
-msgid "1 Comment"
-msgstr "1 kommentar"
-
-#: content-post.php:35
-msgid "% Comments"
-msgstr "% kommentarer"
 
 #: functions.php:43
 msgid "Left Hand Navigation"
@@ -81,17 +118,40 @@ msgid ""
 msgstr ""
 "Tagga en bild med #lassestefanz på Instagram så publicerar vi den kanske här."
 
-#: loop-home.php:4 loop-song.php:6
+#: loop-home.php:4 loop-message-board.php:4 loop-song.php:6
 msgid "Not Found"
 msgstr "Hittades inte"
 
-#: loop-home.php:6 loop-song.php:8
+#: loop-home.php:6 loop-message-board.php:6 loop-song.php:8
 msgid ""
 "Apologies, but no results were found for the requested archive. Perhaps "
 "searching will help find a related post."
 msgstr ""
 "Tyvärr kunde inget innehåll hittas. Försök att använda sökfältet för att "
 "hitta det du letar efter."
+
+#: includes/message-board.php:12
+#, php-format
+msgid "%s <span class=\"says\">says:</span>"
+msgstr "%s <span class=\"says\">skriver:</span>"
+
+#: includes/message-board.php:15
+msgid "Your comment is awaiting moderation."
+msgstr "Din kommentar inväntar granskning."
+
+#: includes/message-board.php:22
+#, php-format
+msgid "%1$s at %2$s"
+msgstr "%1$s kl. %2$s"
+
+#: includes/message-board.php:22 includes/message-board.php:42
+#, fuzzy
+msgid "(Edit)"
+msgstr "Redigera"
+
+#: includes/message-board.php:42
+msgid "Pingback:"
+msgstr ""
 
 #: includes/theme.php:63
 msgid "Square Banner"
@@ -111,8 +171,20 @@ msgid "More %s"
 msgstr "Fler %s"
 
 #: includes/theme.php:194
-msgid "F j \\a\\t G:i"
-msgstr "j F \\k\\l G:i"
+msgid "j F"
+msgstr ""
+
+#~ msgid "<span class=\"%1$s\">Posted in</span> %2$s"
+#~ msgstr "<span class=\"%1$s\">Publicerad i</span> %2$s"
+
+#~ msgid "1 Comment"
+#~ msgstr "1 kommentar"
+
+#~ msgid "% Comments"
+#~ msgstr "% kommentarer"
+
+#~ msgid "F j \\a\\t G:i"
+#~ msgstr "j F \\k\\l G:i"
 
 #~ msgid "%start{j F}% at %start{G:i}%"
 #~ msgstr "%start{j F}% kl %start{G:i}%"
