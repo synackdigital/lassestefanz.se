@@ -13,13 +13,45 @@
 
 #comments {
 
+
+
+
     .commentlist {
-        .unstyled-list();
+
+        /* WTF */
+        &, ul, ol {
+            .unstyled-list();
+
+            ul, ol {
+                .unstyled-list();
+
+                ul, ol {
+                    .unstyled-list();
+
+                    ul, ol {
+                        .unstyled-list();
+
+                        ul, ol {
+                            .unstyled-list();
+                        }
+                    }
+                }
+            }
+        }
+
+        .children {
+            margin: @rhythmUnit 0 0 (3 * @rhythmUnit + 2px);
+
+            border-left: 5px solid lightGray;
+            padding-left: @rhythmUnit;
+
+            li {
+                margin: 0 0 @rhythmUnit 0;
+            }
+        }
     }
 
     .comment {
-        .box();
-        padding: (2 * @rhythmUnit);
 
         img.avatar {
             .alignleft();
@@ -31,8 +63,6 @@
 
 
 #respond {
-    .box();
-    padding: (2 * @rhythmUnit);
 
     label {
         .column(2, 12);

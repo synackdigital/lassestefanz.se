@@ -324,3 +324,4 @@ add_filter('hobo_humans_txt_field_location', create_function('$e', 'return "Kris
 //add_filter('hobo_title_separator', create_function('$a', 'return "-";'));
 
 include_once(dirname(__FILE__) . '/includes/theme.php');
+include_once(dirname(__FILE__) . '/includes/message-board.php');
