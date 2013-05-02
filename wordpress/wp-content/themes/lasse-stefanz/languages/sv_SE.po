@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lasse Stefanz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-02 13:51+0100\n"
-"PO-Revision-Date: 2013-05-02 13:53+0100\n"
+"POT-Creation-Date: 2013-05-02 13:58+0100\n"
+"PO-Revision-Date: 2013-05-02 13:58+0100\n"
 "Last-Translator: Simon Fransson <simon@dessibelle.se>\n"
 "Language-Team: LS Produktions AB <kontakt@lassestefanz.se>\n"
 "Language: sv_SE\n"
@@ -27,8 +27,8 @@ msgstr "Skriv ett meddelande"
 
 #: comments-message-board.php:22
 #, php-format
-msgid "Reply to %s's message"
-msgstr "Svara på %ss meddelande"
+msgid "Reply to the message from %s"
+msgstr "Svara på meddelandet från %s"
 
 #: comments-message-board.php:23
 msgid "Post message"
