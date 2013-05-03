@@ -56,7 +56,7 @@ add_action('init', 'ls_setup_images');
 add_filter('lc_album_image_size', function() { return LS_ALBUM_IMAGE_SIZE; });
 add_filter('ls_campaign_image_size', function() { return LS_CAMPAIGN_IMAGE_SIZE; });
 
-add_filter('image_size_names_choose', 'ls_image_widget_sizes');
+add_filter('ls_image_widget_image_size_names_choose', 'ls_image_widget_sizes');
 
 function ls_image_widget_sizes($sizes) {
     return array(

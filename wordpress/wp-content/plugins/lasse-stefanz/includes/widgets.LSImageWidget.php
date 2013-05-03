@@ -48,7 +48,7 @@ class LS_Image_Widget extends Tribe_Image_Widget {
 
     protected static function image_sizes()
     {
-        $possible_sizes = apply_filters( 'image_size_names_choose', array(
+        $possible_sizes = apply_filters( 'ls_image_widget_image_size_names_choose', array(
             'full'      => __('Full Size', 'image_widget'),
             'thumbnail' => __('Thumbnail', 'image_widget'),
             'medium'    => __('Medium', 'image_widget'),
