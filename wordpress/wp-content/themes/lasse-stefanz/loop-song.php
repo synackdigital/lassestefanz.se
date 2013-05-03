@@ -12,8 +12,15 @@
 <?php else: ?>
 
 <ul>
-<?php while ( have_posts() ) : the_post(); ?>
-    <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
+<?php $initial = null; while ( have_posts() ) : the_post(); ?>
+    <?php
+
+    $title = get_the_title(get_the_ID());
+    $new_section = $initial != mb_substr($title, 0, 1);
+    $initial = mb_substr($title, 0, 1);
+
+    ?>
+    <li class="order-<?php echo strtolower($initial) . ($new_section ? ' first' : '') ?>"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
 <?php endwhile; // End the loop. Whew. ?>
 </ul>
 

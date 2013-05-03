@@ -156,3 +156,24 @@
   -o-backface-visibility: hidden;
   backface-visibility: hidden;
 }
+
+// CSS Columns
+// -------------------------
+.columns(
+  @count : 4,
+  @gap : (4 * @rhythmUnit)
+) {
+  -webkit-column-count: @count;
+  -moz-column-count: @count;
+  -khtml-column-count: @count;
+  -ms-column-count: @count;
+  -o-column-count: @count;
+  column-count: @count;
+
+  -webkit-column-gap: @gap;
+  -moz-column-gap: @gap;
+  -khtml-column-gap: @gap;
+  -ms-column-gap: @gap;
+  -o-column-gap: @gap;
+  column-gap: @gap;
+}
