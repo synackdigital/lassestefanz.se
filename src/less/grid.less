@@ -50,6 +50,7 @@ body {
   .clearfix;
 }
 .column(@x,@columns:@columns) {
+  .box-sizing(border-box);
   display: inline;
   float: left;
   width: (@total-width*((((@gutter-width+@column-width)*@x)-@gutter-width) / @gridsystem-width));
