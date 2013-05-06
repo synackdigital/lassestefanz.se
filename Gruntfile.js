@@ -31,6 +31,14 @@ module.exports = function(grunt) {
                     '*.gif'
                 ],
                 dest: css_dest+'images/'
+              },
+              {
+                expand: true,
+                cwd: cmp_src+'background-size-polyfill/',
+                src: [
+                    '*.htc'
+                ],
+                dest: css_dest
               }
             ]
           }

@@ -5,6 +5,7 @@
     "lesshat": "~1.1.1",
     "normalize-css": "~2.1.0",
     "flexslider-less": "latest",
-    "fancybox": "~2.1.4"
+    "fancybox": "~2.1.4",
+    "background-size-polyfill": "latest"
   }
 }
