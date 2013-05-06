@@ -25,7 +25,7 @@ function ls_mb_comment( $comment, $args, $depth ) {
 
         <div class="comment-body"><?php comment_text(); ?></div>
 
-        <?php if (is_user_logged_in()) : ?>
+        <?php if (is_user_logged_in() && current_user_can( 'moderate_comments' )) : ?>
         <div class="reply">
             <?php comment_reply_link( array_merge( $args, array( 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
         </div><!-- .reply -->
