@@ -43,12 +43,18 @@
         position: relative;
 
         .slide-title {
-            text-align: center;
+            background: @black;
+            .border-radius(@smallBorderRadius);
+            .opacity(80);
+
             position: absolute;
-            bottom: 0;
-            left: 0;
+            bottom: @rhythmUnit;
+            left: 50%;
+            padding: 5px 10px;
+            margin-left: -210px;
+            width: 400px;
+
             text-align: center;
-            width: 100%;
 
             &, & a {
                 text-shadow: 0 1px 3px black;
