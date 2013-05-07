@@ -40,6 +40,7 @@
 
   /* Make sure images fill entire container */
   img {
+    .border-radius(@baseBorderRadius);
     display: block;
     min-width: 100%;
   }
@@ -67,12 +68,19 @@
   /* Show/hide caption on hover */
   a {
     figcaption {
-      .opacity(0);
-      .transition(~"opacity 100ms linear");
+      display: none;
+      html.csstransitions.opacity & {
+        display: block;
+        .opacity(0);
+        .transition(~"opacity 100ms linear");
+      }
     }
     &:hover {
       figcaption {
-        .opacity(.9);
+        display: block;
+        html.csstransitions.opacity & {
+          .opacity(.9);
+        }
       }
     }
   }
