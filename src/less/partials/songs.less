@@ -18,13 +18,17 @@ body.post-type-archive-song {
             }
 
             li {
-                &.first {
-                    margin-top: (2 * @rhythmUnit);
 
-                    // &.order-a, // Unsafe, if we're dealing with numerical titles
-                    &:first-child {
-                        margin-top: 0;
+                &.header {
+                    margin: (2 * @rhythmUnit) 0 0;
+
+                    h2 {
+                        margin: 0;
                     }
+                }
+
+                &:first-child {
+                    margin-top: 0;
                 }
             }
         }
