@@ -69,7 +69,7 @@ function ls_image_widget_sizes($sizes) {
 function ls_home_query($query)
 {
     if ((is_home() || is_front_page()) && $query->is_main_query()) {
-        $query->set( 'posts_per_page', '2' );
+        $query->set( 'posts_per_page', '4' );
     }
 }
 add_action( 'pre_get_posts', 'ls_home_query' );
@@ -279,3 +279,13 @@ function hobo_comment( $comment, $args, $depth ) {
     endswitch;
 }
 endif;
+
+
+function ls_add_gallery_id_rel($link) {
+    global $post;
+    if (strpos($link, ' rel="') == false)
+        return str_replace('<a href', '<a rel="gallery-'. $post->ID .'" href', $link);
+    else
+        return $link;
+}
+add_filter('wp_get_attachment_link', 'ls_add_gallery_id_rel');

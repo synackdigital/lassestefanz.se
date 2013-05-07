@@ -29,6 +29,11 @@
 
   .instagram-feed {
 
+    img {
+      max-width: 100%;
+      height: auto !important;
+    }
+
     &.flexslider {
 
       clear: both;
@@ -38,13 +43,12 @@
         .unstyled-list();
 
         li {
-
           display: inline-block;
         }
       }
     }
 
-    &.no-flexbox {
+    html.no-js & {
       ul.instagram-images {
 
         .unstyled-list();

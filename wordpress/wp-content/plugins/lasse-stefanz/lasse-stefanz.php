@@ -754,6 +754,51 @@ class LasseStefanz
 
         return apply_filters( 'ls_admin_venue_thumbnail_html', $content, $venue->term_id );
     }
+
+    /**
+     * Get event image thumbnail ID
+     * @param  int $id Event term id
+     * @return int     Image id
+     */
+    public static function event_image_id($id = null)
+    {
+        if (!$id) {
+            $term = get_queried_object();
+            if (is_object($term) && property_exists($term, 'term_id')) {
+                $id = $term->term_id;
+            }
+
+            if ($id && function_exists('eo_get_venue_meta')) {
+                return eo_get_venue_meta( $venue_id, LS_VENUE_IMAGE );
+            }
+        }
+
+        return null;
+    }
+
+    public static function event_image($id = null, $attr = null)
+    {
+        $image_id = self::event_iamge_id($id);
+
+        if ($image_id) {
+
+            $size = apply_filters('ls_event_image_size', 'medium');
+            $venue = get_term($id, 'event-venue');
+
+            $attr = wp_parse_args( $args, array(
+                'size' => $size,
+                'title' => $venue->name,
+            ) );
+            extract($attr);
+
+            return wp_get_attachment_image( $image_id, $size, false, array(
+                'title' => $title,
+                'alt' => $title,
+            ) );
+        }
+
+        return null;
+    }
 }
 
 $ls = LasseStefanz::instance();
@@ -766,3 +811,13 @@ function ls_load_widgets() {
     }
 }
 add_action('plugins_loaded', 'ls_load_widgets');
+
+
+function ls_get_event_image($id = null, $args = null) {
+    return LasseStefanz::event_image($id, $args);
+}
+
+function ls_event_image($id = null, $args = null) {
+    echo ls_get_event_image($id, $args);
+}
+
