@@ -8,7 +8,7 @@
   .column(12);
 
   position: relative;
-  top: (-2 * @rhythmUnit);
+  top: -@rhythmUnit;
 
   .flexslider {
     @backgroundStart:   darken(@red, 15%);
@@ -17,8 +17,7 @@
     background-color: mix(@backgroundStart, @backgroundEnd, 50%);
     .gradient(~"linear-gradient(top, @{backgroundStart} 0%, @{backgroundEnd} 100%)");
     color: @textColor;
-    .border-top-left-radius(0);
-    .border-bottom-left-radius(0);
+    .border-radius(@baseBorderRadius);
 
     /* Remove default border */
     border: none;
@@ -28,11 +27,9 @@
     line-height: (5 * @rhythmUnit);
 
     /* Position container */
-    float: left;
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0 0 0 @titleWidth;
-    width: 80%;
+    overflow: hidden;
+    padding: 0 0 0 @titleWidth;
+    margin: 0;
     height: (5 * @rhythmUnit);
 
     /* Remove default margin on items */
@@ -60,9 +57,10 @@
     .border-bottom-left-radius(@baseBorderRadius);
 
     /* Position title */
-    box-sizing: border-box;
     position: absolute;
-    padding: 0 (2 * @rhythmUnit) 0 0;
+    z-index: 100;
+    box-sizing: border-box;
+    padding: 0;
     margin: 0;
     width: @titleWidth;
     height: (5 * @rhythmUnit);
