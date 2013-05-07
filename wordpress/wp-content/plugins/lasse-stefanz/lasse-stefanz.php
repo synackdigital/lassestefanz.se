@@ -756,11 +756,11 @@ class LasseStefanz
     }
 
     /**
-     * Get event image thumbnail ID
+     * Get event venue image thumbnail ID
      * @param  int $id Event term id
      * @return int     Image id
      */
-    public static function event_image_id($id = null)
+    public static function venue_image_id($id = null)
     {
         if (!$id) {
             $term = get_queried_object();
@@ -776,13 +776,13 @@ class LasseStefanz
         return null;
     }
 
-    public static function event_image($id = null, $attr = null)
+    public static function venue_image($id = null, $attr = null)
     {
         $image_id = self::event_iamge_id($id);
 
         if ($image_id) {
 
-            $size = apply_filters('ls_event_image_size', 'medium');
+            $size = apply_filters('ls_venue_image_size', 'medium');
             $venue = get_term($id, 'event-venue');
 
             $attr = wp_parse_args( $args, array(
@@ -813,11 +813,11 @@ function ls_load_widgets() {
 add_action('plugins_loaded', 'ls_load_widgets');
 
 
-function ls_get_event_image($id = null, $args = null) {
-    return LasseStefanz::event_image($id, $args);
+function ls_get_venue_image($id = null, $args = null) {
+    return LasseStefanz::venue_image($id, $args);
 }
 
-function ls_event_image($id = null, $args = null) {
-    echo ls_get_event_image($id, $args);
+function ls_venue_image($id = null, $args = null) {
+    echo ls_get_venue_image($id, $args);
 }
 
