@@ -37,6 +37,26 @@ img.alignright {
   max-width: 50%;
 }
 
+// Image tint
+// Add this with jQuery
+// -------------------------
+.image-tint {
+  background-color: @linkColor;
+
+  display: inline-block;
+  .clearfix();
+
+  img {
+    .opacity(1);
+
+    float: left;
+  }
+
+  &:hover img {
+    .opacity(.6);
+  }
+}
+
 // Overflow text with ellipsis
 // -------------------------
 .text-overflow {

@@ -39,4 +39,9 @@ jQuery(window).load(function() {
         'speedOut'      :   200
     });
 
+    /* Enable hover tint on linked images in posts */
+    $('.entry-content a img').each(function() {
+        $(this).wrap('<div class="image-tint"></div>');
+    });
+
 });
