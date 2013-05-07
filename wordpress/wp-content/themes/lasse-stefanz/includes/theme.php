@@ -66,6 +66,12 @@ function ls_image_widget_sizes($sizes) {
     );
 }
 
+function ls_image_default_link_type($option) {
+    return 'file';
+}
+add_action('pre_option_image_default_link_type', 'ls_image_default_link_type');
+
+
 function ls_home_query($query)
 {
     if ((is_home() || is_front_page()) && $query->is_main_query()) {
