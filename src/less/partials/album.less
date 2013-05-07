@@ -4,16 +4,22 @@ body.post-type-archive-album {
 
     .hentry.album {
         .box();
-        .column(3, 12);
+        .column(2, 12);
 
-        min-height: (275 + 3 * @rhythmUnit);
+        min-height: (153px + 5 * @rhythmUnit);
         margin-bottom: (2 * @rhythmUnit);
 
         position: relative;
         figcaption {
             position: absolute;
-            bottom: @rhythmUnit;
+            top: (153 + @rhythmUnit);
             left: @rhythmUnit;
+        }
+
+        figure {
+            img {
+                display: block;
+            }
         }
 
         &.no-thumbnail {
@@ -23,13 +29,13 @@ body.post-type-archive-album {
 
             figcaption {
                 position: relative;
-                bottom: auto;
+                top: auto;
                 left: auto;
 
-                font-size: 4em;
+                font-size: 2em;
                 line-height: 1 ! important;
                 overflow: hidden;
-                max-height: 275px;
+                max-height: 153px;
                 word-wrap: break-word;
             }
         }

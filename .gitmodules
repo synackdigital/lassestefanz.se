@@ -16,3 +16,6 @@
 [submodule "wordpress/wp-content/plugins/wp-instagram"]
 	path = wordpress/wp-content/plugins/wp-instagram
 	url = git@github.com:dessibelle/wp-instagram
+[submodule "external/CSS3MultiColumn"]
+	path = external/CSS3MultiColumn
+	url = git@github.com:BetleyWhitehorne/CSS3MultiColumn

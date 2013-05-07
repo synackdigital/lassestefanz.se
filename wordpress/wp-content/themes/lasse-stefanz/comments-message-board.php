@@ -13,11 +13,11 @@
  */
 ?>
 
-			<div id="comments">
+			<div id="message-board">
 
 				<?php comment_form(array(
 					'comment_field' => '<p class="comment-form-comment"><label for="comment">' . __( 'Message', 'lasse-stefanz' ) . '</label><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea></p>',
-					'comment_notes_after' => '',
+					'comment_notes_after' => null,
 					'title_reply' => __('Leave a message', 'lasse-stefanz'),
 					'title_reply_to' => __("Reply to the message from %s", 'lasse-stefanz'),
 					'label_submit' => __('Post message', 'lasse-stefanz'),
@@ -90,4 +90,4 @@
 <?php endif; // end have_comments() ?>
 
 
-</div><!-- #comments -->
+</div><!-- #message-board -->

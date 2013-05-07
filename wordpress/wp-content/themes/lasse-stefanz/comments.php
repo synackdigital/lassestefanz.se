@@ -74,6 +74,8 @@
 
 <?php endif; // end have_comments() ?>
 
-<?php comment_form(); ?>
+<?php comment_form(array(
+		'comment_notes_after' => null,
+	)); ?>
 
 </div><!-- #comments -->

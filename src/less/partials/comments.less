@@ -1,6 +1,7 @@
 
 // Comments base
 // -------------------------
+#message-board,
 #comments,
 #respond {
   box-sizing: border-box;
@@ -10,16 +11,18 @@
   margin: @rhythmUnit auto;
 }
 
-
 #comments {
+    .box();
+}
 
 
+.commentlist {
 
+    /* WTF */
+    &, ul, ol {
+        .unstyled-list();
 
-    .commentlist {
-
-        /* WTF */
-        &, ul, ol {
+        ul, ol {
             .unstyled-list();
 
             ul, ol {
@@ -30,41 +33,76 @@
 
                     ul, ol {
                         .unstyled-list();
-
-                        ul, ol {
-                            .unstyled-list();
-                        }
                     }
                 }
             }
         }
-
-        .children {
-            margin: @rhythmUnit 0 0 (3 * @rhythmUnit + 2px);
-
-            border-left: 5px solid lightGray;
-            padding-left: @rhythmUnit;
-
-            li {
-                margin: 0 0 @rhythmUnit 0;
-            }
-        }
     }
 
-    .comment {
+    .children {
+        margin: @rhythmUnit 0 0 (3 * @rhythmUnit + 2px);
 
-        img.avatar {
-            .alignleft();
-            margin: 0 @rhythmUnit @rhythmUnit 0;
+        border-left: 5px solid lightGray;
+        padding-left: @rhythmUnit;
 
+        li {
+            margin: 0 0 @rhythmUnit 0;
         }
     }
 }
 
+.comment {
+
+    img.avatar {
+        .alignleft();
+        margin: 0 @rhythmUnit @rhythmUnit 0;
+
+    }
+}
+
+
 
 #respond {
-
     label {
-        .column(2, 12);
+        // .column(2, 12);
+
+        position: absolute;
+    }
+
+    input, textarea, select {
+
+        .push(2);
+
+        .border-radius(@baseBorderRadius);
+        .box-shadow(inset 0 0 5px rgba(0, 0, 0, .2));
+        border: 1px solid #bbb;
+        padding: (0.5 * @rhythmUnit) @rhythmUnit;
+        // box-sizing: border-box;
+    }
+
+    .form-submit {
+        // .push(2);
+
+        input {
+
+            @buttonColor: @linkColor;
+            @borderColor: darken(@linkColor, 15%);;
+
+            background: @buttonColor;
+            border-color: @borderColor;
+            color: white;
+            text-shadow: 0 1px @borderColor;
+            font-weight: bold;
+
+            &:hover {
+                color: darken(white, 5%);
+            }
+
+            &:active {
+                background: darken(@linkColor, 5%);
+                text-shadow: 0 -1px @borderColor;
+                color: darken(white, 15%);
+            }
+        }
     }
 }
