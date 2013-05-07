@@ -167,7 +167,10 @@
     .unstyled-list();
 
     /* Inverse colors */
-    background-color: fade(mix(@black, @grayDarker, 50%), 80%);
+    background-color: @backgroundColor;
+    html.rgba & {
+        background-color: fade(@backgroundColor, 80%);
+    }
     color: @grayLighter;
     // .gradient(~"linear-gradient(top, @{grayDarker} 0%, @{black} 100%)");
     .box-shadow(0 1px 4px rgba(0,0,0,.065));
