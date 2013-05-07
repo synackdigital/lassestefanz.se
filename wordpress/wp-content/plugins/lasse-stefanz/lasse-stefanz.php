@@ -763,10 +763,11 @@ class LasseStefanz
     public static function venue_image_id($id = null)
     {
         if (!$id) {
-            $term = get_queried_object();
-            if (is_object($term) && property_exists($term, 'term_id')) {
-                $id = $term->term_id;
-            }
+            $id = eo_get_venue();
+            // $term = get_queried_object();
+            // if (is_object($term) && property_exists($term, 'term_id')) {
+            //     $id = $term->term_id;
+            // }
         }
 
         if ($id && function_exists('eo_get_venue_meta')) {
@@ -778,6 +779,9 @@ class LasseStefanz
 
     public static function venue_image($id = null, $args = null)
     {
+        if (!$id) {
+            $id = eo_get_venue();
+        }
         $image_id = self::venue_image_id($id);
 
         if ($image_id) {
@@ -788,12 +792,14 @@ class LasseStefanz
             $args = wp_parse_args( $args, array(
                 'size' => $size,
                 'title' => $venue->name,
+                'class' => null,
             ) );
             extract($args);
 
             return wp_get_attachment_image( $image_id, $size, false, array(
                 'title' => $title,
                 'alt' => $title,
+                'class' => $class,
             ) );
         }
 
