@@ -287,24 +287,24 @@ function ls_humans($humans) {
     /* Add additional humans */
 
     $humans[] = array(
-        'Graphic design/Front end development' => 'Fredrik Broman',
+        'Graphic design/Development' => 'Fredrik Broman',
         'Site' => 'https://www.facebook.com/synackdigital',
         'Twitter' => 'frebro',
         'Location' => 'Malmö, Sweden'
     );
 
     $humans[] = array(
-        'Back end development' => 'Simon Fransson',
-        'Site' => 'http://en.wikipedia.org/wiki/John_Doe',
+        'Development' => 'Simon Fransson',
+        'Site' => 'http://dessibelle.se',
         'Twitter' => 'dessibelle',
         'Location' => 'Malmö, Sweden'
     );
 
     $humans[] = array(
         'Content production' => 'Anna Neah',
-        'Site' => 'http://www.annaneah.se',
+        'Site' => 'http://www.mermusik.se',
         'Twitter' => null, //'jdoe',
-        'Location' => 'Karlshamn'
+        'Location' => 'Karlshamn, Sweden'
     );
 
     return $humans;

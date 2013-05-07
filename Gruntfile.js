@@ -85,6 +85,7 @@ module.exports = function(grunt) {
             },
             main: {
                 src: [
+                    cmp_src+'jquery-mousewheel/jquery.mousewheel.js',
                     cmp_src+'fancybox/source/jquery.fancybox.js',
                     cmp_src+'flexslider-less/jquery.flexslider.js',
                     'external/CSS3MultiColumn/src/css3-multi-column.js',

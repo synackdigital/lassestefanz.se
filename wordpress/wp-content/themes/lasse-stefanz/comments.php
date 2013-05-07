@@ -13,6 +13,8 @@
  */
 ?>
 
+<?php if ( have_comments() ) : ?>
+
 			<div id="comments">
 <?php if ( post_password_required() ) : ?>
 				<p class="nopassword"><?php _e( 'This post is password protected. Enter the password to view any comments.', 'hobo' ); ?></p>
@@ -30,7 +32,6 @@
 	// You can start editing here -- including this comment!
 ?>
 
-<?php if ( have_comments() ) : ?>
 			<h3 id="comments-title"><?php
 			printf( _n( 'One Response to %2$s', '%1$s Responses to %2$s', get_comments_number(), 'hobo' ),
 			number_format_i18n( get_comments_number() ), '<em>' . get_the_title() . '</em>' );
@@ -62,20 +63,10 @@
 			</div><!-- .navigation -->
 <?php endif; // check for comment navigation ?>
 
-<?php else : // or, if we don't have comments:
-
-	/* If there are no comments and comments are closed,
-	 * let's leave a little note, shall we?
-	 */
-	if ( ! comments_open() ) :
-?>
-	<p class="nocomments"><?php _e( 'Comments are closed.', 'hobo' ); ?></p>
-<?php endif; // end ! comments_open() ?>
-
-<?php endif; // end have_comments() ?>
-
 <?php comment_form(array(
 		'comment_notes_after' => null,
 	)); ?>
 
 </div><!-- #comments -->
+
+<?php endif; // end have_comments() ?>
