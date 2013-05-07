@@ -767,29 +767,29 @@ class LasseStefanz
             if (is_object($term) && property_exists($term, 'term_id')) {
                 $id = $term->term_id;
             }
+        }
 
-            if ($id && function_exists('eo_get_venue_meta')) {
-                return eo_get_venue_meta( $venue_id, LS_VENUE_IMAGE );
-            }
+        if ($id && function_exists('eo_get_venue_meta')) {
+            return eo_get_venue_meta( $id, LS_VENUE_IMAGE );
         }
 
         return null;
     }
 
-    public static function venue_image($id = null, $attr = null)
+    public static function venue_image($id = null, $args = null)
     {
-        $image_id = self::event_iamge_id($id);
+        $image_id = self::venue_image_id($id);
 
         if ($image_id) {
 
             $size = apply_filters('ls_venue_image_size', 'medium');
             $venue = get_term($id, 'event-venue');
 
-            $attr = wp_parse_args( $args, array(
+            $args = wp_parse_args( $args, array(
                 'size' => $size,
                 'title' => $venue->name,
             ) );
-            extract($attr);
+            extract($args);
 
             return wp_get_attachment_image( $image_id, $size, false, array(
                 'title' => $title,
