@@ -8,7 +8,11 @@
     <figure class="entry-image">
       <?php
       if ( has_post_thumbnail() ) { // check if the post has a Post Thumbnail assigned to it.
-        the_post_thumbnail();
+        $title = esc_attr( get_the_title() );
+        the_post_thumbnail(LS_SQUARE_BANNER_SIZE, array(
+          'title' => $title,
+          'alt' => $title,
+        ));
       }
       ?>
       <figcaption class="entry-title"><?php the_title(); ?></figcaption>
