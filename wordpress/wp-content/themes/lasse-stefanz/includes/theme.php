@@ -22,6 +22,13 @@ function ls_setup_images()
         );
 
         add_image_size(
+            LS_ALBUM_PREVIEW_SIZE,
+            LS_ALBUM_PREVIEW_SIZE_WIDTH,
+            LS_ALBUM_PREVIEW_SIZE_HEIGHT,
+            LS_ALBUM_PREVIEW_SIZE_CROP
+        );
+
+        add_image_size(
             LS_CAMPAIGN_IMAGE_SIZE,
             LS_CAMPAIGN_IMAGE_SIZE_WIDTH,
             LS_CAMPAIGN_IMAGE_SIZE_HEIGHT,

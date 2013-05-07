@@ -9,17 +9,17 @@
                 <?php
 
                 $title = get_the_title(get_the_ID());
-                $new_section = $initial != strtolower(mb_substr($title, 0, 1));
-                $initial = strtolower(mb_substr($title, 0, 1));
+                $new_section = $initial != mb_strtolower(mb_substr($title, 0, 1));
+                $initial = mb_strtolower(mb_substr($title, 0, 1));
 
                 if ($new_section) {
                     ?>
-                    <li id="<?php echo $initial; ?>" class="header order-<?php echo $initial; ?>"><h2><?php echo strtoupper($initial); ?></h2></li>
+                    <li id="<?php echo urlencode($initial); ?>" class="header order-<?php echo urlencode($initial); ?>"><h2><?php echo mb_strtoupper($initial); ?></h2></li>
                     <?php
                 }
 
                 ?>
-                <li class="order-<?php echo $initial . ($new_section ? ' first' : '') ?>"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
+                <li class="order-<?php echo urlencode($initial) . ($new_section ? ' first' : '') ?>"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
             <?php endwhile; // End the loop. Whew. ?>
             </ul>
 

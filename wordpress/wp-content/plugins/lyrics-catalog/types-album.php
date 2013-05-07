@@ -257,11 +257,17 @@ function lc_album_tracklisting($id = null) {
 
 function lc_album_cover($id = null, $args = null) {
 
+
+
     $args = wp_parse_args( $args, array(
         'echo' => true,
         'link' => 'post',
+        'size' => null,
     ) );
     extract($args);
+
+    if (!$size)
+        $size = lc_album_image_size();
 
     if (!$id) {
         global $post;
@@ -271,7 +277,6 @@ function lc_album_cover($id = null, $args = null) {
     $output = null;
 
     if (has_post_thumbnail( $id )) {
-        $size = lc_album_image_size();
 
         switch ($link) {
             case 'post':

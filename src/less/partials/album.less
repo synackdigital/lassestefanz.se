@@ -3,7 +3,36 @@ body.post-type-archive-album {
     .column(12);
 
     .hentry.album {
+        .box();
         .column(3, 12);
+
+        min-height: (275 + 3 * @rhythmUnit);
+        margin-bottom: (2 * @rhythmUnit);
+
+        position: relative;
+        figcaption {
+            position: absolute;
+            bottom: @rhythmUnit;
+            left: @rhythmUnit;
+        }
+
+        &.no-thumbnail {
+            figure {
+
+            }
+
+            figcaption {
+                position: relative;
+                bottom: auto;
+                left: auto;
+
+                font-size: 4em;
+                line-height: 1 ! important;
+                overflow: hidden;
+                max-height: 275px;
+                word-wrap: break-word;
+            }
+        }
     }
 
 }
