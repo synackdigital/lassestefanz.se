@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lyrics catalog\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-03 16:06+0100\n"
-"PO-Revision-Date: 2013-04-03 16:06+0100\n"
+"POT-Creation-Date: 2013-05-08 17:47+0100\n"
+"PO-Revision-Date: 2013-05-08 17:47+0100\n"
 "Last-Translator: Simon Fransson <simon@dessibelle.se>\n"
 "Language-Team: dessibelle <simon@dessibelle.se>\n"
 "Language: sv_SE\n"
@@ -21,39 +21,39 @@ msgstr ""
 msgid "albums"
 msgstr "skivor"
 
-#: ../types-album.php:17
+#: ../types-album.php:19
 msgid "Album information"
 msgstr "Skivinformation"
 
-#: ../types-album.php:31 ../templates/meta-album.php:25
+#: ../types-album.php:33 ../templates/meta-album.php:20
 msgid "Year"
 msgstr "Årtal"
 
-#: ../types-album.php:38 ../templates/meta-album.php:29
+#: ../types-album.php:40 ../templates/meta-album.php:24
 msgid "Label"
 msgstr "Etikett"
 
-#: ../types-album.php:45
+#: ../types-album.php:47
 msgid "Backside image"
 msgstr "Baksidebild"
 
-#: ../types-album.php:59
+#: ../types-album.php:63
 msgid "Album format"
 msgstr "Albumformat"
 
-#: ../types-album.php:60
+#: ../types-album.php:64
 msgid "Album formats"
 msgstr "Albumformat"
 
-#: ../types-album.php:62
+#: ../types-album.php:66
 msgid "format"
 msgstr ""
 
-#: ../types-album.php:184 ../types-song.php:38
+#: ../types-album.php:201 ../types-song.php:40
 msgid "Album"
 msgstr "Skiva"
 
-#: ../types-album.php:184
+#: ../types-album.php:201
 msgid "Albums"
 msgstr "Skivor"
 
@@ -61,39 +61,43 @@ msgstr "Skivor"
 msgid "songs"
 msgstr "texter"
 
-#: ../types-song.php:17
+#: ../types-song.php:19
 msgid "Song information"
 msgstr "Sånginformation"
 
-#: ../types-song.php:31 ../templates/meta-song.php:8
+#: ../types-song.php:33 ../templates/meta-song.php:8
 msgid "Author"
 msgstr "Upphovsman"
 
-#: ../types-song.php:56 ../templates/meta-song.php:12
+#: ../types-song.php:59 ../templates/meta-song.php:12
 msgid "Publisher"
 msgstr "Förlag"
 
-#: ../types-song.php:57
+#: ../types-song.php:60
 msgid "Publishers"
 msgstr "Förlag"
 
-#: ../types-song.php:59
+#: ../types-song.php:62
 msgid "publisher"
 msgstr "forlag"
 
-#: ../types-song.php:163
+#: ../types-song.php:176
 msgid "Song"
 msgstr "Sång"
 
-#: ../types-song.php:163
+#: ../types-song.php:176
 msgid "Songs"
 msgstr "Sånger"
 
-#: ../templates/meta-album.php:20
+#: ../types-type.php:21
+msgid "Soundcloud URL"
+msgstr ""
+
+#: ../templates/meta-album.php:15
 msgid "Track listing"
 msgstr "Spår"
 
-#: ../templates/meta-album.php:33
+#: ../templates/meta-album.php:28
 msgid "Formats"
 msgstr "Format"
 
