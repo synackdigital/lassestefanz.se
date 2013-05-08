@@ -2,7 +2,7 @@
 
 include_once(dirname(__FILE__) . '/defines.php');
 
-class LCSong extends HWPType {
+class LCSong extends LCType {
 
     public function __construct($name, $labels = null, $collection = null, $args = null) {
 
@@ -45,6 +45,7 @@ class LCSong extends HWPType {
             )
         ));
 
+        parent::initializeFields();
     }
 
     /**

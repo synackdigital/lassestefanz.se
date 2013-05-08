@@ -2,7 +2,7 @@
 
 include_once(dirname(__FILE__) . '/defines.php');
 
-class LCAlbum extends HWPType {
+class LCAlbum extends LCType {
 
     public function __construct($name, $labels = null, $collection = null, $args = null) {
 
@@ -48,6 +48,8 @@ class LCAlbum extends HWPType {
                 'data_callback' => array(&$this, 'backsideImageItems')
             )
         ));
+
+        parent::initializeFields();
     }
 
     /**

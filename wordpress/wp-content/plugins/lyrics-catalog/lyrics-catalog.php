@@ -33,6 +33,7 @@ class LyricsCatalog
         add_action('admin_init', array(&$this, 'admin_init'));
 
         //add_action('init', array(&$this, 'setup_templates'));
+        add_action('init', array(&$this, 'setup_scripts'));
 
         $this->__setup_template_files();
 
@@ -56,7 +57,13 @@ class LyricsCatalog
     }
 
 
+    public function setup_scripts()
+    {
+        if (is_admin())
+            return;
 
+        wp_enqueue_script( 'lyrics-catalog', plugins_url( 'js/lyrics-catalog.min.js', __FILE__ ), array('jquery'), self::PLUGIN_VERSION, true );
+    }
 
     protected function __setup_template_files()
     {
@@ -104,6 +111,7 @@ class LyricsCatalog
      * @author Simon Fransson
      **/
     public function setup_types() {
+        include_once('types-type.php');
         include_once('types-album.php');
         include_once('types-song.php');
     }

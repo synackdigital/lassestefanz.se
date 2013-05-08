@@ -6,6 +6,7 @@ $year = lc_album_year();
 $label = lc_album_label();
 $formats = lc_album_formats();
 $tracks = lc_album_tracklisting();
+$player = lc_soundcloud_player();
 
 ?>
 
@@ -25,4 +26,8 @@ $tracks = lc_album_tracklisting();
 
 <?php if ($formats): ?>
     <p class="album-meta album-formats"><strong><?php _e('Formats', 'lyrics-catalog'); ?></strong>: <?php echo $formats; ?></p>
+<?php endif; ?>
+
+<?php if ($player) : ?>
+    <?php echo $player; ?>
 <?php endif; ?>
