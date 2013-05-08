@@ -358,3 +358,17 @@ function ls_add_gallery_id_rel($link) {
         return $link;
 }
 add_filter('wp_get_attachment_link', 'ls_add_gallery_id_rel');
+
+
+function ls_featured_content()
+{
+    if ( function_exists('ls_has_video') && ls_has_video() ) {
+      ls_video();
+    } elseif ( has_post_thumbnail() ) { // check if the post has a Post Thumbnail assigned to it.
+      $title = esc_attr( get_the_title() );
+      the_post_thumbnail(LS_SQUARE_BANNER_SIZE, array(
+        'title' => $title,
+        'alt' => $title,
+      ));
+    }
+}

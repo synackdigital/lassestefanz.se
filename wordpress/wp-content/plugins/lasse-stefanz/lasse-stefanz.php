@@ -468,6 +468,8 @@ class LasseStefanz
         include_once(dirname(__FILE__) . '/types-campaign.php');
         include_once(dirname(__FILE__) . '/types-instagram-image.php');
 
+        include_once(dirname(__FILE__) . '/types-post.php');
+
         // include_once(dirname(__FILE__) . '/includes/slideshow.php');
     }
 
