@@ -149,15 +149,23 @@
 // Fixes transition flicker on items using CSS transitions
 // -------------------------
 .fixTransitionFlicker() {
+  // http://stackoverflow.com/a/3461770/222245
   // http://stackoverflow.com/questions/3461441/prevent-flicker-on-webkit-transition-of-webkit-transform
 
+  // -webkit-transform:translate3d(0,0,0);
+  -webkit-perspective: 1000;
   -webkit-backface-visibility: hidden;
-  -khtml-backface-visibility: hidden;
-  -moz-backface-visibility: hidden;
-  -ms-backface-visibility: hidden;
-  -o-backface-visibility: hidden;
-  backface-visibility: hidden;
+
+  // Webkit only, I believe
+  // -webkit-backface-visibility: hidden;
+  // -khtml-backface-visibility: hidden;
+  // -moz-backface-visibility: hidden;
+  // -ms-backface-visibility: hidden;
+  // -o-backface-visibility: hidden;
+  // backface-visibility: hidden;
 }
+
+
 
 // CSS Columns
 // -------------------------
