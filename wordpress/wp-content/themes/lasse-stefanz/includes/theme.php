@@ -73,10 +73,66 @@ function ls_image_widget_sizes($sizes) {
     );
 }
 
+/**
+ * Make the 'file' the default image linking option
+ * @param  mixed $option Default value
+ * @return string         New value
+ */
 function ls_image_default_link_type($option) {
     return 'file';
 }
 add_action('pre_option_image_default_link_type', 'ls_image_default_link_type');
+
+
+function ls_save_post_fix_galleries( $post_id ) {
+
+    //verify post is not a revision
+    if ( !wp_is_post_revision( $post_id ) ) {
+
+        remove_action( 'save_post', 'ls_save_post_fix_galleries' );
+        $post = get_post($post_id);
+
+        // $pattern = '/\[gallery((.*)\s+([A-Za-z0-9_-]+)=["\']([^"\']*)["\'](.*))*\]/iu';
+        $pattern = '/\[gallery(\s+[^\]]+)+\]/iu';
+
+        // $pattern = '/\[gallery([^\]]*)\]/i';
+
+        $content = preg_replace_callback($pattern, 'ls_replace_gallery_shortcode', $post->post_content);
+
+        if ($post->post_content != $content) {
+            wp_update_post( array(
+                'ID' => $post_id,
+                'post_content' => $content,
+            ) );
+        }
+    }
+}
+add_action( 'save_post', 'ls_save_post_fix_galleries' );
+
+
+function ls_replace_gallery_shortcode($matches)
+{
+    $attr = $matches[1];
+
+    if (stristr($attr, 'link=') === false) {
+        $attr .= ' link="file"';
+    } else {
+        $attr = preg_replace_callback('/([A-Za-z0-9_-]+)=["\']([^"\']*)["\']/iu', function($m) {
+
+            if (count($m) > 2 && $m[1] == 'link') {
+                return 'link="file"';
+            }
+
+            return $m[0];
+        }, $attr);
+    }
+
+    if ($attr) {
+        return "[gallery$attr]";
+    }
+
+    return print_r($matches[0], true);
+}
 
 
 function ls_home_query($query)
