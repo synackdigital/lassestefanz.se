@@ -5,7 +5,7 @@ Plugin URI: http://dessibelle.se
 Description: Adds custom post types for songs/lyrics and albums
 Author: Simon Fransson
 Author URI: http://www.dessibelle.se
-Version: 1.0b2
+Version: 1.0
 */
 
 
@@ -14,7 +14,7 @@ include_once( LC_PLUGIN_PATH . 'defines.php');
 
 class LyricsCatalog
 {
-    const PLUGIN_VERSION = '1.0b2';
+    const PLUGIN_VERSION = '1.0';
 
     protected static $instance;
     protected static $plugin_slug;
