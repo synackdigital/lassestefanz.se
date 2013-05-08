@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lasse Stefanz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-23 11:56+0100\n"
-"PO-Revision-Date: 2013-04-23 11:58+0100\n"
+"POT-Creation-Date: 2013-05-08 16:11+0100\n"
+"PO-Revision-Date: 2013-05-08 16:12+0100\n"
 "Last-Translator: Simon Fransson <simon@dessibelle.se>\n"
 "Language-Team: Simon Fransson <simon@dessibelle.se>\n"
 "Language: sv_SE\n"
@@ -92,23 +92,23 @@ msgstr ""
 "av filer och data, samt att du om möjligt kör importen på en lokal "
 "webbserver. "
 
-#: ../lasse-stefanz.php:614
+#: ../lasse-stefanz.php:616
 msgid "Use as featured image"
 msgstr "Använd som utvald bild"
 
-#: ../lasse-stefanz.php:615
+#: ../lasse-stefanz.php:617
 msgid "Saving..."
 msgstr "Sparar…"
 
-#: ../lasse-stefanz.php:616
+#: ../lasse-stefanz.php:618
 msgid "Could not set that as the thumbnail image. Try a different attachment."
 msgstr "Kunde inte ange som miniatyrbild. Försök med en annan bild."
 
-#: ../lasse-stefanz.php:617
+#: ../lasse-stefanz.php:619
 msgid "Done"
 msgstr "Klar"
 
-#: ../lasse-stefanz.php:661 ../types-instagram-image.php:173
+#: ../lasse-stefanz.php:663 ../types-instagram-image.php:173
 msgid "Image"
 msgstr "Bild"
 
@@ -153,8 +153,7 @@ msgstr "Bild-URL"
 msgid "Location"
 msgstr "Plats"
 
-#: ../types-instagram-image.php:66 ../includes/widgets.LSImageWidget.php:117
-#: ../views/widget-admin.php:46
+#: ../types-instagram-image.php:66 ../includes/widgets.LSImageWidget.php:53
 msgid "Thumbnail"
 msgstr "Thumbnail"
 
@@ -214,6 +213,25 @@ msgstr "Beundrarbild"
 msgid "Fan photos"
 msgstr "Beundrarbilder"
 
+#: ../types-post.php:29
+msgid "Video URL"
+msgstr "Videoadress"
+
+#: ../types-post.php:30
+msgid ""
+"Will be used in place of featured image if speciefied. Valid sources are:"
+msgstr ""
+"Angiven adress kommer att användas i stället för utvald bild. Giltiga "
+"datakällor är:"
+
+#: ../types-post.php:102
+msgid "Post"
+msgstr ""
+
+#: ../types-post.php:102
+msgid "Posts"
+msgstr ""
+
 #: ../includes/slideshow.php:126
 msgid "Previous"
 msgstr "Föregående"
@@ -222,15 +240,15 @@ msgstr "Föregående"
 msgid "Next"
 msgstr "Nästa"
 
-#: ../includes/widgets.LSImageWidget.php:116 ../views/widget-admin.php:45
+#: ../includes/widgets.LSImageWidget.php:52
 msgid "Full Size"
 msgstr "Full storlek"
 
-#: ../includes/widgets.LSImageWidget.php:118 ../views/widget-admin.php:47
+#: ../includes/widgets.LSImageWidget.php:54
 msgid "Medium"
 msgstr "Mellan"
 
-#: ../includes/widgets.LSImageWidget.php:119 ../views/widget-admin.php:48
+#: ../includes/widgets.LSImageWidget.php:55
 msgid "Large"
 msgstr "Stor"
 
@@ -238,34 +256,51 @@ msgstr "Stor"
 msgid "Select an Image"
 msgstr "Välj en bild"
 
-#: ../views/widget-admin.php:24
+#: ../views/widget-admin.php:23
+msgid "Title"
+msgstr "Titel"
+
+#: ../views/widget-admin.php:26
 msgid "Alternate Text"
 msgstr "Alternativ text"
 
-#: ../views/widget-admin.php:28
+#: ../views/widget-admin.php:30
 msgid "Link"
 msgstr "Länk"
 
-#: ../views/widget-admin.php:31
+#: ../views/widget-admin.php:33
 msgid "Stay in Window"
 msgstr "Behåll i samma fönster"
 
-#: ../views/widget-admin.php:32
+#: ../views/widget-admin.php:34
 msgid "Open New Window"
 msgstr "Öppna i nytt fönster"
 
-#: ../views/widget-admin.php:40
+#: ../views/widget-admin.php:42
 msgid "Size"
 msgstr "Storlek"
+
+#: ../views/widget-admin.php:55
+msgid "Align"
+msgstr "Justering"
+
+#: ../views/widget-admin.php:57
+msgid "none"
+msgstr ""
+
+#: ../views/widget-admin.php:58
+msgid "left"
+msgstr ""
+
+#: ../views/widget-admin.php:59
+msgid "right"
+msgstr ""
 
 #~ msgid "Subpage"
 #~ msgstr "Undersida"
 
 #~ msgid "Subpage settings"
 #~ msgstr "Inställningar för undersida"
-
-#~ msgid "Image Title"
-#~ msgstr "Bildtitel"
 
 #~ msgid "Instagram Image"
 #~ msgstr "Instagrambild"
