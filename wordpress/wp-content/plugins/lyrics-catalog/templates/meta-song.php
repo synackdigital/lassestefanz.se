@@ -2,6 +2,8 @@
 $album = lc_song_album();
 $authors = lc_song_authors();
 $publisher = lc_song_publisher();
+$player = lc_soundcloud_player();
+
 ?>
 
 <?php if ($authors) : ?>
@@ -14,4 +16,8 @@ $publisher = lc_song_publisher();
 
 <?php if ($album) : ?>
     <p class="song-meta song-album"><?php _e('From the album', 'lyrics-catalog'); ?> <?php echo $album; ?></p>
+<?php endif; ?>
+
+<?php if ($player) : ?>
+    <?php echo $player; ?>
 <?php endif; ?>
