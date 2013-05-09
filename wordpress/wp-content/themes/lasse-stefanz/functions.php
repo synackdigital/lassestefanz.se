@@ -291,21 +291,21 @@ function ls_humans($humans) {
     /* Add additional humans */
 
     $humans[] = array(
-        'Graphic design/Development' => 'Fredrik Broman',
-        'Site' => 'https://www.facebook.com/synackdigital',
+        'Graphic design and Front End Development' => 'Fredrik Broman',
+        'Site' => 'http://synack.se',
         'Twitter' => 'frebro',
         'Location' => 'Malmö, Sweden'
     );
 
     $humans[] = array(
-        'Development' => 'Simon Fransson',
+        'Back End and Front End Development' => 'Simon Fransson',
         'Site' => 'http://dessibelle.se',
         'Twitter' => 'dessibelle',
         'Location' => 'Malmö, Sweden'
     );
 
     $humans[] = array(
-        'Content production' => 'Anna Neah',
+        'Content Production and management' => 'Anna Neah Deutgen',
         'Site' => 'http://www.mermusik.se',
         'Twitter' => null, //'jdoe',
         'Location' => 'Karlshamn, Sweden'
