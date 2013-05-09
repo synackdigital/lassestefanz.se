@@ -4,34 +4,39 @@ body.post-type-archive-song {
         .box();
         padding: (4 * @rhythmUnit);
 
-        ul {
-            .unstyled-list();
+        .songs-container {
 
             .columns();
 
-            a {
-                color: @backgroundColor;
+            ul {
 
-                &:hover {
-                  color: @linkHoverColor;
-                }
-            }
+                .unstyled-list();
 
-            li {
+                a {
+                    color: @backgroundColor;
 
-                &.header {
-                    margin: (2 * @rhythmUnit) 0 0;
-
-                    h2 {
-                        margin: 0;
+                    &:hover {
+                      color: @linkHoverColor;
                     }
                 }
 
-                &:first-child {
-                    margin-top: 0;
+                li {
+
+                    &.header {
+                        margin: (2 * @rhythmUnit) 0 0;
+
+                        h2 {
+                            margin: 0;
+                        }
+                    }
+
+                    &:first-child {
+                        margin-top: 0;
+                    }
                 }
             }
         }
+
     }
 
 }

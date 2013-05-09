@@ -1,11 +1,13 @@
 module.exports = function(grunt) {
 
     // Paths
-    var cmp_src    = 'components/';
-    var js_src     = 'src/js/';
-    var js_dest    = 'wordpress/wp-content/themes/lasse-stefanz/js/';
-    var css_src    = 'src/less/';
-    var css_dest   = 'wordpress/wp-content/themes/lasse-stefanz/';
+    var cmp_src     = 'components/';
+    var js_src      = 'src/js/';
+    var js_dest     = 'wordpress/wp-content/themes/lasse-stefanz/js/';
+    var coffee_src  = 'src/coffee/';
+    var coffee_dest = js_src;
+    var css_src     = 'src/less/';
+    var css_dest    = 'wordpress/wp-content/themes/lasse-stefanz/';
 
     // Load plugins
     grunt.loadNpmTasks('grunt-string-replace');
@@ -14,6 +16,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-coffee');
 
     // Project configuration.
     grunt.initConfig({
@@ -31,6 +34,14 @@ module.exports = function(grunt) {
                     '*.gif'
                 ],
                 dest: css_dest+'images/'
+              },
+              {
+                expand: true,
+                cwd: 'external/CSS3MultiColumn/',
+                src: [
+                    'css3-multi-column.min.js'
+                ],
+                dest: css_dest+'js/'
               }
               // {
               //   expand: true,
@@ -78,6 +89,16 @@ module.exports = function(grunt) {
             }
         },
 
+        // Coffee task
+        coffee: {
+            main: {
+                files: {
+                    'src/js/main.js': [coffee_src + 'main.coffee']
+                }
+            }
+        },
+
+
         // Concat task
         concat: {
             options: {
@@ -88,7 +109,6 @@ module.exports = function(grunt) {
                     cmp_src+'jquery-mousewheel/jquery.mousewheel.js',
                     cmp_src+'fancybox/source/jquery.fancybox.js',
                     cmp_src+'flexslider-less/jquery.flexslider.js',
-                    'external/CSS3MultiColumn/src/css3-multi-column.js',
                     js_src+'main.js'
                 ],
                 dest: js_dest+'<%= pkg.name %>.js'
@@ -112,7 +132,7 @@ module.exports = function(grunt) {
         // Watch task
         watch: {
             main: {
-                files: [js_src+'*.js', js_src+'*/*.js', css_src+'*.less', css_src+'*/*.less'],
+                files: [coffee_src+'*.coffee', coffee_src+'*/*.coffee', css_src+'*.less', css_src+'*/*.less'],
                 tasks: ['default'],
                 options: {
                     nospawn: true
@@ -122,8 +142,13 @@ module.exports = function(grunt) {
     });
 
     // Default task
-    grunt.registerTask('default', ['less', 'string-replace-loop']);
-    grunt.registerTask('dist', ['default', 'copy', 'concat', 'uglify']);
+
+    grunt.registerTask('style', ['less']);
+    grunt.registerTask('copy_files', ['string-replace-loop', 'copy']);
+    grunt.registerTask('scripts', ['coffee', 'concat', 'uglify']);
+
+    grunt.registerTask('default', ['style', 'scripts']);
+    grunt.registerTask('dist', ['copy_files', 'default']);
 
     // Loop through string-replace
     // Since string-replace seems broken we must loop a few times manually

@@ -27,7 +27,11 @@ function ls_setup() {
         //     $ws_token = $wooslider->token;
         // }
 
-        wp_enqueue_script( 'ls.lasse-stefanz', get_bloginfo( 'stylesheet_directory' ) . '/js/lasse-stefanz.min.js', array('jquery'), hobo_version(), hobo_scripts_in_footer() );
+        wp_enqueue_script( 'ls.lasse-stefanz', get_stylesheet_directory_uri() . '/js/lasse-stefanz.min.js', array('jquery'), hobo_version(), hobo_scripts_in_footer() );
+
+        wp_localize_script( 'ls.lasse-stefanz', 'LS', array(
+            'css3_multi_column_js_src' => get_stylesheet_directory_uri() . '/js/css3-multi-column.min.js',
+        ) );
     }
 
     ls_setup_menus();
