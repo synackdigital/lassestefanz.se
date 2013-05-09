@@ -145,7 +145,12 @@ class LCSong extends LCType {
      */
     public static function album($id = null)
     {
-        return get_post(self::albumID($id));
+        $aid = self::albumID($id);
+
+        if ($aid)
+            return get_post($aid);
+
+        return null;
     }
 
     /**
