@@ -38,6 +38,11 @@ class LasseStefanz
         add_action('admin_init', array(&$this, 'admin_init'));
         add_action('admin_menu', array(&$this, 'init_settings'));
 
+        if (WP_DEBUG) {
+            add_action('init', array(__CLASS__, 'setup_roles'));
+        }
+        register_activation_hook( __FILE__, array(__CLASS__, 'setup_roles') );
+
         add_action('admin_footer', array(&$this, 'setup_instagram'));
 
         add_action('wp_ajax_instagram_sync', array(&$this, 'wp_ajax_instagram_sync'));
@@ -88,6 +93,64 @@ class LasseStefanz
         }
 
         return self::$instance;
+    }
+
+
+    public static function setup_roles()
+    {
+        if (WP_DEBUG) {
+            global $table_prefix;
+            $option = get_option($table_prefix . 'user_roles');
+            unset($option[LS_ROLE_BOOKING_AGENT]);
+        }
+
+        // Ändra och lägga till i spelplanen
+        add_role(LS_ROLE_BOOKING_AGENT, __('Booking agent', 'ls-plugin'), array(
+            'read' => false,
+
+            'edit_posts' => false,
+            'publish_posts' => false,
+            'delete_posts' => false,
+            'edit_others_posts' => false,
+            'delete_others_posts' => false,
+            'read_private_posts' => false,
+            'manage_comments' => false,
+            'manage_post_categories' => false,
+
+
+            LS_ROLE_BOOKING_AGENT => true,
+            'edit_events' => true,
+            'publish_events' => true,
+            'delete_events' => true,
+            'edit_others_events' => true,
+            'delete_others_events' => true,
+            'read_private_events' => true,
+            'manage_venues' => true,
+            'manage_event_categories' => true,
+        ));
+
+        // Skriva nyhetsinlägg.
+
+        // Svara i klotterplanket
+
+
+        add_action( 'admin_menu', array(__CLASS__, 'setup_booking_admin_menu') );
+        add_action( 'wp_before_admin_bar_render', array(__CLASS__, 'setup_booking_admin_bar') );
+    }
+
+    public static function setup_booking_admin_menu() {
+        if (current_user_can( LS_ROLE_BOOKING_AGENT )) {
+            remove_menu_page( 'edit.php' );
+            remove_menu_page( 'edit-comments.php' );
+        }
+    }
+
+    public static function setup_booking_admin_bar() {
+        if (current_user_can( LS_ROLE_BOOKING_AGENT )) {
+            global $wp_admin_bar;
+            $wp_admin_bar->remove_menu('posts');
+            $wp_admin_bar->remove_menu('comments');
+        }
     }
 
 
@@ -153,6 +216,9 @@ class LasseStefanz
      */
     public function init_settings()
     {
+        if (!current_user_can( 'administrator' ))
+            return;
+
         // Top level menu page (http://codex.wordpress.org/Function_Reference/add_menu_page)
         add_menu_page(
             __('Lasse Stefanz', 'ls-plugin'),

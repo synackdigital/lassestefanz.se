@@ -23,3 +23,6 @@ define('LS_IGIM_TAG', 'instagram_tag');
 
 /* Taxonomy meta */
 define('LS_VENUE_IMAGE', '_ls_venue_image');
+
+/* User roles */
+define('LS_ROLE_BOOKING_AGENT', 'ls_booking_agent');
