@@ -372,3 +372,18 @@ function ls_featured_content()
       ));
     }
 }
+
+
+function ls_init_facebook() {
+    if (hobo_facebook_page_url()) {
+        add_action( 'hobo_before_footer_sidebar', 'hobo_facebook_like_button' );
+    }
+}
+add_action('init', 'ls_init_facebook');
+
+function ls_facebook_like_args($args) {
+
+    $args['colorscheme'] = 'dark';
+    return $args;
+}
+add_filter('hobo_facebook_like_args', 'ls_facebook_like_args');
