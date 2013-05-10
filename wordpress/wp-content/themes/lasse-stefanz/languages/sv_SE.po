@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lasse Stefanz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-02 13:58+0100\n"
-"PO-Revision-Date: 2013-05-02 13:58+0100\n"
+"POT-Creation-Date: 2013-05-10 14:12+0100\n"
+"PO-Revision-Date: 2013-05-10 14:13+0100\n"
 "Last-Translator: Simon Fransson <simon@dessibelle.se>\n"
 "Language-Team: LS Produktions AB <kontakt@lassestefanz.se>\n"
 "Language: sv_SE\n"
@@ -38,7 +38,7 @@ msgstr "Skicka meddelande"
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: comments-message-board.php:28 comments.php:18
+#: comments-message-board.php:28 comments.php:20
 msgid ""
 "This post is password protected. Enter the password to view any comments."
 msgstr ""
@@ -47,60 +47,60 @@ msgstr ""
 msgid "Messages"
 msgstr "Meddelanden"
 
-#: comments-message-board.php:49 comments-message-board.php:74
+#: comments-message-board.php:49 comments-message-board.php:75
 msgid "<span class=\"meta-nav\">&larr;</span> Older messages"
 msgstr "<span class=\"meta-nav\">&larr;</span> Äldre meddelanden"
 
-#: comments-message-board.php:50 comments-message-board.php:75
+#: comments-message-board.php:50 comments-message-board.php:76
 msgid "Newer messages <span class=\"meta-nav\">&rarr;</span>"
 msgstr "Nyare meddelanden <span class=\"meta-nav\">&rarr;</span>"
 
-#: comments-message-board.php:86 comments.php:72
+#: comments-message-board.php:87
 msgid "Comments are closed."
 msgstr "Kommentarer avstängda."
 
-#: comments.php:35
+#: comments.php:36
 #, php-format
 msgid "One Response to %2$s"
 msgid_plural "%1$s Responses to %2$s"
 msgstr[0] "Ett svar på %2$s"
 msgstr[1] "%1$s svar på %2$s"
 
-#: comments.php:41 comments.php:60
+#: comments.php:42 comments.php:61
 msgid "<span class=\"meta-nav\">&larr;</span> Older Comments"
 msgstr "<span class=\"meta-nav\">&larr;</span> Äldre kommentarer"
 
-#: comments.php:42 comments.php:61
+#: comments.php:43 comments.php:62
 msgid "Newer Comments <span class=\"meta-nav\">&rarr;</span>"
 msgstr "Nyare kommentarer <span class=\"meta-nav\">&rarr;</span>"
 
-#: content-album-single.php:8 content-message-board.php:7 content-post.php:11
+#: content-album-single.php:8 content-message-board.php:7 content-post.php:16
 #: content.php:7
 msgid "Pages:"
 msgstr "Sidor:"
 
-#: content-album-single.php:9 content-message-board.php:8 content-post.php:17
-#: content.php:8
+#: content-album-single.php:9 content-message-board.php:8 content-post.php:22
+#: content.php:8 loop-event.php:64 includes/message-board.php:27
 msgid "Edit"
 msgstr "Redigera"
 
-#: content-post.php:10
+#: content-post.php:15 loop-event.php:44
 msgid "Continue reading <span class=\"meta-nav\">&rarr;</span>"
 msgstr "Läs mer <span class=\"meta-nav\">&rarr;</span>"
 
-#: functions.php:43
+#: functions.php:47
 msgid "Left Hand Navigation"
 msgstr "Vänster navigationsmeny"
 
-#: functions.php:44
+#: functions.php:48
 msgid "Right Hand Navigation"
 msgstr "Höger navigationsmeny"
 
-#: functions.php:177
+#: functions.php:181
 msgid "Banners Widget Area"
 msgstr "Widgetutrymme för Banners"
 
-#: functions.php:179
+#: functions.php:183
 msgid "The home page widget area"
 msgstr "Widgetutrymme som visas på förstasidan"
 
@@ -108,21 +108,21 @@ msgstr "Widgetutrymme som visas på förstasidan"
 msgid "Upcoming shows"
 msgstr "Kommande spelningar"
 
-#: home.php:24
+#: home.php:20
 msgid "Fan photos"
 msgstr "Bilder från fans"
 
-#: home.php:25
+#: home.php:21
 msgid ""
 "Tag a photo with #lassestefanz on Instagram, and we might include it here."
 msgstr ""
 "Tagga en bild med #lassestefanz på Instagram så publicerar vi den kanske här."
 
-#: loop-home.php:4 loop-message-board.php:4 loop-song.php:6
+#: loop-event.php:6 loop-home.php:4 loop-message-board.php:4
 msgid "Not Found"
 msgstr "Hittades inte"
 
-#: loop-home.php:6 loop-message-board.php:6 loop-song.php:8
+#: loop-event.php:8 loop-home.php:6 loop-message-board.php:6
 msgid ""
 "Apologies, but no results were found for the requested archive. Perhaps "
 "searching will help find a related post."
@@ -130,52 +130,67 @@ msgstr ""
 "Tyvärr kunde inget innehåll hittas. Försök att använda sökfältet för att "
 "hitta det du letar efter."
 
-#: includes/message-board.php:12
-#, php-format
-msgid "%s <span class=\"says\">says:</span>"
-msgstr "%s <span class=\"says\">skriver:</span>"
+#: includes/message-board.php:13
+msgid "answers"
+msgstr "svarar"
+
+#: includes/message-board.php:13
+msgid "says"
+msgstr "skriver"
 
 #: includes/message-board.php:15
+#, php-format
+msgid "%s <span class=\"says\">%s:</span>"
+msgstr "%s <span class=\"says\">%s:</span>"
+
+#: includes/message-board.php:18 includes/theme.php:319
 msgid "Your comment is awaiting moderation."
 msgstr "Din kommentar inväntar granskning."
 
-#: includes/message-board.php:22
+#: includes/message-board.php:27 includes/theme.php:326
 #, php-format
 msgid "%1$s at %2$s"
 msgstr "%1$s kl. %2$s"
 
-#: includes/message-board.php:22 includes/message-board.php:42
+#: includes/message-board.php:49 includes/theme.php:345
+msgid "Pingback:"
+msgstr ""
+
+#: includes/message-board.php:49 includes/theme.php:326 includes/theme.php:345
 #, fuzzy
 msgid "(Edit)"
 msgstr "Redigera"
 
-#: includes/message-board.php:42
-msgid "Pingback:"
-msgstr ""
-
-#: includes/theme.php:63
+#: includes/theme.php:70
 msgid "Square Banner"
 msgstr "Kvadratisk banner"
 
-#: includes/theme.php:64
+#: includes/theme.php:71
 msgid "Landscape Banner"
 msgstr "Liggande banner"
 
-#: includes/theme.php:65
+#: includes/theme.php:72
 msgid "Portrait Banner"
 msgstr "Stående banner"
 
-#: includes/theme.php:167
+#: includes/theme.php:236
 #, php-format
 msgid "More %s"
 msgstr "Fler %s"
 
-#: includes/theme.php:194
+#: includes/theme.php:263
 msgid "j F"
 msgstr ""
 
-#~ msgid "<span class=\"%1$s\">Posted in</span> %2$s"
-#~ msgstr "<span class=\"%1$s\">Publicerad i</span> %2$s"
+#: includes/theme.php:316
+#, php-format
+msgid "%s <span class=\"says\">says:</span>"
+msgstr "%s <span class=\"says\">skriver:</span>"
+
+#: includes/theme.php:400
+#, php-format
+msgid "<span class=\"%1$s\">Posted on</span> %2$s"
+msgstr "<span class=\"%1$s\">Publicerad</span> %2$s"
 
 #~ msgid "1 Comment"
 #~ msgstr "1 kommentar"
