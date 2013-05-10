@@ -20,7 +20,9 @@ body.archive {
 
 // Category archives
 // -------------------------
-body.archive.category {
+body.archive.category,
+body.archive.tag,
+body.archive.author {
 
   /* Entry content */
   .hentry {
@@ -33,6 +35,15 @@ body.archive.category {
     /* Clear rows */
     &:nth-child(3n) {
       clear: left;
+    }
+
+    .entry-utility {
+      .mute();
+      border-top: 1px solid @grayLighter;
+
+      padding-top: @rhythmUnit;
+
+      .smallFont();
     }
   }
 

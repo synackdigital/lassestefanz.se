@@ -387,3 +387,23 @@ function ls_facebook_like_args($args) {
     return $args;
 }
 add_filter('hobo_facebook_like_args', 'ls_facebook_like_args');
+
+
+
+if ( ! function_exists( 'hobo_posted_on' ) ) :
+/**
+ * Prints HTML with meta information for the current post-date/time and author.
+ *
+ * @since Twenty Ten 1.0
+ */
+function hobo_posted_on() {
+    printf( __( '<span class="%1$s">Posted on</span> %2$s', 'lasse-stefanz' ),
+        'meta-prep meta-prep-author',
+        sprintf( '<a href="%1$s" title="%2$s" rel="bookmark"><span class="entry-date">%3$s</span></a>',
+            get_permalink(),
+            esc_attr( get_the_time() ),
+            get_the_date()
+        )
+    );
+}
+endif;

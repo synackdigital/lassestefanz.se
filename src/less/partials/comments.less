@@ -40,30 +40,35 @@
         }
     }
 
-    // SIDE BY SIDE
-    // & > .comment {
-    //     border-bottom: 5px solid red;
+    & > .comment {
+        margin-bottom: (2 * @rhythmUnit);
+        padding-top: (2 * @rhythmUnit);
 
-    //     .reply {
-    //         position: relative;
-    //     }
-    // }
+        border-top: 1px solid @grayLighter;
+    }
 
-    // & > .comment,
-    // & > .children {
-    //     .columns(2, 12);
-    // }
+    cite {
+        font-style: normal;
+        font-weight: bold;
+    }
+
+    .comment {
+        .comment-body {
+            p {
+                margin-top: (0.5 * @rhythmUnit);
+            }
+        }
+    }
 
     .children {
 
         margin: @rhythmUnit 0 0 (3 * @rhythmUnit + 2px);
 
-        border-left: 5px solid lightGray;
-        padding-left: @rhythmUnit;
+        border-left: 5px solid lightgray;
+        background: lighten(lightgray, 10%);
 
-        li {
-            margin: 0 0 @rhythmUnit 0;
-        }
+        padding: @rhythmUnit @rhythmUnit 1px;
+
     }
 }
 
@@ -72,7 +77,6 @@
     img.avatar {
         .alignleft();
         margin: 0 @rhythmUnit @rhythmUnit 0;
-
     }
 }
 
