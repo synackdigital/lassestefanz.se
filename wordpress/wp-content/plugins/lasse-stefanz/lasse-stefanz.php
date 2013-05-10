@@ -16,6 +16,7 @@ include_once( LS_PLUGIN_PATH . 'defines.php');
 class LasseStefanz
 {
     const PLUGIN_VERSION = '1.0';
+    const FORCE_LOOPIA_MEDIA_DNS = true;
 
     const INSTAGRAM_TAGS_KEY = 'ls_instagram_tags';
     const INSTAGRAM_IMPORT_OWNER_KEY = 'ls_instagram_import_owner';
@@ -41,7 +42,9 @@ class LasseStefanz
         if (WP_DEBUG) {
             add_action('init', array(__CLASS__, 'setup_roles'));
         }
-        register_activation_hook( __FILE__, array(__CLASS__, 'setup_roles') );
+        register_activation_hook( __FILE__, function() {
+            add_action('init', array(__CLASS__, 'setup_roles'));
+        } );
 
         add_action('admin_footer', array(&$this, 'setup_instagram'));
 
@@ -55,7 +58,7 @@ class LasseStefanz
         add_action( 'wp_ajax_set_venue_thumbnail', array( &$this, 'set_venue_thumbnail' ) );
         $this->setup_event_images();
 
-        if (version_compare(self::PLUGIN_VERSION, '1.0') < 0) {
+        if (version_compare(self::PLUGIN_VERSION, '1.0') < 0 || self::FORCE_LOOPIA_MEDIA_DNS) {
             add_filter('option_upload_url_path', array(&$this, 'override_upload_path_url'));
         }
 

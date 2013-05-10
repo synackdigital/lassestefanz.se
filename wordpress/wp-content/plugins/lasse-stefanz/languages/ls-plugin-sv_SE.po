@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lasse Stefanz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-08 16:11+0100\n"
-"PO-Revision-Date: 2013-05-08 16:12+0100\n"
+"POT-Creation-Date: 2013-05-10 10:49+0100\n"
+"PO-Revision-Date: 2013-05-10 10:49+0100\n"
 "Last-Translator: Simon Fransson <simon@dessibelle.se>\n"
 "Language-Team: Simon Fransson <simon@dessibelle.se>\n"
 "Language: sv_SE\n"
@@ -17,50 +17,54 @@ msgstr ""
 "X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../lasse-stefanz.php:158 ../lasse-stefanz.php:159
+#: ../lasse-stefanz.php:111
+msgid "Booking agent"
+msgstr "Bokare"
+
+#: ../lasse-stefanz.php:227 ../lasse-stefanz.php:228
 msgid "Lasse Stefanz"
 msgstr ""
 
-#: ../lasse-stefanz.php:170 ../lasse-stefanz.php:171 ../lasse-stefanz.php:414
+#: ../lasse-stefanz.php:239 ../lasse-stefanz.php:240 ../lasse-stefanz.php:483
 msgid "Import"
 msgstr "Importera"
 
-#: ../lasse-stefanz.php:187
+#: ../lasse-stefanz.php:256
 msgid "Instagram settings"
 msgstr "Instagraminställningar"
 
-#: ../lasse-stefanz.php:195
+#: ../lasse-stefanz.php:264
 msgid "Tags for fan photos"
 msgstr "Taggar för beundrarbilder"
 
-#: ../lasse-stefanz.php:202
+#: ../lasse-stefanz.php:271
 #, php-format
 msgid ""
 "Separate tags with comma. %1s character should be left out from tag names."
 msgstr ""
 "Separera taggar med kommatecken. %1s-tecknet skall inte ingå i taggarna."
 
-#: ../lasse-stefanz.php:209
+#: ../lasse-stefanz.php:278
 msgid "Owner of imported photos"
 msgstr "Ägare av importerade foton"
 
-#: ../lasse-stefanz.php:222
+#: ../lasse-stefanz.php:291
 msgid "Import complete"
 msgstr "Importen är slutförd"
 
-#: ../lasse-stefanz.php:332 ../lasse-stefanz.php:372
+#: ../lasse-stefanz.php:401 ../lasse-stefanz.php:441
 msgid "You do not have sufficient permissions to access this page."
 msgstr "Du har inte tillräckliga behörigheten för att komma åt den här sidan."
 
-#: ../lasse-stefanz.php:343
+#: ../lasse-stefanz.php:412
 msgid "Lasse Stefanz settings"
 msgstr "Lasse Stefanz-inställningar"
 
-#: ../lasse-stefanz.php:382
+#: ../lasse-stefanz.php:451
 msgid "Import data from old website"
 msgstr "Importera data från den gamla webbsidan"
 
-#: ../lasse-stefanz.php:387
+#: ../lasse-stefanz.php:456
 #, php-format
 msgid ""
 "Click the import button below to import albums and songs from the old "
@@ -79,7 +83,7 @@ msgstr ""
 "%s i filen %s i pluginmappen, vilket möjliggör för webbservern att hämta "
 "bilderna från ett alternativt domännamn."
 
-#: ../lasse-stefanz.php:394
+#: ../lasse-stefanz.php:463
 msgid ""
 "Performing this import can potentially damage your system or your data, and "
 "it might also be very slow, especially on shared hosting environments. It is "
@@ -92,23 +96,23 @@ msgstr ""
 "av filer och data, samt att du om möjligt kör importen på en lokal "
 "webbserver. "
 
-#: ../lasse-stefanz.php:616
+#: ../lasse-stefanz.php:685
 msgid "Use as featured image"
 msgstr "Använd som utvald bild"
 
-#: ../lasse-stefanz.php:617
+#: ../lasse-stefanz.php:686
 msgid "Saving..."
 msgstr "Sparar…"
 
-#: ../lasse-stefanz.php:618
+#: ../lasse-stefanz.php:687
 msgid "Could not set that as the thumbnail image. Try a different attachment."
 msgstr "Kunde inte ange som miniatyrbild. Försök med en annan bild."
 
-#: ../lasse-stefanz.php:619
+#: ../lasse-stefanz.php:688
 msgid "Done"
 msgstr "Klar"
 
-#: ../lasse-stefanz.php:663 ../types-instagram-image.php:173
+#: ../lasse-stefanz.php:732 ../types-instagram-image.php:173
 msgid "Image"
 msgstr "Bild"
 
