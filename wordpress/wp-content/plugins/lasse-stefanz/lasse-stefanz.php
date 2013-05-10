@@ -5,7 +5,7 @@ Plugin URI: http://www.lassestefanz.se
 Description: Adds site specific functionality
 Author: LS Produktions AB
 Author URI: http://www.lassestefanz.se
-Version: 1.0b2
+Version: 1.0
 */
 
 
@@ -15,7 +15,7 @@ include_once( LS_PLUGIN_PATH . 'defines.php');
 
 class LasseStefanz
 {
-    const PLUGIN_VERSION = '1.0b2';
+    const PLUGIN_VERSION = '1.0';
 
     const INSTAGRAM_TAGS_KEY = 'ls_instagram_tags';
     const INSTAGRAM_IMPORT_OWNER_KEY = 'ls_instagram_import_owner';
