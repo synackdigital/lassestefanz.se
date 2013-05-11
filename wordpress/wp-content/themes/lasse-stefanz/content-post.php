@@ -1,6 +1,6 @@
     <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-        <div class="feauted-content">
+        <div class="featured-content">
             <?php ls_featured_content(); ?>
         </div>
 

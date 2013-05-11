@@ -7,6 +7,13 @@
         max-width: 100%;
         height: auto;
     }
+
+    .featured-content {
+        iframe {
+            min-height: (726px * 510 / 854);
+        }
+    }
+
 }
 
 // Feature posts
@@ -38,9 +45,9 @@
 
         position: relative;
 
-        img {
+        img, iframe {
             display: block;
-
+            min-height: 264px;
         }
 
         min-height: 264px;
