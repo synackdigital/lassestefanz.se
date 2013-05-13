@@ -5,7 +5,7 @@ Plugin URI: http://www.lassestefanz.se
 Description: Adds site specific functionality
 Author: LS Produktions AB
 Author URI: http://www.lassestefanz.se
-Version: 1.0
+Version: 1.0.1
 */
 
 
@@ -15,7 +15,7 @@ include_once( LS_PLUGIN_PATH . 'defines.php');
 
 class LasseStefanz
 {
-    const PLUGIN_VERSION = '1.0';
+    const PLUGIN_VERSION = '1.0.1';
     const FORCE_LOOPIA_MEDIA_DNS = false;
 
     const INSTAGRAM_TAGS_KEY = 'ls_instagram_tags';
@@ -101,41 +101,67 @@ class LasseStefanz
 
     public static function setup_roles()
     {
-        if (WP_DEBUG) {
+        /* For your debugging needs */
+        if (false && WP_DEBUG) {
             global $table_prefix;
             $option = get_option($table_prefix . 'user_roles');
             unset($option[LS_ROLE_BOOKING_AGENT]);
+            update_option( $table_prefix . 'user_roles', $option );
+
+            echo __('Booking agent', 'ls-plugin');
+            var_dump($option);
+            die();
+
         }
 
         // Ändra och lägga till i spelplanen
-        add_role(LS_ROLE_BOOKING_AGENT, __('Booking agent', 'ls-plugin'), array(
-            'read' => false,
+
+        $editor = get_role('author');
+
+        $caps = array_merge($editor->capabilities, array(
+            // 'read' => true,
+            // 'level_1' => true,
+            // 'level_0' => true,
+
+            // 'edit_posts' => true
+            // 'delete_posts' => true
+
+            // 'delete_posts' => true,
+            // 'delete_published_posts' => true,
+            // 'edit_posts' => true,
+            // 'edit_published_posts' => true,
+            // 'publish_posts' => true,
+            // 'upload_files' => true,
+
+            // 'edit_posts' => false,
+            // 'publish_posts' => false,
+            // 'delete_posts' => false,
+            // 'edit_others_posts' => false,
+            // 'delete_others_posts' => false,
+            // 'read_private_posts' => false,
+            // 'manage_comments' => false,
+            // 'manage_post_categories' => false,
 
             'edit_posts' => false,
+            'edit_published_posts' => false,
             'publish_posts' => false,
-            'delete_posts' => false,
-            'edit_others_posts' => false,
-            'delete_others_posts' => false,
-            'read_private_posts' => false,
-            'manage_comments' => false,
-            'manage_post_categories' => false,
-
 
             LS_ROLE_BOOKING_AGENT => true,
-            'edit_events' => true,
-            'publish_events' => true,
-            'delete_events' => true,
-            'edit_others_events' => true,
             'delete_others_events' => true,
+            'delete_events' => true,
+            'delete_private_events' => true,
+            'delete_published_events' => true,
+            'edit_others_events' => true,
+            'edit_events' => true,
+            'edit_private_events' => true,
+            'edit_published_events' => true,
+            'publish_events' => true,
             'read_private_events' => true,
             'manage_venues' => true,
             'manage_event_categories' => true,
         ));
 
-        // Skriva nyhetsinlägg.
-
-        // Svara i klotterplanket
-
+        $booking_agent_role = add_role(LS_ROLE_BOOKING_AGENT, __('Booking agent', 'ls-plugin'), $caps);
 
         add_action( 'admin_menu', array(__CLASS__, 'setup_booking_admin_menu') );
         add_action( 'wp_before_admin_bar_render', array(__CLASS__, 'setup_booking_admin_bar') );
