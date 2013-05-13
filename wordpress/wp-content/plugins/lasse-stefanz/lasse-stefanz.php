@@ -16,7 +16,7 @@ include_once( LS_PLUGIN_PATH . 'defines.php');
 class LasseStefanz
 {
     const PLUGIN_VERSION = '1.0';
-    const FORCE_LOOPIA_MEDIA_DNS = true;
+    const FORCE_LOOPIA_MEDIA_DNS = false;
 
     const INSTAGRAM_TAGS_KEY = 'ls_instagram_tags';
     const INSTAGRAM_IMPORT_OWNER_KEY = 'ls_instagram_import_owner';
