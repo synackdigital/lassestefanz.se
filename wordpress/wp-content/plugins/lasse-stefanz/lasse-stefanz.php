@@ -102,7 +102,7 @@ class LasseStefanz
     public static function setup_roles()
     {
         /* For your debugging needs */
-        if (false && WP_DEBUG) {
+        if (false && WP_DEBUG && is_admin()) {
             global $table_prefix;
             $option = get_option($table_prefix . 'user_roles');
             unset($option[LS_ROLE_BOOKING_AGENT]);
