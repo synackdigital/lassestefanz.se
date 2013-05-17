@@ -13,6 +13,13 @@ if !Modernizr?.csscolumns
   $('body').append script
 
 
+$ ->
+  $ = jQuery
+
+  $('#access nav > .menu > li.current-menu-item, #access nav > .menu > li.current-menu-ancestor').each ->
+    $(this).find('ul.sub-menu').clone().prependTo('#content').wrap('<nav class="page-menu" />')
+
+
 $(window).load ->
   $ = jQuery
 

@@ -8,6 +8,15 @@
     $('body').append(script);
   }
 
+  $(function() {
+    var $;
+
+    $ = jQuery;
+    return $('#access nav > .menu > li.current-menu-item, #access nav > .menu > li.current-menu-ancestor').each(function() {
+      return $(this).find('ul.sub-menu').clone().prependTo('#content').wrap('<nav class="page-menu" />');
+    });
+  });
+
   $(window).load(function() {
     var $;
 
