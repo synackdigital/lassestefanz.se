@@ -1,7 +1,7 @@
+<?php if (has_post_thumbnail()) : ?>
 <div class="featured-image">
     <?php
-        if (has_post_thumbnail( )) {
-            the_post_thumbnail( LS_CAMPAIGN_IMAGE_SIZE );
-        }
+        the_post_thumbnail( LS_CAMPAIGN_IMAGE_SIZE );
     ?>
 </div>
+<?php endif; ?>

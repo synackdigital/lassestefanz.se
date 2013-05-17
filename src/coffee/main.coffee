@@ -22,7 +22,7 @@ $ ->
   $('body').prepend('<nav id="hamburger"><button class="toggle">' + ( LS?.menu_title ? 'Content' ) + '</button><ul class="menu"/></nav>')
   hamburger = $('#hamburger ul')
   $('#access nav .menu').children().each ->
-    $(hamburger).append $(this)
+    $(hamburger).append $(this).clone()
 
 
 $(window).load ->

@@ -18,7 +18,7 @@
     $('body').prepend('<nav id="hamburger"><button class="toggle">' + ((_ref1 = typeof LS !== "undefined" && LS !== null ? LS.menu_title : void 0) != null ? _ref1 : 'Content') + '</button><ul class="menu"/></nav>');
     hamburger = $('#hamburger ul');
     return $('#access nav .menu').children().each(function() {
-      return $(hamburger).append($(this));
+      return $(hamburger).append($(this).clone());
     });
   });
 
