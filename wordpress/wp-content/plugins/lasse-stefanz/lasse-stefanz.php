@@ -38,6 +38,7 @@ class LasseStefanz
         add_action('htk_loaded', array(&$this, 'setup_types'));
         add_action('admin_init', array(&$this, 'admin_init'));
         add_action('admin_menu', array(&$this, 'init_settings'));
+        add_action('admin_enqueue_scripts', array(&$this, 'add_admin_scripts'));
 
         if (WP_DEBUG) {
             add_action('init', array(__CLASS__, 'setup_roles'));
@@ -190,6 +191,22 @@ class LasseStefanz
     public function admin_init()
     {
         wp_enqueue_style( 'ls.admin.style', plugins_url('admin/css/style.css', __FILE__), array(), self::PLUGIN_VERSION );
+    }
+
+    /**
+     * Callback for admin_enqueue_scripts, to add js for event post type,
+     * in order to make all day events the default.
+     * @param [type] $hook [description]
+     */
+    public function add_admin_scripts( $hook ) {
+
+        global $post;
+
+        if ( $hook == 'post-new.php' ) {
+            if ( 'event' === $post->post_type ) {
+                wp_enqueue_script( 'ls.admin.event', plugins_url('admin/js/event.js', __FILE__), array('jquery'), self::PLUGIN_VERSION );
+            }
+        }
     }
 
     /**

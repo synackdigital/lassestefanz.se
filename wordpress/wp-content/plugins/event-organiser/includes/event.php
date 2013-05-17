@@ -5,7 +5,7 @@
  */
 /**
 * This functions updates a post of event type, with data given in the $post_data
-* and event data given in $event_data. Returns the post_id. 
+* and event data given in $event_data. Returns the post_id.
 *
 * Triggers {@see `eventorganiser_save_event`} passing event (post) ID
 *
@@ -17,7 +17,7 @@
 *      * (string) BYMONTHDAY=XX to repeat on XXth day of month, e.g. BYMONTHDAY=01 to repeat on the first of every month.
 *      * (string) BYDAY=ND. N= 1|2|3|4|-1 (first, second, third, fourth, last). D is day of week SU|MO|TU|WE|TH|FR|SA. E.g. BYDAY=2TU (repeat on second tuesday)
 *   * For weekly schedules,
-*      * (array) Days to repeat on: (SU,MO,TU,WE,TH,FR,SA). e.g. set to array('SU','TU') to repeat on Tuesdays & Sundays. 
+*      * (array) Days to repeat on: (SU,MO,TU,WE,TH,FR,SA). e.g. set to array('SU','TU') to repeat on Tuesdays & Sundays.
 *      * Can be left blank to repeat weekly from the start date.
 * * `frequency` => (int) positive integer, sets frequency of reoccurrence (every 2 days, or every 3 days etc)
 * * `all_day` => 1 if its an all day event, 0 if not
@@ -48,12 +48,12 @@ function eo_update_event($post_id, $event_data=array(), $post_data=array() ){
 		unset($event_data['venue']);
 		unset($event_data['category']);
 	}
-		
+
 	$event_data = apply_filters( 'eventorganiser_update_event_event_data', $event_data, $post_id, $post_data, $event_data );
 	$post_data = apply_filters( 'eventorganiser_update_event_post_data', $post_data, $post_id, $post_data, $event_data );
 
 	if( !empty($post_data) ){
-		$post_data['ID'] = $post_id;		
+		$post_data['ID'] = $post_id;
 		wp_update_post( $post_data );
 	}
 
@@ -65,7 +65,7 @@ function eo_update_event($post_id, $event_data=array(), $post_data=array() ){
 	if( ( empty($event_data['schedule']) || 'once' == $event_data['schedule'] ) && !empty($event_data['include']) ){
 		$event_data['schedule'] = 'custom';
 	}
-		
+
 	//Do we need to delete existing dates from db?
 	$delete_existing = false;
 	$diff = array();
@@ -79,11 +79,11 @@ function eo_update_event($post_id, $event_data=array(), $post_data=array() ){
 						break;
 					}
 				}else{
-					
+
 					//If one off event / custom, don't worry about 'schedule_last'
 					if( $key == 'schedule_last' && in_array( $event_data['schedule'], array( 'once', 'custom' ) ) )
 						continue;
-					
+
 					$diff[]=$key;
 					$delete_existing = true;
 					break;
@@ -91,7 +91,7 @@ function eo_update_event($post_id, $event_data=array(), $post_data=array() ){
 			}
 		}
 	}
-	
+
 	//Need to replace occurrences
 	if( $delete_existing || !empty( $event_data['force_regenerate_dates'] ) ){
 		//Generate occurrences
@@ -126,7 +126,7 @@ function eo_update_event($post_id, $event_data=array(), $post_data=array() ){
 *      * (string) BYMONTHDAY=XX to repeat on XXth day of month, e.g. BYMONTHDAY=01 to repeat on the first of every month.
 *      * (string) BYDAY=ND. N= 1|2|3|4|-1 (first, second, third, fourth, last). D is day of week SU|MO|TU|WE|TH|FR|SA. E.g. BYDAY=2TU (repeat on second tuesday)
 *   * For weekly schedules,
-*      * (array) Days to repeat on: (SU,MO,TU,WE,TH,FR,SA). e.g. set to array('SU','TU') to repeat on Tuesdays & Sundays. 
+*      * (array) Days to repeat on: (SU,MO,TU,WE,TH,FR,SA). e.g. set to array('SU','TU') to repeat on Tuesdays & Sundays.
 *      * Can be left blank to repeat weekly from the start date.
 * * `frequency` => (int) positive integer, sets frequency of reoccurrence (every 2 days, or every 3 days etc)
 * * `all_day` => 1 if its an all day event, 0 if not
@@ -138,7 +138,7 @@ function eo_update_event($post_id, $event_data=array(), $post_data=array() ){
 *
 * @since 1.5
 * @link http://www.stephenharris.info/2012/front-end-event-posting/ Tutorial on front-end event posting
-* @uses wp_insert_post() 
+* @uses wp_insert_post()
 *
 * @param array $post_data array of data to be used by wp_insert_post.
 * @param array $event_data array of event data
@@ -155,30 +155,30 @@ function eo_insert_event($post_data=array(),$event_data=array()){
 		$post_data['tax_input']['event-category'] = $event_data['category'];
 		unset($event_data['category']);
 	}
-		
+
 	//If schedule is 'once' and dates are included - set to 'custom':
 	if( ( empty($event_data['schedule']) || 'once' == $event_data['schedule'] ) && !empty($event_data['include']) ){
 		$event_data['schedule'] = 'custom';
 	}
 
 	$event_data = _eventorganiser_generate_occurrences($event_data);
-		
+
 	if( is_wp_error($event_data) )
 		return $event_data;
 
 	$event_data = apply_filters( 'eventorganiser_insert_event_event_data', $event_data, $post_data, $event_data );
 	$post_data = apply_filters( 'eventorganiser_insert_event_post_data', $post_data, $post_data, $event_data );
-		
+
 	//Finally we create event (first create the post in WP)
-	$post_input = array_merge(array('post_title'=>'untitled event'), $post_data, array('post_type'=>'event'));			
+	$post_input = array_merge(array('post_title'=>'untitled event'), $post_data, array('post_type'=>'event'));
 	$post_id = wp_insert_post($post_input, true);
 
-	//Did the event insert correctly? 
-	if ( is_wp_error( $post_id) ) 
+	//Did the event insert correctly?
+	if ( is_wp_error( $post_id) )
 			return $post_id;
 
 	_eventorganiser_insert_occurrences($post_id, $event_data);
-			
+
 	//Action used to break cache & trigger Pro actions (& by other plug-ins?)
 	do_action( 'eventorganiser_save_event', $post_id );
 	return $post_id;
@@ -193,7 +193,7 @@ function eo_insert_event($post_data=array(),$event_data=array()){
  */
 function eo_delete_event_occurrences($post_id){
 	global $wpdb;
-	
+
 	do_action( 'eventorganiser_delete_event', $post_id ); //Deprecated - do not use!
 	do_action( 'eventorganiser_delete_event_occurrences', $post_id );
 	$del = $wpdb->get_results($wpdb->prepare("DELETE FROM $wpdb->eo_events WHERE post_id=%d",$post_id));
@@ -264,7 +264,7 @@ add_action( 'delete_post', 'eo_delete_event_occurrences', 10 );
 
 		unset($event_data['occurrences']);
 		$event_data['_occurrences'] = $occurrence_array;
-		
+
 		if( !empty($include) )
 			$event_data['include'] = array_map('eo_format_datetime', $include, array_fill(0, count($include), 'Y-m-d H:i:s') );
 		if( !empty($exclude) )
@@ -296,7 +296,7 @@ add_action( 'delete_post', 'eo_delete_event_occurrences', 10 );
 *      * (string) BYMONTHDAY=XX to repeat on XXth day of month, e.g. BYMONTHDAY=01 to repeat on the first of every month.
 *      * (string) BYDAY=ND. N= 1|2|3|4|-1 (first, second, third, fourth, last). D is day of week SU|MO|TU|WE|TH|FR|SA. E.g. BYDAY=2TU (repeat on second tuesday)
 *   * For weekly schedules,
-*      * (array) Days to repeat on: (SU,MO,TU,WE,TH,FR,SA). e.g. set to array('SU','TU') to repeat on Tuesdays & Sundays. 
+*      * (array) Days to repeat on: (SU,MO,TU,WE,TH,FR,SA). e.g. set to array('SU','TU') to repeat on Tuesdays & Sundays.
 * * `occurs_by` - For use with monthly schedules: how the event reoccurs: BYDAY or BYMONTHDAY
 * * `frequency` => (int) positive integer, sets frequency of reoccurrence (every 2 days, or every 3 days etc)
 * * `all_day` => 1 if its an all day event, 0 if not
@@ -313,7 +313,7 @@ function eo_get_event_schedule( $post_id=0 ){
 
 	$post_id = (int) ( empty($post_id) ? get_the_ID() : $post_id);
 
-	if( empty($post_id) ) 
+	if( empty($post_id) )
 		return false;
 
 	$event_details = get_post_meta( $post_id,'_eventorganiser_event_schedule',true);
@@ -381,8 +381,8 @@ function eo_get_event_schedule( $post_id=0 ){
 			'include'=>array(),
 		);
 		extract(wp_parse_args($event_data, $event_defaults));
-		
-		$occurrences =array(); //occurrences array	
+
+		$occurrences =array(); //occurrences array
 
 		//Make sure the same doesn't appear in both $include/$exclude. Is this really needed?
 		$exclude = array_udiff($exclude, $include, '_eventorganiser_compare_dates');
@@ -401,7 +401,7 @@ function eo_get_event_schedule( $post_id=0 ){
 		//Check dates are in chronological order
 		if($end < $start)
 			return new WP_Error('eo_error',__('Start date occurs after end date.','eventorganiser'));
-		
+
 		if($schedule_last < $start)
 			return new WP_Error('eo_error',__('Schedule end date is before is before the start date.','eventorganiser'));
 
@@ -424,7 +424,7 @@ function eo_get_event_schedule( $post_id=0 ){
 		$start_days =array();
 		$workaround='';
 		$icaldays = array('SU','MO','TU','WE','TH','FR','SA');
-		$weekdays = array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'); 
+		$weekdays = array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday');
 		$ical2day = array('SU'=>'Sunday','MO'=>'Monday','TU'=>'Tuesday',
 			'WE'=>'Wednesday','TH'=>'Thursday','FR'=>'Friday','SA'=>'Saturday',);
 
@@ -443,7 +443,7 @@ function eo_get_event_schedule( $post_id=0 ){
 			case 'daily':
 				$interval = "+".$frequency."day";
 				$start_days[] = clone $start;
-				break;	
+				break;
 
 			case 'weekly':
 				$schedule_meta = array_filter($schedule_meta);
@@ -466,11 +466,11 @@ function eo_get_event_schedule( $post_id=0 ){
 				$rule =$rule_value[0];
 				$values = explode(',',$rule_value[1]);//Should only be one value, but may support more in future
 				$values =  array_filter($values);
-				
+
 				if( $rule=='BYMONTHDAY' ):
 					$date = (int) $start_days[0]->format('d');
 					$interval = "+".$frequency."month";
-					
+
 					if($date >= 29)
 						$workaround = 'short months';	//This case deals with 29/30/31 of month
 
@@ -499,19 +499,19 @@ function eo_get_event_schedule( $post_id=0 ){
 					$day = $weekdays[$day_num];//Full day name from day_num (Sunday -Monday)
 					$schedule_meta = 'BYDAY='.$n.$ical_day; //E.g. BYDAY=2MO
 					$interval = $ordinal[$n].' '.$day.' of +'.$frequency.' month'; //E.g. second monday of +1 month
-					
+
 					//Work around for PHP <5.3
 					if(!function_exists('date_diff')){
 						$workaround = 'php5.2';
 					}
 				endif;
 				break;
-	
+
 			case 'yearly':
 				$start_days[] = clone $start;
 				if( '29-02' == $start_days[0]->format('d-m') )
 					$workaround = 'leap year';
-				
+
 				$interval = "+".$frequency."year";
 				break;
 		endswitch; //End $schedule switch
@@ -520,34 +520,34 @@ function eo_get_event_schedule( $post_id=0 ){
 		//Now we have setup and validated the schedules - loop through and generate occurrences
 		foreach($start_days as $index => $start_day):
 			$current = clone $start_day;
-			
+
 			switch($workaround):
 				//Not really a workaround. Just add the occurrence and finish.
 				case 'once':
 					$current->setTime($H,$i );
 					$occurrences[] = clone $current;
 					break;
-				
+
 				//Loops for monthly events that require php5.3 functionality
 				case 'php5.2':
 					while( $current <= $schedule_last ):
 						$current->setTime($H,$i );
-						$occurrences[] = clone $current;	
+						$occurrences[] = clone $current;
 						$current = _eventorganiser_php52_modify($current,$interval);
-					endwhile; 
+					endwhile;
 					break;
 
 				//Loops for monthly events on the 29th/30th/31st
 				case 'short months':
 					 $day_int =intval($start_day->format('d'));
-	
+
 					//Set the first month
 					$current_month= clone $start_day;
 					$current_month = date_create($current_month->format('Y-m-1'));
-				
+
 					while( $current_month<=$schedule_last ):
-						$month_int = intval($current_month->format('m'));		
-						$year_int = intval($current_month->format('Y'));		
+						$month_int = intval($current_month->format('m'));
+						$year_int = intval($current_month->format('Y'));
 
 						if( checkdate($month_int , $day_int , $year_int) ){
 							$current = new DateTime($day_int.'-'.$month_int.'-'.$year_int, $timezone);
@@ -555,7 +555,7 @@ function eo_get_event_schedule( $post_id=0 ){
 							$occurrences[] = 	clone $current;
 						}
 						$current_month->modify($interval);
-					endwhile;	
+					endwhile;
 					break;
 
 				//To be used for yearly events occuring on Feb 29
@@ -563,7 +563,7 @@ function eo_get_event_schedule( $post_id=0 ){
 					$current_year = clone $current;
 					$current_year->modify('-1 day');
 
-					while($current_year<=$schedule_last):	
+					while($current_year<=$schedule_last):
 						$is_leap_year = (int) $current_year->format('L');
 
 						if( $is_leap_year ){
@@ -576,11 +576,11 @@ function eo_get_event_schedule( $post_id=0 ){
 						$current_year->modify($interval);
 					endwhile;
 					break;
-			
+
 				default:
 					while($current <= $schedule_last):
 						$current->setTime($H,$i );
-						$occurrences[] = clone $current;	
+						$occurrences[] = clone $current;
 						$current->modify($interval);
 					endwhile;
 					break;
@@ -591,7 +591,7 @@ function eo_get_event_schedule( $post_id=0 ){
 		//Now schedule meta is set up and occurrences are generated.
 
 		//Add inclusions, removes exceptions and duplicates
-		$occurrences = array_merge($occurrences, $include); 
+		$occurrences = array_merge($occurrences, $include);
 		$occurrences = array_udiff($occurrences, $exclude, '_eventorganiser_compare_dates');
 		$occurrences = _eventorganiser_remove_duplicates($occurrences);
 
@@ -613,12 +613,12 @@ function eo_get_event_schedule( $post_id=0 ){
 			'include'=>$include,
 			'occurrences'=>$occurrences
 		);
-		
+
 		return apply_filters( 'eventorganiser_generate_occurrences', $_event_data, $event_details );
 	}
 
 /**
- * Generates the ICS RRULE fromthe event schedule data. 
+ * Generates the ICS RRULE fromthe event schedule data.
  * @access private
  * @ignore
  * @since 1.0.0
@@ -635,7 +635,7 @@ function eventorganiser_generate_ics_rrule($post_id=0){
 			return false;
 
 		extract($rrule);
-		
+
 		$format = ( $all_day ? 'Ymd' : 'Ymd\THis\Z' );
 
 		$schedule_last->setTimezone(new DateTimeZone('UTC'));
@@ -653,7 +653,7 @@ function eventorganiser_generate_ics_rrule($post_id=0){
 				$reoccurrence_rule.=$schedule_meta.";";
 				$reoccurrence_rule.= "UNTIL=".$schedule_last;
 				return $reoccurrence_rule;
-	
+
 			case 'weekly':
 				return "FREQ=WEEKLY;INTERVAL=".$frequency.";BYDAY=".implode(',',$schedule_meta).";UNTIL=".$schedule_last;
 
@@ -679,8 +679,8 @@ function eventorganiser_generate_ics_rrule($post_id=0){
 		global $wpdb;
 
 		$remove = $wpdb->get_row($wpdb->prepare(
-			"SELECT {$wpdb->eo_events}.StartDate, {$wpdb->eo_events}.StartTime  
-			FROM {$wpdb->eo_events} 
+			"SELECT {$wpdb->eo_events}.StartDate, {$wpdb->eo_events}.StartTime
+			FROM {$wpdb->eo_events}
 			WHERE post_id=%d AND event_id=%d",$post_id,$event_id));
 
 		if( !$remove )
@@ -704,7 +704,7 @@ function eventorganiser_generate_ics_rrule($post_id=0){
 		}
 
 		//Update post meta and delete date from events table
-		update_post_meta( $post_id,'_eventorganiser_event_schedule',$event_details);					
+		update_post_meta( $post_id,'_eventorganiser_event_schedule',$event_details);
 		$del = $wpdb->get_results($wpdb->prepare("DELETE FROM {$wpdb->eo_events} WHERE post_id=%d AND event_id=%d",$post_id,$event_id));
 
 		//Clear cache
