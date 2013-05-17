@@ -13,7 +13,7 @@ class EventOrganiser_Debug_Page extends EventOrganiser_Admin_Page
 		$this->slug = 'debug';
 	}
 
-	function add_page(){		
+	function add_page(){
 		self::$page = add_submenu_page($this->hook,$this->title, $this->menu, $this->permissions,$this->slug,  array($this,'render_page'),10);
 		add_action('load-'.self::$page,  array($this,'page_actions'),9);
 		add_action('admin_print_scripts-'.self::$page,  array($this,'page_styles'),10);
@@ -23,7 +23,7 @@ class EventOrganiser_Debug_Page extends EventOrganiser_Admin_Page
 			remove_submenu_page('edit.php?post_type=event',$this->slug);
 		}
 	}
-	
+
 	function page_actions(){
 		wp_enqueue_style('eventorganiser-style');
 	}
@@ -32,10 +32,10 @@ class EventOrganiser_Debug_Page extends EventOrganiser_Admin_Page
 	?>
 	<div class="wrap">
 		<?php screen_icon( 'edit' );?>
-		
+
 		<h2><?php _e('System Info','eventorganiser');?> </h2>
-		
-		<?php 
+
+		<?php
 		$eo_debugger = new EventOrganiser_Debugger();
 		$eo_debugger->set_prequiste( 'WordPress', '3.3', '3.5.1');
 		//$eo_debugger->set_known_plugin_conflicts();
@@ -44,14 +44,14 @@ class EventOrganiser_Debug_Page extends EventOrganiser_Admin_Page
 		do_action_ref_array( 'eventorganiser_debugger_setup', array( &$eo_debugger ) );
 		?>
 		<p>
-		<?php 
+		<?php
 		_e( "This page highlights useful information for debugging. If you're reporting a bug, please include this information.", 'eventorganiser' );
 		echo " ";
 		_e( "The 'system info' link in under the Events admin tab is only visible to admins and only when <code>WP_DEBUG</code> is set to <code>true</code>.", 'eventorganiser' );
 		?>
 		</p>
 		<p class="description">
-		<?php 
+		<?php
 		_e( "Most bugs arise from theme or plug-in conflicts. You can check this by disabling all other plug-ins and switching to TwentyTweleve.", 'eventorganiser' );
 		echo " ";
 		_e( "To help speed things along, if you report a bug please indicate if you have done so. Once the plug-in or theme has been identified it is often easy to resolve the issue.", 'eventorganiser' );
@@ -89,19 +89,19 @@ class EventOrganiser_Debug_Page extends EventOrganiser_Admin_Page
 				<tr>
 					<th><?php esc_html_e('MySQL Version');?></th>
 					<td> <?php echo mysql_get_server_info(); ?></td>
-				</tr>    
+				</tr>
 				<tr>
 					<th><?php esc_html_e('Web Server');?></th>
 					<td> <?php echo $_SERVER['SERVER_SOFTWARE']; ?></td>
-				</tr>      
+				</tr>
 				<tr>
 					<th><?php esc_html_e('PHP Memory Usage');?></th>
 					<th><?php echo $eo_debugger->verbose_memory_check(); ?>
-				</tr>   
+				</tr>
 				<tr>
 					<th><?php esc_html_e('PHP Post Max Size');?></th>
 					<td><?php echo ini_get('post_max_size'); ?></td>
-				</tr>   
+				</tr>
 				<tr>
 					<th><?php esc_html_e('PHP Upload Max Size');?></th>
 					<td><?php echo ini_get('upload_max_filesize'); ?></td>
@@ -109,7 +109,7 @@ class EventOrganiser_Debug_Page extends EventOrganiser_Admin_Page
 				<tr>
 					<th><?php esc_html_e('PHP cURL Support');?></th>
 					<td>  <?php echo (function_exists('curl_init')) ? _e('Yes', 'eventorganiser') . "\n" : _e('No', 'eventorganiser') . "\n"; ?></td>
-				</tr>        
+				</tr>
 				<tr>
 					<th><?php esc_html_e('Plug-ins');?></th>
 					<td>
@@ -142,22 +142,22 @@ class EventOrganiser_Debug_Page extends EventOrganiser_Admin_Page
 					<th><?php esc_html_e('Debug mode');?></th>
 					<td><?php echo defined( 'WP_DEBUG' ) && WP_DEBUG ? 'Enabled' : 'Disabled'; ?></td>
 				</tr>
-				
+
 				<tr>
 					<th><?php printf( esc_html__( '%s present', 'eventorganiser' ), '<code>wp_footer()</code>' );?></th>
 					<td><?php $eo_debugger->verbose_footer_check();?></td>
-				</tr>	
+				</tr>
 				<tr>
 					<th><?php esc_html_e('Widget Sidebars');?></th>
 					<td><?php $eo_debugger->verbose_sidebar_check();?></td>
-				</tr>	
+				</tr>
 				<tr>
 					<th><?php esc_html_e('Timezone');?></th>
 					<td><?php echo eo_get_blog_timezone()->getName(); printf( ' ( %s / %s ) ', get_option( 'gmt_offset' ), get_option( 'timezone_string' ) )?></td>
 				</tr>
 		</table>
-		<?php 
-			printf( 
+		<?php
+			printf(
 				'<p class="description"> <span class="eo-debug-warning">*</span> %s </p>',
 				__( 'Known plug-in & theme conflicts, highlighted in red, may be minor or have a simple resolution. Please contact support.' )
 			);
@@ -180,11 +180,11 @@ class EventOrganiser_Debugger{
 	var $ok_class = 'eo-debug-ok';
 	var $warning_class = 'eo-debug-warning';
 	var $alert_class = 'eo-debug-alert';
-	
+
 	function set_plugin( $plugin ){
 		$this->plugin = $plugin;
 	}
-	
+
 	function set_prequiste( $requirement, $min = false, $max = false ){
 		$this->prequiste[$requirement] = compact( 'min', 'max' );
 	}
@@ -222,9 +222,9 @@ class EventOrganiser_Debugger{
 		foreach( $installed as $plugin_slug => $plugin_data ){
 			if( ! is_plugin_active( $plugin_slug ) )
 				continue;
-				
+
 			$class = in_array( strtolower( $plugin_slug ), $this->plugins ) ? $this->warning_class : '';
-				
+
 			printf(
 			' <span class="%s"> %s %s </span> </br>',
 			esc_attr( $class ),
@@ -303,7 +303,7 @@ class EventOrganiser_Debugger{
 			);
 		}
 	}
-	
+
 	function verbose_sidebar_check(){
 		$footer_present = get_option( 'eo_sidebar_correct' );
 
@@ -333,7 +333,7 @@ class EventOrganiser_Debugger{
 			);
 		}
 	}
-	
+
 	function verbose_memory_check(){
 
 		if( function_exists( 'memory_get_usage' ) ){
@@ -354,10 +354,10 @@ class EventOrganiser_Debugger{
 		}
 
 	}
-	
+
 	function verbose_footer_check(){
 		$footer_present = get_option( 'eo_wp_footer_present' );
-		
+
 		if( $footer_present === false ){
 			printf(
 				'<span class="%s">%s</span><br/> %s',
@@ -377,9 +377,9 @@ class EventOrganiser_Debugger{
 				'<span class="%s">%s</span><br/> %s',
 				esc_attr( $this->warning_class ),
 				__( 'No', 'eventorganiser' ),
-				sprintf( 
-					__( "The <a href='%s'>wp_footer hook</a> could be not be found. Without, for example, the calendar will not function" ), 
-					'http://codex.wordpress.org/Function_Reference/wp_footer' 
+				sprintf(
+					__( "The <a href='%s'>wp_footer hook</a> could be not be found. Without, for example, the calendar will not function" ),
+					'http://codex.wordpress.org/Function_Reference/wp_footer'
 				)
 			);
 		}

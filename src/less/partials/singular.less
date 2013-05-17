@@ -11,57 +11,7 @@ body.attachment {
     margin: @rhythmUnit;
   }
 
-  /* Page-menu (replaces hover sub-menu for touch devices) */
-  #content .page-menu {
-    background-color: mix(@black, @grayDarker, 50%);
-    .gradient(~"linear-gradient(top, @{grayDarker} 0%, @{black} 100%)");
-    .box-shadow(0 1px 4px rgba(0,0,0,.065));
 
-    /* Center */
-    max-width: @SingularMaxWidth;
-    margin: 0 auto @rhythmUnit;
-
-    /* Hide on non-touch devices */
-    html.no-touch & {
-      .hide();
-    }
-
-    /* Center menu items */
-    .sub-menu {
-      text-align: center;
-    }
-
-    /* Menu items */
-    .sub-menu .menu-item {
-        display: inline-block;
-        padding: @rhythmUnit;
-
-        // Menu item buttons
-        > a {
-            color: @grayLight;
-
-            text-align: center;
-            text-decoration: none;
-            text-shadow: rgba(0,0,0,.6) 0 1px 2px;
-
-            .transition(~"color 200ms linear");
-
-            // Hover style
-            &:hover,
-            &:focus {
-                color: @linkColor;
-            }
-        }
-
-        // Current menu item highlight
-        &.current-menu-item a,
-        &.current-menu-parent a,
-        &.current-menu-ancestor a {
-            color: @linkColor;
-        }
-    }
-
-  }
 
   /* Entry content */
   .hentry {
