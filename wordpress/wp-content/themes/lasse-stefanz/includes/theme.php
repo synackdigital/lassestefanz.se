@@ -278,8 +278,12 @@ function ls_upcoming_events($fargs = null)
     ) );
     extract($fargs);
 
+    global $paged;
+    $posts_per_page = 3 * 4;
+
     $atts = wp_parse_args( $args, array(
-        'numberposts' => 3 * 4,
+        'numberposts' => $posts_per_page,
+        'paged' => $paged,
         'event_start_after' => 'today',
         'showpastevents' => false,
     ) );

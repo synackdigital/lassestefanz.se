@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lasse Stefanz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-17 12:08+0100\n"
-"PO-Revision-Date: 2013-05-17 12:08+0100\n"
+"POT-Creation-Date: 2013-05-17 12:51+0100\n"
+"PO-Revision-Date: 2013-05-17 12:51+0100\n"
 "Last-Translator: Simon Fransson <simon@dessibelle.se>\n"
 "Language-Team: LS Produktions AB <kontakt@lassestefanz.se>\n"
 "Language: sv_SE\n"
@@ -16,6 +16,14 @@ msgstr ""
 "X-Poedit-Basepath: ..\n"
 "X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SearchPath-0: .\n"
+
+#: archive-event.php:13
+msgid "Later gigs"
+msgstr "Senare spelningar"
+
+#: archive-event.php:14
+msgid "Earlier gigs"
+msgstr "Tidigare spelningar"
 
 #: comments-message-board.php:19
 msgid "Message"
@@ -147,20 +155,20 @@ msgstr "skriver"
 msgid "%s <span class=\"says\">%s:</span>"
 msgstr "%s <span class=\"says\">%s:</span>"
 
-#: includes/message-board.php:18 includes/theme.php:319
+#: includes/message-board.php:18 includes/theme.php:323
 msgid "Your comment is awaiting moderation."
 msgstr "Din kommentar inväntar granskning."
 
-#: includes/message-board.php:27 includes/theme.php:326
+#: includes/message-board.php:27 includes/theme.php:330
 #, php-format
 msgid "%1$s at %2$s"
 msgstr "%1$s kl. %2$s"
 
-#: includes/message-board.php:49 includes/theme.php:345
+#: includes/message-board.php:49 includes/theme.php:349
 msgid "Pingback:"
 msgstr ""
 
-#: includes/message-board.php:49 includes/theme.php:326 includes/theme.php:345
+#: includes/message-board.php:49 includes/theme.php:330 includes/theme.php:349
 #, fuzzy
 msgid "(Edit)"
 msgstr "Redigera"
@@ -186,12 +194,12 @@ msgstr "Fler %s"
 msgid "j F"
 msgstr ""
 
-#: includes/theme.php:316
+#: includes/theme.php:320
 #, php-format
 msgid "%s <span class=\"says\">says:</span>"
 msgstr "%s <span class=\"says\">skriver:</span>"
 
-#: includes/theme.php:400
+#: includes/theme.php:404
 #, php-format
 msgid "<span class=\"%1$s\">Posted on</span> %2$s"
 msgstr "<span class=\"%1$s\">Publicerad</span> %2$s"

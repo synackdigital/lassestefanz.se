@@ -16,13 +16,27 @@ if !Modernizr?.csscolumns
 $ ->
   $ = jQuery
 
+  # SETUP PAGE MENUS: Clone sub menu items into separate menu before #content
   $('#access nav > .menu > li.current-menu-item, #access nav > .menu > li.current-menu-ancestor').each ->
     $(this).find('ul.sub-menu').clone().prependTo('#content').wrap('<nav class="page-menu" />')
 
+  # SETUP NARROW MENU: Clone entire menu and insert before #wrapper
   $('body').prepend('<nav id="hamburger"><button class="toggle">' + ( LS?.menu_title ? 'Content' ) + '</button><ul class="menu"/></nav>')
   hamburger = $('#hamburger ul')
   $('#access nav .menu').children().each ->
     $(hamburger).append $(this).clone()
+
+   # Fancybox
+  $('a[href*=".jpg"], a[href*=".jpeg"], a[href*=".png"], a[href*=".gif"]').fancybox
+    transitionIn    :   'elastic',
+    transitionOut   :   'elastic',
+    speedIn         :   200,
+    speedOut        :   200
+
+  # Enable hover tint on linked images in posts
+  $('.entry-content a img').each ->
+    $(this).wrap '<div class="image-tint"></div>'
+
 
 
 $(window).load ->
@@ -55,15 +69,3 @@ $(window).load ->
   $('#hero .flexslider').flexslider
     controlNav: false,
     directionNav: false
-
-#     # Fancybox
-  $('a[href*=".jpg"], a[href*=".jpeg"], a[href*=".png"], a[href*=".gif"]').fancybox
-    transitionIn    :   'elastic',
-    transitionOut   :   'elastic',
-    speedIn         :   200,
-    speedOut        :   200
-
-  # Enable hover tint on linked images in posts
-  $('.entry-content a img').each ->
-    $(this).wrap '<div class="image-tint"></div>'
-

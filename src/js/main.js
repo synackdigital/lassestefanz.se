@@ -17,8 +17,17 @@
     });
     $('body').prepend('<nav id="hamburger"><button class="toggle">' + ((_ref1 = typeof LS !== "undefined" && LS !== null ? LS.menu_title : void 0) != null ? _ref1 : 'Content') + '</button><ul class="menu"/></nav>');
     hamburger = $('#hamburger ul');
-    return $('#access nav .menu').children().each(function() {
+    $('#access nav .menu').children().each(function() {
       return $(hamburger).append($(this).clone());
+    });
+    $('a[href*=".jpg"], a[href*=".jpeg"], a[href*=".png"], a[href*=".gif"]').fancybox({
+      transitionIn: 'elastic',
+      transitionOut: 'elastic',
+      speedIn: 200,
+      speedOut: 200
+    });
+    return $('.entry-content a img').each(function() {
+      return $(this).wrap('<div class="image-tint"></div>');
     });
   });
 
@@ -46,18 +55,9 @@
       animationSpeed: 280,
       initDelay: 900
     });
-    $('#hero .flexslider').flexslider({
+    return $('#hero .flexslider').flexslider({
       controlNav: false,
       directionNav: false
-    });
-    $('a[href*=".jpg"], a[href*=".jpeg"], a[href*=".png"], a[href*=".gif"]').fancybox({
-      transitionIn: 'elastic',
-      transitionOut: 'elastic',
-      speedIn: 200,
-      speedOut: 200
-    });
-    return $('.entry-content a img').each(function() {
-      return $(this).wrap('<div class="image-tint"></div>');
     });
   });
 
