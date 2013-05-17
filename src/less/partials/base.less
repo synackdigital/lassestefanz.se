@@ -60,7 +60,11 @@ figure {
     position: relative;
 
     // Set a max content width
-    max-width: 1200px;
+    max-width: (1200px + 2 * @rhythmUnit);
+    & > .inner {
+        margin: 0 @rhythmUnit;
+    }
+
     .center-block();
 
     // Push #main below #header (or #hero, if present)
@@ -70,6 +74,8 @@ figure {
     }
 
     margin-bottom: (4 * @rhythmUnit);
+
+
 } // #wrapper
 
 body {

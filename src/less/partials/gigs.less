@@ -11,6 +11,7 @@
   top: -@rhythmUnit;
 
   .flexslider {
+
     @backgroundStart:   darken(@red, 15%);
     @backgroundEnd:     darken(@red, 25%);
 
@@ -35,6 +36,10 @@
     /* Remove default margin on items */
     li {
       margin: 0;
+
+      a {
+        z-index: 101;
+      }
     }
 
     /* Content container */
@@ -45,7 +50,12 @@
     }
   }
 
+
+
+  z-index: 99;
+
   h1 {
+
     @backgroundStart:   @backgroundColor;
     @backgroundEnd:     darken(@backgroundColor, 10%);
 
