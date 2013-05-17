@@ -194,15 +194,9 @@
 /* Second level hover behavior */
 #access .nav-menu .menu-item .sub-menu {
     display: none;
-    html.csstransitions.opacity & {
-        display: block;
-        .opacity(0);
-        .transition(~"opacity 150ms linear");
-    }
 }
 #access .nav-menu .menu-item:hover .sub-menu {
-    display: block;
-    html.csstransitions.opacity & {
-        .opacity(1);
+    html.no-touch & {
+        display: block;
     }
 }
