@@ -21,6 +21,11 @@ body.attachment {
     max-width: @SingularMaxWidth;
     margin: 0 auto @rhythmUnit;
 
+    /* Hide on non-touch devices */
+    html.no-touch & {
+      .hide();
+    }
+
     /* Center menu items */
     .sub-menu {
       text-align: center;
