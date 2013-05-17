@@ -6,6 +6,8 @@
 
 include_once(dirname(__FILE__) . '/includes/defines.php');
 
+$content_width = 726;
+
 /**
  * Callback function for 'init' action. Performs basic theme setup. Enqueues the theme styles.
  *
@@ -31,6 +33,7 @@ function ls_setup() {
 
         wp_localize_script( 'ls.lasse-stefanz', 'LS', array(
             'css3_multi_column_js_src' => get_stylesheet_directory_uri() . '/js/css3-multi-column.min.js',
+            'menu_title' => __('Content', 'lasse-stefanz'),
         ) );
     }
 

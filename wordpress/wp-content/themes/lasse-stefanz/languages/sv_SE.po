@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lasse Stefanz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-10 14:12+0100\n"
-"PO-Revision-Date: 2013-05-10 14:13+0100\n"
+"POT-Creation-Date: 2013-05-17 12:08+0100\n"
+"PO-Revision-Date: 2013-05-17 12:08+0100\n"
 "Last-Translator: Simon Fransson <simon@dessibelle.se>\n"
 "Language-Team: LS Produktions AB <kontakt@lassestefanz.se>\n"
 "Language: sv_SE\n"
@@ -88,19 +88,23 @@ msgstr "Redigera"
 msgid "Continue reading <span class=\"meta-nav\">&rarr;</span>"
 msgstr "Läs mer <span class=\"meta-nav\">&rarr;</span>"
 
-#: functions.php:47
+#: functions.php:36
+msgid "Content"
+msgstr "Innehåll"
+
+#: functions.php:50
 msgid "Left Hand Navigation"
 msgstr "Vänster navigationsmeny"
 
-#: functions.php:48
+#: functions.php:51
 msgid "Right Hand Navigation"
 msgstr "Höger navigationsmeny"
 
-#: functions.php:181
+#: functions.php:184
 msgid "Banners Widget Area"
 msgstr "Widgetutrymme för Banners"
 
-#: functions.php:183
+#: functions.php:186
 msgid "The home page widget area"
 msgstr "Widgetutrymme som visas på förstasidan"
 

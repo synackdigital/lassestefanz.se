@@ -19,6 +19,11 @@ $ ->
   $('#access nav > .menu > li.current-menu-item, #access nav > .menu > li.current-menu-ancestor').each ->
     $(this).find('ul.sub-menu').clone().prependTo('#content').wrap('<nav class="page-menu" />')
 
+  $('body').prepend('<nav id="hamburger"><button class="toggle">' + ( LS?.menu_title ? 'Content' ) + '</button><ul class="menu"/></nav>')
+  hamburger = $('#hamburger ul')
+  $('#access nav .menu').children().each ->
+    $(hamburger).append $(this)
+
 
 $(window).load ->
   $ = jQuery

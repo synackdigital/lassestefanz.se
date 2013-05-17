@@ -9,11 +9,16 @@
   }
 
   $(function() {
-    var $;
+    var $, hamburger, _ref1;
 
     $ = jQuery;
-    return $('#access nav > .menu > li.current-menu-item, #access nav > .menu > li.current-menu-ancestor').each(function() {
+    $('#access nav > .menu > li.current-menu-item, #access nav > .menu > li.current-menu-ancestor').each(function() {
       return $(this).find('ul.sub-menu').clone().prependTo('#content').wrap('<nav class="page-menu" />');
+    });
+    $('body').prepend('<nav id="hamburger"><button class="toggle">' + ((_ref1 = typeof LS !== "undefined" && LS !== null ? LS.menu_title : void 0) != null ? _ref1 : 'Content') + '</button><ul class="menu"/></nav>');
+    hamburger = $('#hamburger ul');
+    return $('#access nav .menu').children().each(function() {
+      return $(hamburger).append($(this));
     });
   });
 
