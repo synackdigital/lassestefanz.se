@@ -46,8 +46,6 @@ $(window).load ->
   client_width = document.body.clientWidth
   is_narrow = client_width <= narrow_treshold
 
-  console.log is_narrow
-
   # Instagram flexslider
   $('.instagram-feed.flexslider').flexslider
     itemWidth: 240,
