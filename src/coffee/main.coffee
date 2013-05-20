@@ -42,8 +42,11 @@ $ ->
 $(window).load ->
   $ = jQuery
 
-  narrow_treshold = 480
+  narrow_treshold = 568
   client_width = document.body.clientWidth
+  is_narrow = client_width <= narrow_treshold
+
+  console.log is_narrow
 
   # Instagram flexslider
   $('.instagram-feed.flexslider').flexslider
@@ -51,11 +54,12 @@ $(window).load ->
     itemMargin: 5,
     animation: "slide",
     slideshowSpeed: 3800,
-    animationSpeed: 310
+    animationSpeed: 310,
+    slideshow: !is_narrow,
 
 
   # Gigs flexslider
-  if client_width > narrow_treshold
+  if not is_narrow
     $('.gigs.flexslider').flexslider
       itemWidth: 260,
       itemMargin: 0,
@@ -67,9 +71,9 @@ $(window).load ->
       directionNav: false,
       slideshowSpeed: 4200,
       animationSpeed: 280,
-      initDelay: 900
+      initDelay: 900,
 
   # Hero flexslider
   $('#hero .flexslider').flexslider
     controlNav: false,
-    directionNav: false
+    directionNav: false,

@@ -32,19 +32,22 @@
   });
 
   $(window).load(function() {
-    var $, client_width, narrow_treshold;
+    var $, client_width, is_narrow, narrow_treshold;
 
     $ = jQuery;
-    narrow_treshold = 480;
+    narrow_treshold = 568;
     client_width = document.body.clientWidth;
+    is_narrow = client_width <= narrow_treshold;
+    console.log(is_narrow);
     $('.instagram-feed.flexslider').flexslider({
       itemWidth: 240,
       itemMargin: 5,
       animation: "slide",
       slideshowSpeed: 3800,
-      animationSpeed: 310
+      animationSpeed: 310,
+      slideshow: !is_narrow
     });
-    if (client_width > narrow_treshold) {
+    if (!is_narrow) {
       $('.gigs.flexslider').flexslider({
         itemWidth: 260,
         itemMargin: 0,
