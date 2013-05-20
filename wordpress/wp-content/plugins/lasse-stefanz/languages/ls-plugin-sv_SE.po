@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Lasse Stefanz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-20 10:40+0100\n"
-"PO-Revision-Date: 2013-05-20 10:40+0100\n"
+"POT-Creation-Date: 2013-05-20 16:49+0100\n"
+"PO-Revision-Date: 2013-05-20 16:50+0100\n"
 "Last-Translator: Simon Fransson <simon@dessibelle.se>\n"
 "Language-Team: Simon Fransson <simon@dessibelle.se>\n"
 "Language: sv_SE\n"
@@ -201,23 +201,23 @@ msgstr "Åtgärder"
 msgid "User"
 msgstr "Användare"
 
-#: ../types-instagram-image.php:202
+#: ../types-instagram-image.php:206
 msgid "Publish"
 msgstr "Publicera"
 
-#: ../types-instagram-image.php:203
-msgid "Remove"
-msgstr "Ta bort"
+#: ../types-instagram-image.php:210
+msgid "Hide"
+msgstr "Dölj"
 
-#: ../types-instagram-image.php:339
+#: ../types-instagram-image.php:348
 msgid "Hidden"
 msgstr "Dold"
 
-#: ../types-instagram-image.php:394
+#: ../types-instagram-image.php:403
 msgid "Fan photo"
 msgstr "Beundrarbild"
 
-#: ../types-instagram-image.php:394
+#: ../types-instagram-image.php:403
 msgid "Fan photos"
 msgstr "Beundrarbilder"
 
@@ -303,6 +303,9 @@ msgstr ""
 #: ../views/widget-admin.php:59
 msgid "right"
 msgstr ""
+
+#~ msgid "Remove"
+#~ msgstr "Ta bort"
 
 #~ msgid "Subpage"
 #~ msgstr "Undersida"

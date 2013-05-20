@@ -198,9 +198,18 @@ class LSInstagramImage extends HWPType {
 
         if ($column_name == 'instagram_actions') {
 
+            $post = get_post($post_id);
+
             echo '<ul class="buttons">';
-            printf('<li><a href="#" class="instagram-action instagram-publish button button-primary" data-id="%d" data-action="%s_publish">%s</a></li>', $post_id, $this->name, __('Publish', 'ls-plugin'));
-            printf('<li><a href="#" class="instagram-action instagram-trash button" data-id="%d" data-action="%s_trash">%s</a></li>', $post_id, $this->name, __('Remove', 'ls-plugin'));
+
+            if ($post->post_status != 'publish') {
+                printf('<li><a href="#" class="instagram-action instagram-publish button button-primary" data-id="%d" data-action="%s_publish">%s</a></li>', $post_id, $this->name, __('Publish', 'ls-plugin'));
+            }
+
+            if ($post->post_status != 'trash') {
+                printf('<li><a href="#" class="instagram-action instagram-trash button" data-id="%d" data-action="%s_trash">%s</a></li>', $post_id, $this->name, __('Hide', 'ls-plugin'));
+            }
+
             echo '</ul>';
         }
 
