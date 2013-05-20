@@ -20,6 +20,7 @@ class LasseStefanz
 
     const INSTAGRAM_TAGS_KEY = 'ls_instagram_tags';
     const INSTAGRAM_IMPORT_OWNER_KEY = 'ls_instagram_import_owner';
+    const INSTAGRAM_INSTRUCTIONS_KEY = 'ls_instagram_instructions';
     const SETTINGS_CAPABILITY = 'manage_options';
 
     protected static $instance;
@@ -363,6 +364,19 @@ class LasseStefanz
 
         // Settings field
         add_settings_field(
+            self::INSTAGRAM_INSTRUCTIONS_KEY,
+            __('Descriptive text for instagram submissions', 'ls-plugin'),
+            array(&$this, 'render_settings_field'),
+            self::$plugin_slug,
+            'ls_instagram_settings',
+            array(
+                'field' => self::INSTAGRAM_INSTRUCTIONS_KEY,
+                'type' => 'input',
+            )
+        );
+
+        // Settings field
+        add_settings_field(
             self::INSTAGRAM_IMPORT_OWNER_KEY,
             __('Owner of imported photos', 'ls-plugin'),
             array(&$this, 'instagram_import_owner_dropdown'),
@@ -373,6 +387,7 @@ class LasseStefanz
 
         // Register the settings fields
         register_setting(self::$plugin_slug, self::INSTAGRAM_TAGS_KEY, array(&$this, 'sanitize_tag_list'));
+        register_setting(self::$plugin_slug, self::INSTAGRAM_INSTRUCTIONS_KEY);
         register_setting(self::$plugin_slug, self::INSTAGRAM_IMPORT_OWNER_KEY, 'intval');
     }
 
@@ -688,6 +703,10 @@ class LasseStefanz
         }
 
         return null;
+    }
+
+    public static function instagram_instructions() {
+        return get_option(self::INSTAGRAM_INSTRUCTIONS_KEY);
     }
 
     public static function instagram_feed_element($post, $args = null)

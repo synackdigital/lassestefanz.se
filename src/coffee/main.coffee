@@ -42,6 +42,9 @@ $ ->
 $(window).load ->
   $ = jQuery
 
+  narrow_treshold = 480
+  client_width = document.body.clientWidth
+
   # Instagram flexslider
   $('.instagram-feed.flexslider').flexslider
     itemWidth: 240,
@@ -52,18 +55,19 @@ $(window).load ->
 
 
   # Gigs flexslider
-  $('.gigs.flexslider').flexslider
-    itemWidth: 260,
-    itemMargin: 0,
-    minItems: 2,
-    maxItems: 4,
-    direction: "horizontal",
-    animation: "slide",
-    controlNav: false,
-    directionNav: false,
-    slideshowSpeed: 4200,
-    animationSpeed: 280,
-    initDelay: 900
+  if client_width > narrow_treshold
+    $('.gigs.flexslider').flexslider
+      itemWidth: 260,
+      itemMargin: 0,
+      minItems: 2,
+      maxItems: 4,
+      direction: "horizontal",
+      animation: "slide",
+      controlNav: false,
+      directionNav: false,
+      slideshowSpeed: 4200,
+      animationSpeed: 280,
+      initDelay: 900
 
   # Hero flexslider
   $('#hero .flexslider').flexslider

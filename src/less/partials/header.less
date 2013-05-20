@@ -33,6 +33,7 @@
     }
     #site-title a {
         background-image: url('images/lslogo-whiteleather.png');
+        background-repeat: none;
 
         display: block;
         height: @logoHeight;
@@ -46,6 +47,15 @@
             background-image: url('images/lslogo-whiteleather@2x.png');
             background-size: 346px 197px; // half actual size
         }
+
+
+        @media only screen and (max-width: 400px) {
+            background-size: 300px 171px;
+            width: 300px;
+            height: 171px;
+            margin: 0 auto;
+        }
+
     }
 
     // Centered tagline below logo
@@ -120,6 +130,38 @@
         right: 0;
         left: 50%;
         padding-left: ((.5 * @logoWidth) + @rhythmUnit);
+    }
+
+    @media only screen and (max-width: 568px) {
+        top: 220px;
+        right: (2 * @rhythmUnit);
+        left: (2 * @rhythmUnit);
+        overflow-x: hidden;
+
+        .gradient(~"linear-gradient(top, @{grayDarker} 0%, @{black} 100%)");
+
+
+        .nav-menu, #menu-left, #menu-right {
+            position: relative;
+            top: auto;
+            right: auto;
+            bottom: auto;
+            left: auto;
+            background: none;
+            padding: 0;
+            .menu {
+                text-align: left;
+
+                li {
+                    padding: (0.5 * @rhythmUnit);
+
+                    a {
+                        font-size: @smallFont;
+                    }
+                }
+
+            }
+        }
     }
 }
 

@@ -32,9 +32,11 @@
   });
 
   $(window).load(function() {
-    var $;
+    var $, client_width, narrow_treshold;
 
     $ = jQuery;
+    narrow_treshold = 480;
+    client_width = document.body.clientWidth;
     $('.instagram-feed.flexslider').flexslider({
       itemWidth: 240,
       itemMargin: 5,
@@ -42,19 +44,21 @@
       slideshowSpeed: 3800,
       animationSpeed: 310
     });
-    $('.gigs.flexslider').flexslider({
-      itemWidth: 260,
-      itemMargin: 0,
-      minItems: 2,
-      maxItems: 4,
-      direction: "horizontal",
-      animation: "slide",
-      controlNav: false,
-      directionNav: false,
-      slideshowSpeed: 4200,
-      animationSpeed: 280,
-      initDelay: 900
-    });
+    if (client_width > narrow_treshold) {
+      $('.gigs.flexslider').flexslider({
+        itemWidth: 260,
+        itemMargin: 0,
+        minItems: 2,
+        maxItems: 4,
+        direction: "horizontal",
+        animation: "slide",
+        controlNav: false,
+        directionNav: false,
+        slideshowSpeed: 4200,
+        animationSpeed: 280,
+        initDelay: 900
+      });
+    }
     return $('#hero .flexslider').flexslider({
       controlNav: false,
       directionNav: false

@@ -18,7 +18,11 @@
     <aside id="fanphotos">
         <header>
             <h1><?php _e('Fan photos', 'lasse-stefanz') ?></h1>
-            <p><?php _e('Tag a photo with #lassestefanz on Instagram, and we might include it here.', 'lasse-stefanz') ?></p>
+            <?php
+                if (class_exists('LasseStefanz')) {
+                    echo wpautop( LasseStefanz::instagram_instructions() );
+                }
+            ?>
         </header>
         <?php ls_instagram_feed(); ?>
     </aside>

@@ -13,20 +13,26 @@
     .column(12);
 
     > h1 {
-      .column(6, 12);
-
-      font-size: @largeFont;
-      line-height: (4 * @rhythmUnit);
       text-transform: uppercase;
     }
 
     > p {
+      text-align: right;
+    }
+
+    > h1, > p {
       .column(6, 12);
 
       font-size: @largeFont;
       line-height: (4 * @rhythmUnit);
-      text-align: right;
+
+      @media only screen and (max-width: 568px) {
+        line-height: 1.5;
+        text-align: left;
+        margin: @rhythmUnit 0;
+      }
     }
+
   }
 
   .instagram-feed {

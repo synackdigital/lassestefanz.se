@@ -10,7 +10,7 @@
   position: relative;
   top: -@rhythmUnit;
 
-  .flexslider {
+  .gigs {
 
     @backgroundStart:   darken(@red, 15%);
     @backgroundEnd:     darken(@red, 25%);
@@ -50,8 +50,6 @@
     }
   }
 
-
-
   z-index: 99;
 
   h1 {
@@ -89,4 +87,35 @@
     content: " \203A";
   }
 
+
+
+  @media only screen and (max-width: 568px) {
+    h1 {
+      position: relative;
+      width: 100%;
+    }
+
+    .gigs {
+      width: 100%;
+      height: auto;
+      padding: 0;
+
+      ul {
+        height: auto;
+        position: relative;
+
+        li {
+          margin: 0;
+          position: relative;
+          display: block;
+
+          .eo-event-content {
+            border: none;
+          }
+        }
+      }
+    }
+
+
+  }
 }
