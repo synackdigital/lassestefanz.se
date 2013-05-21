@@ -38,10 +38,10 @@
 			?></h3>
 
 <?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // Are there comments to navigate through? ?>
-			<div class="navigation">
+			<nav class="navigation">
 				<div class="nav-previous"><?php previous_comments_link( __( '<span class="meta-nav">&larr;</span> Older Comments', 'hobo' ) ); ?></div>
 				<div class="nav-next"><?php next_comments_link( __( 'Newer Comments <span class="meta-nav">&rarr;</span>', 'hobo' ) ); ?></div>
-			</div> <!-- .navigation -->
+			</nav> <!-- .navigation -->
 <?php endif; // check for comment navigation ?>
 
 			<ol class="commentlist">
@@ -57,10 +57,10 @@
 			</ol>
 
 <?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // Are there comments to navigate through? ?>
-			<div class="navigation">
+			<nav class="navigation">
 				<div class="nav-previous"><?php previous_comments_link( __( '<span class="meta-nav">&larr;</span> Older Comments', 'hobo' ) ); ?></div>
 				<div class="nav-next"><?php next_comments_link( __( 'Newer Comments <span class="meta-nav">&rarr;</span>', 'hobo' ) ); ?></div>
-			</div><!-- .navigation -->
+			</nav><!-- .navigation -->
 <?php endif; // check for comment navigation ?>
 
 <?php comment_form(array(

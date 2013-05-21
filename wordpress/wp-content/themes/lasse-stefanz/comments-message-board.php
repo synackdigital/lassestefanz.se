@@ -45,10 +45,10 @@
 			<h3 id="comments-title"><?php _e('Messages', 'lasse-stefanz'); ?></h3>
 
 <?php if ( false && get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // Are there comments to navigate through? ?>
-			<div class="navigation">
+			<nav class="navigation">
 				<div class="nav-previous"><?php previous_comments_link( __( '<span class="meta-nav">&larr;</span> Older messages', 'lasse-stefanz' ) ); ?></div>
 				<div class="nav-next"><?php next_comments_link( __( 'Newer messages <span class="meta-nav">&rarr;</span>', 'lasse-stefanz' ) ); ?></div>
-			</div> <!-- .navigation -->
+			</nav> <!-- .navigation -->
 <?php endif; // check for comment navigation ?>
 
 
@@ -71,10 +71,10 @@
 			</ol>
 
 <?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) : // Are there comments to navigate through? ?>
-			<div class="navigation">
+			<nav class="navigation">
 				<div class="nav-previous"><?php previous_comments_link( __( '<span class="meta-nav">&larr;</span> Older messages', 'lasse-stefanz' ) ); ?></div>
 				<div class="nav-next"><?php next_comments_link( __( 'Newer messages <span class="meta-nav">&rarr;</span>', 'lasse-stefanz' ) ); ?></div>
-			</div><!-- .navigation -->
+			</nav><!-- .navigation -->
 <?php endif; // check for comment navigation ?>
 
 <?php else : // or, if we don't have comments:
