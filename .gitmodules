@@ -1,6 +1,6 @@
 [submodule "wordpress/wp-content/themes/hobo-theme"]
 	path = wordpress/wp-content/themes/hobo-theme
-	url = git@kontoret.sodraesplanaden.se:themes/hobo-theme
+	url = git@bitbucket.org:dessibelle/themes-hobo-theme
 [submodule "wordpress/wp-content/plugins/any-hostname"]
 	path = wordpress/wp-content/plugins/any-hostname
 	url = git@github.com:dessibelle/any-hostname
@@ -9,10 +9,10 @@
 	url = git@github.com:dessibelle/logged-in
 [submodule "wordpress/wp-content/plugins/hwptypekit"]
 	path = wordpress/wp-content/plugins/hwptypekit
-	url = git@kontoret.sodraesplanaden.se:plugins/hwptypekit
+	url = git@bitbucket.org/dessibelle/plugins-hwptypekit
 [submodule "wordpress/wp-content/plugins/ci-retina"]
 	path = wordpress/wp-content/plugins/ci-retina
-	url = git@kontoret.sodraesplanaden.se:plugins/ci-retina
+	url = git@bitbucket.org/dessibelle/plugins-ci-retina
 [submodule "wordpress/wp-content/plugins/wp-instagram"]
 	path = wordpress/wp-content/plugins/wp-instagram
 	url = git@github.com:dessibelle/wp-instagram
