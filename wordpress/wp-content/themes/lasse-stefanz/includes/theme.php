@@ -278,12 +278,13 @@ function ls_upcoming_events($fargs = null)
     ) );
     extract($fargs);
 
-    $posts_per_page = 3 * 4;
+    $posts_per_page = 12;
 
     $atts = wp_parse_args( $args, array(
         'numberposts' => $posts_per_page,
         'paged' => (get_query_var('paged')) ? get_query_var('paged') : 1,
         'event_start_after' => 'today',
+        'event_end_before' => strtotime("+6 month"),
         'showpastevents' => false,
     ) );
     $args = wp_parse_args( $args, array(
