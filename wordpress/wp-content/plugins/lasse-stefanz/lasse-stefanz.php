@@ -5,7 +5,7 @@ Plugin URI: http://www.lassestefanz.se
 Description: Adds site specific functionality
 Author: LS Produktions AB
 Author URI: http://www.lassestefanz.se
-Version: 1.0.1
+Version: 1.0.2
 */
 
 
@@ -15,7 +15,7 @@ include_once( LS_PLUGIN_PATH . 'defines.php');
 
 class LasseStefanz
 {
-    const PLUGIN_VERSION = '1.0.1';
+    const PLUGIN_VERSION = '1.0.2';
     const FORCE_LOOPIA_MEDIA_DNS = false;
 
     const INSTAGRAM_TAGS_KEY = 'ls_instagram_tags';
@@ -55,9 +55,6 @@ class LasseStefanz
 
         add_filter('sanitize_file_name', 'remove_accents'); // We don't want any trouble when moving files up and down from web server
 
-        add_action( 'save_post', array(__CLASS__, 'set_event_publish_date') );
-        add_action( 'publish_post', array(__CLASS__, 'set_event_publish_date'), 2000 );
-
         /* Venue images */
         add_action( 'add_meta_boxes_event_page_venues', array(&$this, 'venue_metaboxes') );
         add_action( 'wp_ajax_set_venue_thumbnail', array( &$this, 'set_venue_thumbnail' ) );
@@ -69,50 +66,6 @@ class LasseStefanz
 
         self::$plugin_slug = dirname( plugin_basename( __FILE__ ) );
         load_plugin_textdomain( 'ls-plugin', false, self::$plugin_slug . '/languages/' );
-    }
-
-
-    public static function set_event_publish_date( $post_id = null ) {
-
-        //verify post is not a revision
-        if ( !wp_is_post_revision( $post_id ) ) {
-            $post_type = get_post_type( $post_id );
-
-            if ($post_type == 'event') {
-
-                remove_action( 'save_post', array(__CLASS__, 'set_event_publish_date') );
-                remove_action( 'publish_post', array(__CLASS__, 'set_event_publish_date') );
-
-                $event = eo_get_by_postid($post_id);
-                if ($event) {
-                    $date = trim($event->StartDate).' '.trim($event->StartTime);
-                } else {
-                    if (array_key_exists('eo_input', $_POST)) {
-                        $eo_input = $_POST['eo_input'];
-                        $date = $eo_input['StartDate'].' '.$eo_input['StartTime'];
-                    }
-                }
-
-                $event_ts = intval(eo_format_date($date, 'U'));
-                $now = time();
-                $diff = $event_ts - $now;
-                $date_treshold = 3600 * 24 * 122; //365.25 * (1 / 3); // Four months
-
-                if ($diff >= $date_treshold) {
-
-                    $pub_date = $event_ts - $date_treshold;
-
-                    $post = array();
-                    $post['ID'] = $post_id;
-                    $post['post_date'] = date_i18n('Y-m-d H:i:s', $pub_date, false);
-                    $post['post_date_gmt'] = date_i18n('Y-m-d H:i:s', $pub_date, true);
-                    $post['post_status'] = 'future';
-
-                    wp_update_post( $post );
-                }
-            }
-        }
-
     }
 
     // TODO: Remove this function

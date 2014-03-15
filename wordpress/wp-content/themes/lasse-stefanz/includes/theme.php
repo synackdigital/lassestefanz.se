@@ -284,7 +284,7 @@ function ls_upcoming_events($fargs = null)
         'numberposts' => $posts_per_page,
         'paged' => (get_query_var('paged')) ? get_query_var('paged') : 1,
         'event_start_after' => 'today',
-        'event_end_before' => strtotime("+6 month"),
+        'event_start_before' => '+6 month', // strtotime("+6 month"),
         'showpastevents' => false,
     ) );
     $args = wp_parse_args( $args, array(
