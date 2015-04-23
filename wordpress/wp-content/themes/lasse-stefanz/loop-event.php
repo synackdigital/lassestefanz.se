@@ -47,7 +47,12 @@
             <hr>
             <h3>Hitta rätt</h3>
             <p>
+              <?php
+                $url = eo_get_venue_meta(eo_get_venue(), '_url', true);
+                if ($url) echo '<a href="'.$url.'" target="_blank" title="'.eo_get_venue_name().'">'
+              ?>
               <?php eo_venue_name(); ?><br>
+              <?php if ($url) echo '</a>'; ?>
               <?php
                $address = eo_get_venue_address(eo_get_venue());
                echo $address['address'] . ', ' . $address['city'];
