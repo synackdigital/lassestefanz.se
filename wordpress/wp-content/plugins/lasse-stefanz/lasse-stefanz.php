@@ -55,10 +55,11 @@ class LasseStefanz
 
         add_filter('sanitize_file_name', 'remove_accents'); // We don't want any trouble when moving files up and down from web server
 
-        /* Venue images */
+        /* Venue metabozes */
         add_action( 'add_meta_boxes_event_page_venues', array(&$this, 'venue_metaboxes') );
         add_action( 'wp_ajax_set_venue_thumbnail', array( &$this, 'set_venue_thumbnail' ) );
         $this->setup_event_images();
+        add_action( 'eventorganiser_save_venue', array( &$this, 'save_venue_metaboxes' ) );
 
         if (version_compare(self::PLUGIN_VERSION, '1.0') < 0 || self::FORCE_LOOPIA_MEDIA_DNS) {
             add_filter('option_upload_url_path', array(&$this, 'override_upload_path_url'));
@@ -790,7 +791,24 @@ class LasseStefanz
 
     public function venue_metaboxes($venue)
     {
+        add_meta_box( 'ls_venue_link', __('Venue Link', 'ls-plugin'), array(&$this, 'venue_link_metabox'), $screen = null, 'side', $priority = 'default', array('venue' => $venue) );
         add_meta_box( 'ls_venue_image', __('Image', 'ls-plugin'), array(&$this, 'venue_image_metabox'), $screen = null, 'side', $priority = 'default', array('venue' => $venue) );
+    }
+
+    public function save_venue_metaboxes($venue_id)
+    {
+        $venue_url = $_POST['ls_venue_url'];
+        eo_update_venue_meta($venue_id,  '_url', $venue_url);
+        return;
+    }
+
+    public function venue_link_metabox($venue)
+    {
+        $venue_url = eo_get_venue_meta($venue->term_id, '_url', true);
+        ?>
+        <label for="eo_venue[url]"><?php _e('URL', 'ls-plugin'); ?></label>
+        <input type="text" name="ls_venue_url" class="eo_urlInput" id="eo-venue-url" value="<?php echo esc_attr( $venue_url ); ?>" size="25" />
+        <?php
     }
 
     public function venue_image_metabox($venue)
