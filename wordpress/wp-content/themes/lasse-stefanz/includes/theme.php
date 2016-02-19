@@ -273,7 +273,7 @@ function ls_upcoming_events($fargs = null)
         'atts' => array(),
         'args' => array(),
         'echo' => true,
-        'template' => sprintf('<div class="eo-event-content text-overflow"><time class="date" datetime="%%start{%s}%%">%%start{%s}%%</time> <a class="title" href="%%event_url%%">%%event_title%%</a></div>',
+        'template' => sprintf('<div class="eo-event-content text-overflow"><time class="date" datetime="%%start{%s}%%">%%start{%s}%%</time> <a class="title" href="%%event_url%%">%%event_title%%</a> <a href="%%event_url%%"><small style="float:right;">Klicka för mer info</small></a></div>',
             ls_event_datetime_attr_format(), ls_event_date_format()),
     ) );
     extract($fargs);
