@@ -6,7 +6,7 @@
 
         <h2 class="entry-title"><?php if (!is_single()) : ?><a href="<?php the_permalink(); ?>" title="<?php printf( esc_attr__( 'Permalink to %s', 'hobo' ), the_title_attribute( 'echo=0' ) ); ?>" rel="bookmark"><?php endif; ?><?php the_title(); ?><?php if (!is_single()) : ?></a><?php endif; ?></h2>
 
-<?php if ( is_archive() || is_search() ) : // Only display excerpts for archives and search. ?>
+<?php if ( is_page_template('tpl_archives.php') || is_archive() || is_search() ) : // Only display excerpts for archives and search. ?>
         <div class="entry-summary">
             <?php the_excerpt(); ?>
         </div><!-- .entry-summary -->
