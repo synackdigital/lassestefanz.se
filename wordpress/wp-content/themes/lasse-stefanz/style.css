@@ -1770,10 +1770,10 @@ body.archive.author .hentry {
     }
 }
 
-body.page.page-template-tpl_archives .hentry:nth-child(3n+1),
-body.archive.category .hentry:nth-child(3n+1),
-body.archive.tag .hentry:nth-child(3n+1),
-body.archive.author .hentry:nth-child(3n+1) {
+body.page.page-template-tpl_archives .hentry:nth-of-type(3n+1),
+body.archive.category .hentry:nth-of-type(3n+1),
+body.archive.tag .hentry:nth-of-type(3n+1),
+body.archive.author .hentry:nth-of-type(3n+1) {
     clear: left
 }
 
