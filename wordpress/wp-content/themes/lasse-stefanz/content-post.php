@@ -18,8 +18,8 @@
 <?php endif; ?>
 
         <div class="entry-utility">
-            <?php hobo_posted_on(); ?>
-            <?php edit_post_link( __( 'Edit', 'hobo' ), '<span class="meta-sep">|</span> <span class="edit-link">', '</span>' ); ?>
+            <?php the_category(', '); ?>
+            (<?php hobo_posted_on(); ?>)
         </div><!-- .entry-utility -->
     </article><!-- #post-## -->
 
