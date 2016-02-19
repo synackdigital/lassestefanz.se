@@ -21,7 +21,3 @@ npm-debug.log
 
 # Bower components
 components/
-
-# Compiled assets
-# wordpress/wp-content/themes/lasse-stefanz/js/ # Removed this, handled by .gitignore inside theme
-wordpress/wp-content/themes/lasse-stefanz/style.css
